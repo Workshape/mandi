@@ -1,0 +1,68 @@
+.view-wizard
+  text-align center
+
+  .buttons
+    margin-top 30px
+
+  [class^="illustration-"], [class*=" illustration-"]
+    width 100%
+    height 100px
+    background-repeat no-repeat
+    background-position center center
+    background-size contain
+    margin auto
+    margin-bottom 5px
+
+  .illustration-name
+    bg-image('wizard/name', false, false, false, 'svg')
+
+  .illustration-title
+    bg-image('wizard/title', false, false, false, 'svg')
+
+  .illustration-company
+    bg-image('wizard/company', false, false, false, 'svg')
+
+  .illustration-categories
+    bg-image('wizard/categories', false, false, false, 'svg')
+
+  .illustration-industries
+    bg-image('wizard/industries', false, false, false, 'svg')
+
+  .illustration-match-categories
+    bg-image('wizard/match-categories', false, false, false, 'svg')
+
+  .illustration-availability
+    bg-image('wizard/availability', false, false, false, 'svg')
+
+  .illustration-location
+    bg-image('wizard/location', false, false, false, 'svg')
+
+  .illustration-social
+    bg-image('wizard/social', false, false, false, 'svg')
+
+  .illustration-anonymous
+    bg-image('wizard/anonymous', false, false, false, 'svg')
+
+  .illustration-bio
+    bg-image('wizard/bio', false, false, false, 'svg')
+
+  label
+    text-align left
+
+  .progress
+    width 100%
+    background rgba(color-brand, .2)
+    height 5px
+    position fixed
+    left 0
+    top header-size
+    transition width .2s
+    z-index 1
+
+    .bar
+      height 100%
+      background color-brand
+      transition width .2s
+
+  .explain
+    margin-top -20px

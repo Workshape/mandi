@@ -1,0 +1,65 @@
+box-color(bg-color, text-color = color-white)
+  smooth-font()
+  background bg-color
+
+  &, h1, h2, h3, h4, h5, h6
+    color text-color
+
+.box
+  border-radius 3px
+  vertical-rhythm()
+  box-color(color-gray-light, color-black)
+  padding 30px
+
+  &.white
+    box-color(color-white, color-text)
+
+  &.framed
+    box-color(color-white, color-text)
+    border 1px solid rgba(0, 0, 0, .1)
+    box-shadow rgba(0, 0, 0, .05) 0 2px 3px
+
+  &.error
+    box-color(color-danger)
+
+  &.success
+    box-color(color-success)
+
+  &.brand
+    box-color(color-brand)
+
+  &.small
+    vertical-rhythm(10px)
+    font-size 12px
+    font-weight normal
+
+  &.with-actions .actions, &.with-top-actions .top-actions
+    position absolute
+    left 50%
+    width 100%
+    padding 0 30px
+    box-sizing border-box
+
+  &.with-actions
+    position relative
+    margin-bottom 40px
+
+    &:last-child
+      margin-bottom 15px
+
+    .actions
+      position absolute
+      left 50%
+      bottom 0
+      transform translate(-50%, 50%)
+
+  &.with-top-actions
+    position relative
+    margin-top 50px
+    padding-top 50px
+
+    .top-actions
+      position absolute
+      left 50%
+      top 0
+      transform translate(-50%, -50%)

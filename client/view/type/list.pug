@@ -1,0 +1,21 @@
+.view-dashboard
+
+    section.full-height(v-if='type'): .inner: .page-width
+
+        template(v-if='!loading && entries')
+
+            h3.center {{ type.label | pluralise }} &raquo; List
+
+            .box.empty.center(v-if='!entries.length')
+                | No {{ type.key }} were added yet. 
+                a(:href='"/types/" + type.key + "/add"') Add one &raquo;
+
+            .table.table-list(v-if='entries.length')
+                .thead: .tr: .th(v-for='field in type.schema') {{ field.label }}
+                .tbody: .tr(v-for='entry in entries')
+                    .td(v-for='(field, key) in type.schema', :class='field.class')
+                        field-display(:value='entry[key]')
+
+        .center(v-if='loading'): .spinner
+
+        .box.error(v-if='error') {{ error }}

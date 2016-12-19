@@ -1,0 +1,33 @@
+.sub-nav
+  background color-brand
+  position fixed
+  top header-size
+  left 0
+  width 100%
+  z-index 2
+
+  .inner
+    page-width()
+
+  ul
+    debullet()
+    clearfix()
+
+  li
+    float left
+
+  a
+    color color-white
+    font-weight 100
+    display inline-block
+    padding 15px 20px
+    text-transform uppercase
+    font-size 13px
+    background rgba(color-brand-light, 0)
+    transition background .2s
+
+    &:hover
+      background mix(color-brand, color-brand-light)
+
+    &.active
+      background color-brand-light

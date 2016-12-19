@@ -1,0 +1,19 @@
+{
+
+  "customers": {
+    "label": "Customer",
+    "schema": {
+      "cover": {
+        "extends" : "image"
+      },
+      "name": {
+        "extends" : "name"
+      },
+      "description": {
+        "extends" : "content",
+        "label"   : "Description"
+      }
+    }
+  }
+
+}

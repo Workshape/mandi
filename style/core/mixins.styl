@@ -1,0 +1,202 @@
+page-width()
+  max-width page-size
+  margin-left auto
+  margin-right @margin-left
+
+debullet()
+  margin-left 0
+  margin-right 0
+  padding 0
+  list-style none
+
+full-cover(type = absolute)
+  position type
+  width 100%
+  height 100%
+  left 0
+  top 0
+
+smooth-font(state = null)
+
+  if (state == false)
+    font-smoothing subpixel-antialiased
+    -moz-osx-font-smoothing auto
+  else
+    font-smoothing antialiased
+    -moz-osx-font-smoothing grayscale
+
+bg-image(image-name, size = false, position = false, repeat = false, ext = 'png')
+  background-image: url(assets-dir + image-name + '.' + ext)
+
+  if size
+    background-size: size
+
+  if position
+    background-position: position
+
+  if repeat
+    background-repeat: repeat
+
+  if ext != 'svg' && ext != 'gif'
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 1.5)
+      background-image: url(assets-dir + image-name + '@2x.' + ext + '?v-' + cacheId)
+
+no-select()
+  -webkit-touch-callout none
+  -webkit-user-select none
+  -khtml-user-select none
+  -moz-user-select none
+  -ms-user-select none
+  user-select none
+
+vertical-rhythm(spacing = 30px)
+  margin-bottom spacing
+
+  &:last-child, &.no-space
+    margin-bottom 0
+
+horizontal-rhythm(spacing = 10px)
+  margin-right spacing
+
+  &:last-child
+    margin-right 0
+
+filter(value)
+    -webkit-filter value
+    filter value
+
+nearest-neighbor()
+  -ms-interpolation-mode nearest-neighbor
+  image-rendering -webkit-optimize-contrast
+  image-rendering -webkit-crisp-edges
+  image-rendering -moz-crisp-edges
+  image-rendering -o-crisp-edges
+  image-rendering pixelated
+
+tooltip-tail(color, dir = 'bottom', size = 10px)
+
+    if dir == 'bottom'
+        dir = 'top'
+        margin-left (- size)
+        top 100%
+        left 50%
+
+     else if dir == 'top'
+        dir = 'bottom'
+        margin-left (- size)
+        bottom 100%
+        left 50%
+
+     else if dir == 'left'
+        dir = 'right'
+        margin-top (- size)
+        right 100%
+        top 50%
+
+     else if dir == 'right'
+        dir = 'left'
+        margin-top (- size)
+        left 100%
+        top 50%
+
+    border size solid transparent
+    border-{dir}-color color
+
+hamburger-closed(scale = 1)
+    width (60px * scale)
+    height (45px * scale)
+    position relative
+    transform rotate(0deg)
+    transition .5s ease-in-out
+    cursor pointer
+
+    span
+        display block
+        position absolute
+        height (9px * scale)
+        width 50%
+        background color-white
+        opacity 1
+        transform rotate(0deg)
+        transition .25s ease-in-out
+
+        &:nth-child(even)
+            border-radius(0 (9px * scale) (9px * scale) 0)
+            left 50%
+
+        &:nth-child(odd)
+            border-radius((9px * scale) 0 0 (9px * scale))
+            left 0
+
+        &:nth-child(1), &:nth-child(2)
+            top 0
+
+        &:nth-child(3), &:nth-child(4)
+            top (18px * scale)
+
+        &:nth-child(5), &:nth-child(6)
+            top (36px * scale)
+
+hamburger-open(scale = 1)
+
+    span
+    
+        &:nth-child(1), &:nth-child(6)
+            transform rotate(45deg)
+
+        &:nth-child(2), &:nth-child(5)
+            transform rotate(-45deg)
+
+        &:nth-child(1)
+            left (5px * scale)
+            top (7px * scale)
+
+        &:nth-child(2)
+            left "calc(50% - %s)" % (5px * scale)
+            top (7px * scale)
+
+        &:nth-child(3)
+            left -50%
+            opacity 0
+
+        &:nth-child(4)
+            left 100%
+            opacity 0
+
+        &:nth-child(5)
+            left (5px * scale)
+            top (29px * scale)
+
+        &:nth-child(6)
+            left "calc(50% - %s)" % (5px * scale)
+            top (29px * scale)
+
+layer-shadow()
+  box-shadow rgba(0, 0, 0, .2) 0 2px 6px 0
+
+circle(size)
+  width size
+  height size
+  line-height size
+  border-radius size
+  text-align center
+
+absolute-center(x = true, y = true, type = absolute)
+  position type
+
+  if x
+    left 50%
+
+  if y
+    top 50%
+
+  if x && y
+    transform translate(-50%, -50%)
+  else if x
+    transform translateX(-50%)
+  else if y
+    transform translateY(-50%)
+
+avatar-size(size)
+  width size
+  height size

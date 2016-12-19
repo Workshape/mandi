@@ -1,0 +1,41 @@
+.table
+  display table
+
+.thead
+  display table-header-group
+
+.tbody
+  display table-row-group
+
+.tr
+  display table-row
+
+.td, .th
+  display table-cell
+
+.table-list
+  width 100%
+
+  .thead .th
+    background color-black
+    color color-white
+
+    &:nth-child(even)
+      background lighten(color-black, 10)
+
+  .th, .td
+    ellipsis()
+    padding 15px 20px
+    font-size 13px
+
+  .td
+    background color-gray-light
+
+    &:nth-child(even)
+      background color-gray-lighter
+
+  .tr:nth-child(even) .td
+    background darken(color-gray-light, 3)
+
+    &:nth-child(even)
+      background darken(color-gray-lighter, 3)

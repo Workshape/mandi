@@ -1,0 +1,34 @@
+tag-color(base-color, text-color = color-white)
+  background-color base-color
+  color text-color
+
+.tag
+  tag-color(color-brand)
+  horizontal-rhythm()
+  border-radius 3px
+  display inline-block
+  padding 10px 20px
+  vertical-rhythm(15px)
+  font-weight 100
+
+  &.small
+    font-size 13px
+    padding 7px 10px
+
+.profile-tags
+  vertical-rhythm()
+
+  .tags
+    margin-bottom 0
+
+  &.categories .tag
+    tag-color(color-brand-light)
+
+  &.categories .tag
+    tag-color(color-brand-light)
+
+  &.industries .tag
+    tag-color(color-brand-dark)
+
+  &.availability .tag
+    tag-color(color-alternate)

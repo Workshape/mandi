@@ -1,0 +1,19 @@
+social-icon(name, base-color, text-color = color-white)
+  .social-icon-{ name }
+    background-color base-color
+    color text-color
+
+social-icon-size(size)
+  width size
+  line-height size
+
+[class^="social-icon-"], [class*=" social-icon-"]
+  border-radius 100%
+  social-icon-size(50px)
+  display inline-block
+  font-size 26px
+
+social-icon('facebook', color-facebook)
+social-icon('twitter', color-twitter)
+social-icon('linkedin', color-linkedin)
+social-icon('website', color-brand)

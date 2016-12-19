@@ -1,0 +1,117 @@
+body
+  font-family font-base
+  color color-text
+  font-size font-size-base
+  smooth-font()
+  font-weight 100
+
+strong
+  font-weight normal
+
+h1, .h1, h2, .h2, h3, .h4, h4, .h4, h5, .h5, h6, .h6
+  margin-top 0
+  vertical-rhythm(20px)
+
+p, ol, ul, hr, pre, p
+  margin-top 0
+  vertical-rhythm()
+
+h1, .h1, h2, .h2, h3, .h4, h4, .h4, h5, .h5, h6, .h6
+  smooth-font()
+  font-family font-heading
+  font-weight normal
+  color color-heading
+
+  &.normal
+    font-family font-base
+
+  &.light
+    opacity .7
+    font-weight 100
+
+  .actions
+    font-size 18px
+    font-family font-base
+    font-style italic
+    margin-top 10px
+
+    a
+      font-weight 100
+      display inline-block
+      padding 0 20px
+      border-right 1px solid rgba(color-brand, .2)
+
+      &:after
+        content ' \00bb'
+
+      &:last-child
+        border-right 0
+
+.center
+  text-align center
+
+i
+  smooth-font()
+  position relative
+  display inline-block
+
+a
+  cursor pointer
+  color color-link
+  text-decoration none
+  transition color .2s
+
+&:focus
+  outline 0
+
+hr
+  border 0
+  background rgba(color-black, .1)
+  height 1px
+  position relative
+
+h1, .h1
+  font-size heading-size-base
+
+h2, .h2
+  font-size heading-size-base - heading-size-step
+
+h3, .h3
+  font-size heading-size-base - heading-size-step * 2
+
+h4, .h4
+  font-size heading-size-base - heading-size-step * 3
+
+h5, .h5
+  font-size heading-size-base - heading-size-step * 4
+
+h6, .h6
+  font-size  heading-size-base - heading-size-step * 5
+
+.text-brand
+  color color-brand
+
+.text-danger
+  color color-danger
+
+.text-light
+  opacity .5
+
+.text-success
+  color color-success
+
+.text-danger, .text-error
+  color color-danger
+
+.ellipsis
+  ellipsis()
+
+p
+
+  &.empty
+    smooth-font()
+    font-style italic
+    font-size 22px
+
+  &.large
+    font-size 25px

@@ -1,0 +1,21 @@
+.view-landing
+
+    section: .inner: .page-width
+
+        h2.center Sign In
+
+        form.white.box.capped(v-on:submit.prevent='submit')
+
+            label Username
+            input.block(v-model='data.username', type='text', autofocus)
+
+            label Password
+            input.block(v-model='data.password', type='password', placeholder='********')
+
+            .box.error.small(v-if='error') {{ error }}
+
+            button.success.block(type='submit', v-if='!loading')
+                | Sign in  
+                i.icon-caret-right
+
+            .spinner(v-if='loading')

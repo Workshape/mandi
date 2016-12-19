@@ -1,0 +1,18 @@
+thumbail-size(w, h = false)
+
+  if !h
+    h = w
+
+  width w
+  height h
+
+img.thumbnail
+  thumbail-size(100px)
+  border-radius 3px
+  border 1px solid color-gray-light
+
+  &.small
+    thumbail-size(50px)
+
+  &.inline
+    display inline-block

@@ -1,0 +1,7 @@
+h4(v-html='title || "Are you sure?"')
+
+p(v-if='text', v-html='text')
+
+.buttons
+    button(:class='{ danger: !dangerous }', v-on:click='close(false)') Cancel
+    button(:class='{ danger: dangerous, success: !dangerous }', v-on:click='close(true)', autofocus) Confirm 

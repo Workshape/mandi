@@ -1,0 +1,99 @@
+header
+  clearfix()
+  position fixed
+  left 0
+  top 0
+  width 100%
+  height header-size
+  background color-header
+  z-index 10
+  text-shadow rgba(0, 0, 0, .2) 0 2px
+
+  .logo
+    margin auto
+    float left
+
+    h4
+      color color-white
+      line-height header-size
+
+  nav
+    float right
+    display block
+
+    a
+      font-size 15px
+      display inline-block
+      line-height header-size
+      font-weight normal
+      color color-white
+      font-family font-special
+      transition opacity .2s
+      padding 0 20px
+      transition box-shadow .2s, background .2s
+      background lighten(color-header, 0)
+      box-shadow lighten(color-header, 60) 0 0 0 0 inset
+
+      &:hover
+        background lighten(color-header, 15)
+        box-shadow lighten(color-header, 60) 0 -5px 0 0 inset
+
+      &.active
+        background lighten(color-header, 20)
+        box-shadow lighten(color-header, 80) 0 -5px 0 0 inset
+
+  .toggle
+    display none
+
+    .hamburger
+        hamburger-closed(.4)
+
+  &.open .hamburger
+    hamburger-open(.4)
+
+  @media (max-width: breakpoint-mobile)
+    text-align center
+
+    .logo
+      margin auto
+      float none
+
+    .toggle
+      display block
+      position absolute
+      top 0
+      right 0
+      width header-size
+      height header-size
+
+      .hamburger
+        top 50%
+        transform translateY(-50%)
+        margin-left 25px
+
+    nav
+      position absolute
+      left 0
+      top header-size
+      width 100%
+      height 100vh
+      background color-brand-dark
+      float none
+      text-align center
+      transform translate3d(100%, 0, 0)
+      transition transform .2s
+
+      a
+        display block
+        float none
+
+        &:hover
+          background color-brand
+          box-shadow none
+
+        &.active
+          background color-brand-light
+          box-shadow none
+
+  &.open nav
+    transform translate3d(0, 0, 0)

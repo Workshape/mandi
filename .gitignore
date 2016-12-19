@@ -1,0 +1,22 @@
+# Node
+node_modules
+npm-debug.log*
+
+# Ops
+deploy
+
+# App
+config/production.json
+config/local.json
+uploads/*
+b!tmp/.gitkeep
+
+# Build
+www/css/styles.css
+www/js/index.js
+www/*.html
+www/*/*.html
+www/*/*/*.html
+
+# OSX
+**.DS_Store

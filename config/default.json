@@ -1,0 +1,15 @@
+{
+  "publicUrl"  : "http://localhost:2000",
+  "env"        : "development",
+  "secret"     : "cmssmc",
+  "port"       : 4000,
+  "mongo"      : {
+    "url" : "mongodb://localhost/cms"
+  },
+  "aws"        : {
+    "key"    : null,
+    "secret" : null,
+    "bucket" : null,
+    "region" : "us-standard"
+  }
+}

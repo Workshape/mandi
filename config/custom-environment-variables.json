@@ -1,0 +1,15 @@
+{
+  "publicUrl"  : "PUBLIC_URL",
+  "env"        : "NODE_ENV",
+  "secret"     : "SECRET",
+  "port"       : "PORT",
+  "mongo"      : {
+    "url" : "MONGO_URL"
+  },
+  "aws"        : {
+    "key"    : "AWS_KEY",
+    "secret" : "AWS_SECRET",
+    "bucket" : "AWS_S3_BUCKET",
+    "region" : "AWS_REGION"
+  }
+}

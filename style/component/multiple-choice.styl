@@ -1,0 +1,47 @@
+.multiple-choice
+  vertical-rhythm()
+  text-align center
+
+  &.small a
+    padding 14px 10px
+    font-size 15px
+
+  a
+    display block
+    padding 18px 10px
+    background color-gray-lighter
+    margin-bottom 1px
+    border-radius 3px
+    transition background .2s, color .2s
+    cursor pointer
+    font-weight 100
+
+    &:last-child
+      margin-bottom 0
+
+    i
+      margin-right 10px
+      opacity .7
+
+    &:hover, &:focus
+      background mix(color-gray-lighter, color-brand-lightest, 90)
+      color color-brand-darker
+
+    &.selected
+      background color-brand-lighter
+      color color-white
+
+  &.split-2
+    clearfix()
+
+    .col
+      width 50%
+      float left
+      padding-right 1px
+      box-sizing border-box
+
+    @media (max-width: breakpoint-mobile)
+      .col
+        width auto
+        padding 0
+        float none

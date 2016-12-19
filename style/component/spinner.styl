@@ -1,0 +1,41 @@
+spinner-sized(size)
+  width size
+  height size
+
+  &:before, &:after
+    width size
+    height size
+    background-size size size
+
+.spinner
+  vertical-rhythm()
+  position relative
+  margin-left auto
+  margin-right auto
+  spinner-sized(spinner-size)
+
+  &:before, &:after
+    bg-image('ui/spinner', false, center center, no-repeat, 'svg')
+    content ''
+    position absolute
+    left 0
+    top 0
+    width 100%
+    height 100%
+
+  &:after
+    transform rotate(45deg)
+
+  &:before
+    animation spinner 3s linear infinite
+
+  &:after
+    animation spinner 3s -1.15s linear infinite
+
+  &.framed
+    @extend .box.framed
+    border-radius 100%
+    padding 10px
+
+  &.small
+    spinner-sized(spinner-size / 2)

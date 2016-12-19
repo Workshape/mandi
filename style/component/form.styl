@@ -1,0 +1,157 @@
+input[type='text']
+input[type='email']
+input[type='password']
+input[type='number']
+input[type='date']
+input[type='tel']
+select
+textarea
+  vertical-rhythm(15px)
+  horizontal-rhythm()
+  background color-white
+  border 1px solid rgba(0, 0, 0, .1)
+  padding 16px 16px
+  box-sizing border-box
+  font-size 16px
+  font-family font-base
+  transition border-color .2s
+  border-radius 3px
+  font-weight 100
+  color color-gray-darkest
+
+  &.chromeless
+    border 0
+
+  &.block
+    width 100%
+
+  &:focus
+    outline 0
+    border-color color-cta
+
+  &[disabled]
+    opacity .5
+    background color-gray-lighter
+    border 0
+
+  &:-moz-ui-invalid
+    box-shadow none
+
+  &.small
+    padding 7px 15px
+
+  &.brand
+    background color-brand-light
+    color color-white
+
+.field
+  vertical-rhythm(20px)
+
+input[type='file']
+  margin-bottom 10px
+
+  &:last-child
+    margin-bottom 0
+
+  &.block
+    width 100%
+
+input[type='file']
+  vertical-rhythm(15px)
+
+label
+  vertical-rhythm(10px)
+  display block
+
+$placeholder
+  color color-gray-lighter
+
+::-webkit-input-placeholder
+  @extends $placeholder
+
+:-moz-placeholder
+  @extends $placeholder
+
+::-moz-placeholder
+  @extends $placeholder
+
+:-ms-input-placeholder
+  @extends $placeholder
+
+.or
+  text-align center
+  position relative
+  margin-top -5px
+  vertical-rhythm()
+
+  &:before
+    content ''
+    position absolute
+    left 0
+    top 50%
+    width 100%
+    height 1px
+    background color-gray-light
+
+  &:after
+    content 'or'
+    background color-white
+    position relative
+    padding 0 20px
+
+.input-with-icon
+  input-padding = 51px
+
+  position relative
+  padding-left input-padding + 10px
+
+  i
+    border-radius 3px
+    position absolute
+    left 0
+    top 0
+    width input-padding
+    text-align center
+    line-height input-padding
+    font-size 25px
+
+.twitter-input
+  box-size = 51px
+
+  position relative
+
+  input
+    padding-left box-size + 15px
+    box-sizing border-box
+
+  &:before
+    content '@'
+    height box-size - 2px
+    width box-size
+    line-height box-size
+    background color-gray-lighter
+    color color-gray-dark
+    border-right 1px solid color-gray-light
+    position absolute
+    left 1px
+    top 1px
+    border-radius 3px 0 0 3px
+    text-align center
+
+.social-inputs
+
+  i
+    color color-white
+    background-color color-black
+
+  i.icon-globe
+    background-color color-brand-light
+
+  i.icon-facebook
+    background-color color-facebook
+
+  i.icon-linkedin
+    background-color color-linkedin
+
+  i.icon-twitter
+    background-color color-twitter

@@ -1,0 +1,99 @@
+split-by(cols, col-selector = '.col', gutter = 40px)
+  clearfix()
+  // margin 0 -(gutter)
+  margin-bottom -(gutter)
+
+  {col-selector}
+    width (100% / cols)
+    float left
+    padding (gutter / 2)
+    box-sizing border-box
+
+    @media (max-width: breakpoint-mobile)
+      float none
+      width auto
+      padding 0
+      margin 0
+      vertical-rhythm(gutter)
+
+html, body
+  min-height 100vh
+  box-sizing border-box
+
+body
+  background color-bg
+  padding 0
+  margin 0
+  overflow-x hidden
+  padding-top header-size
+
+.left
+  float left
+
+.right
+  float right
+
+.clear
+  clearfix()
+
+.row
+  grid-system(12, 40px, '.col', '.off', true, '-', breakpoint-mobile)
+
+.cols-2
+  split-by(2)
+
+.cols-3
+  split-by(3)
+
+.cols-4
+  split-by(4)
+
+  @media (max-width: breakpoint-mobile)
+    margin-bottom 0
+
+    [class^='col-'], [class*=' col-']
+      padding 0
+
+.centered
+  margin-left auto
+  margin-right auto
+
+.capped
+  max-width 400px
+  margin-left auto
+  margin-right auto
+
+.page-width
+  page-width()
+
+  @media (max-width: breakpoint-mobile)
+    max-width none
+    padding 0 20px
+
+section
+  padding 50px 0
+  box-sizing border-box
+  background color-bg
+
+  &.full-height
+    width 100%
+    min-height 'calc(100vh - %s)' % (header-size)
+    display table
+
+    .inner
+      display table-cell
+      vertical-align middle
+
+    @media (max-width: breakpoint-mobile)
+
+      &.pointing .inner:after
+        display none
+
+  &.dark
+    background-color #000
+
+    &, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, span, div
+      color color-white
+
+.clear
+  clear both

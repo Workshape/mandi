@@ -1,0 +1,28 @@
+// cover-section(base-color, asset, alpha = .2)
+//   background-color base-color
+//   position relative
+// 
+//   &:before
+//     full-cover()
+//     content ''
+//     bg-image('cover/' + asset, cover, center center, no-repeat, 'jpg')
+//     opacity alpha
+//     filter blur(3px)
+// 
+//   .inner
+//     position relative
+//     z-index 1
+
+.view-landing
+
+  .hero
+    text-align center
+    background: color-brand-darkest
+
+    img
+      width 250px
+      max-width 90%
+
+    h1
+      text-shadow rgba(0, 0, 0, .3) 0 2px 0
+      margin-bottom 10px

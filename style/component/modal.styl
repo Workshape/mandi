@@ -1,0 +1,56 @@
+@keyframes modal-in
+
+  from
+    opacity 0
+    transform translate(-50%, -50%) scale(1.2)
+
+  to
+    opacity 1
+    transform translate(-50%, -50%) scale(1)
+
+@keyframes modal-out
+
+  from
+    opacity 1
+    transform translate(-50%, -50%) scale(1)
+
+  to
+    opacity 0
+    transform translate(-50%, -50%) scale(.8)
+
+.overlay
+  full-cover(fixed)
+  background rgba(mix(color-brand-darkest, color-black), .8)
+  z-index 11
+  pointer-events none
+  opacity 0
+  transition opacity .2s
+
+body.show-overlay
+  overflow hidden
+
+  .overlay
+    display block
+    pointer-events all
+    opacity 1
+
+.modal
+  @extend .box
+  absolute-center(true, true, fixed)
+  background color-white
+  z-index 12
+  animation modal-in .2s
+  text-align center
+  max-width 90%
+  width: 400px
+
+  &.with-actions
+    position fixed
+
+  &.out
+    animation modal-out .2s forwards
+
+  .buttons
+
+    button, .button
+      margin-bottom 0

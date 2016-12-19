@@ -1,0 +1,21 @@
+form(v-on:submit.prevent='save')
+
+    h4 {{ mode | upperFirst }} location
+
+    template(v-if='location')
+        .field: input.block(type='text', v-model='location.name', placeholder='Name - E.g. Bellavita Cafe')
+        .field: address-picker(v-model='location.address')
+        .field: input.block(type='text', v-model='location.url', placeholder='Website URL')
+        .field: textarea.block(v-model='location.description', placeholder='Description')
+        .field
+            label Photo (recommended 1600x900 px)
+            img.thumbnail.small.inline(:src='location.photo', v-if='location.photo')
+            .center: input(type='file', v-on:change='setPhoto')
+
+    .box.error(v-if='error')
+        strong Error: 
+        | {{ error }}
+
+    .actions.center
+        .spinner.framed(v-if='loading')
+        button.success(type='submit', autofocus, :class='{ disabled: !validation.valid }', v-if='!loading') Save
