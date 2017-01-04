@@ -10,6 +10,8 @@ config/production.json
 config/local.json
 uploads/*
 b!tmp/.gitkeep
+website.json
+tmp
 
 # Build
 www/css/styles.css

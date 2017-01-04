@@ -23,13 +23,30 @@ router
   loggedIn   : true
 })
 
-// Type > list
-.add('/type/:type', {
-  title      : 'Type > List',
+// Type entries > List
+.add('/:type/list', {
+  id         : 'type-list',
+  title      : 'Entries > List',
   controller : require('./view/type/list'),
   template   : require('./view/type/list.pug')
 })
+.add('/:type/list/page-:page', {
+  extends    : 'type-list'
+})
 
+// Type entries > Add
+.add('/:type/add', {
+  id         : 'form',
+  title      : 'Entries > Add',
+  controller : require('./view/type/form'),
+  template   : require('./view/type/form.pug')
+})
+
+// Type entries > Edit
+.add('/:type/edit/:id', {
+  extends    : 'form',
+  title      : 'Entries > Edit'
+})
 
 // 404
 .add('/404', {

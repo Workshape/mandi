@@ -15,6 +15,7 @@
 
 .table-list
   width 100%
+  vertical-rhythm()
 
   .thead .th
     background color-black
@@ -25,6 +26,7 @@
 
   .th, .td
     ellipsis()
+    box-sizing border-box
     padding 15px 20px
     font-size 13px
 
@@ -39,3 +41,20 @@
 
     &:nth-child(even)
       background darken(color-gray-lighter, 3)
+
+  .actions
+    actions-size = 20px
+
+    width 20px
+
+    button, .button
+      width actions-size
+      height actions-size
+      line-height actions-size
+      padding 0
+      font-size 9px
+      margin-top -10px
+      margin-bottom -10px
+      position relative
+      top -3px
+      text-align center

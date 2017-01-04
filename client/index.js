@@ -18,6 +18,7 @@ const authDenial = require('./middleware/auth-denial')
 // Import components
 require('./component/pagination')
 require('./component/field-display')
+require('./component/field-input')
 
 // Import routes
 require('./routes')
@@ -36,7 +37,7 @@ function init() {
 
   Promise.all([
     auth.init(),
-    stores.types.init()
+    stores.config.init()
   ])
   .then(() => {
     app.init()

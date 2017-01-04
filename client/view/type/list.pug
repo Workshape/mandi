@@ -1,21 +1,32 @@
-.view-dashboard
+.view-type-list
 
     section.full-height(v-if='type'): .inner: .page-width
 
-        template(v-if='!loading && entries')
+        h3.center {{ type.label | pluralise }} &raquo; List
 
-            h3.center {{ type.label | pluralise }} &raquo; List
+        .box.error.center(v-if='error') {{ error }}
 
-            .box.empty.center(v-if='!entries.length')
-                | No {{ type.key }} were added yet. 
-                a(:href='"/types/" + type.key + "/add"') Add one &raquo;
+        p.center(v-if='entries && entries.length'): a(:href='"/" + type.key + "/add"') + New {{ type.label }}
 
-            .table.table-list(v-if='entries.length')
-                .thead: .tr: .th(v-for='field in type.schema') {{ field.label }}
-                .tbody: .tr(v-for='entry in entries')
-                    .td(v-for='(field, key) in type.schema', :class='field.class')
-                        field-display(:value='entry[key]')
+        .box.empty.center(v-if='entries && !entries.length')
+            | No {{ type.key }} were added yet. 
+            a(:href='"/" + type.key + "/add"') Add one &raquo;
+
+        .table.table-list(v-if='entries && entries.length')
+
+            .thead: .tr
+                .th(v-for='field in type.schema') {{ field.label }}
+                .th.actions
+
+            .tbody: .tr(v-for='entry in entries', :id='entry.id')
+
+                .td(v-for='(field, key) in type.schema', :class='type.schema[key].type')
+                    field-display(:value='entry[key]', :type='type.schema[key].type')
+
+                .td.actions: .button-group
+                    a.button(:href='"/" + type.key + "/edit/" + entry.id') E
+                    button.danger(v-on:click.prevent='deleteEntry(entry.id)') x
+
+        pagination(v-if='pagination && pagination.pages > 1', :pagination='pagination', :path-format='"/" + type.key + "/list/page-:page"')
 
         .center(v-if='loading'): .spinner
-
-        .box.error(v-if='error') {{ error }}

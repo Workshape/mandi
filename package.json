@@ -1,12 +1,12 @@
 {
-  "name": "jamie",
+  "name": "cms",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node server/index",
     "build": "browserify -v -t pugify -t babelify client/index.js -o www/js/index.js; stylus -u nib -u griddy style/index.styl -o www/css/styles.css; pug view -o www;",
-    "watch": "watchify -v -t pugify -t babelify client/index.js -o www/js/index.js | stylus -u nib -u griddy style/index.styl -w -o www/css/styles.css | pug view -w -o www | livereload www",
+    "watch": "npm run build; watchify -v -t pugify -t babelify client/index.js -o www/js/index.js | stylus -u nib -u griddy style/index.styl -w -o www/css/styles.css | pug view -w -o www | livereload www",
     "dev": "npm run watch | npm run watch-server",
     "fixtures": "node fixtures/create.js",
     "icons": "icon-font-generator icons/*.svg -o www/icons --prefix icon --fontspath ''",

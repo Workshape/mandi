@@ -9,5 +9,5 @@ const template = require('./field-display.pug')()
 
 Vue.component('field-display', {
   template,
-  props : [ 'value' ]
+  props : [ 'value', 'type' ]
 })

@@ -1,11 +1,11 @@
 header(:class='{ open: open }'): .page-width
 
-    a.logo(href='/'): h4 CMS
+    a.logo(href='/'): h4 {{ config.title }}
 
     nav
         a(
-            v-for='(type, key) in types',
-            :class='{ active: segment(0) === "type" && segment(1) === key }',
-            :href='"/type/" + key'
+            v-for='(type, key) in config.types',
+            :class='{ active: segment(path, 0) === key }',
+            :href='"/" + key + "/list"'
             ) {{ type.label | pluralise }}
         a(v-if='user', v-on:click.prevent='logout()') Logout

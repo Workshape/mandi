@@ -1,11 +1,9 @@
 .pagination
 
-    button.left.brand(v-on:click='goTo(pagination.page - 1)', :class='{ disabled: pagination.isFirst }')
-        i.icon-caret-left 
-        |  Previous
+    button.left(v-on:click='goTo(pagination.page - 1)', :class='{ disabled: pagination.isFirst }')
+        | &laquo; Previous
 
     span.display Page {{ pagination.page }} of {{ pagination.pages}}
 
-    button.right.brand(v-on:click='goTo(pagination.page + 1)', :class='{ disabled: pagination.isLast }')
-        | Next  
-        i.icon-caret-right
+    button.right(v-on:click='goTo(pagination.page + 1)', :class='{ disabled: pagination.isLast }')
+        | Next &raquo;

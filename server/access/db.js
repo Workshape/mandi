@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb')
+const { MongoClient, ObjectID } = require('mongodb')
 const config = require('config')
 const Promise = require('bluebird')
 const log = require('../util/log')
@@ -51,19 +51,42 @@ function wrapped(key, collectionMethod = false) {
 
     if (collectionMethod) {
       let collection = db.collection(args[0])
-      return collection[key].apply(collection, args.slice(1))
+      return collection[key].apply(collection, processArguments(args.slice(1)))
     }
 
-    return db[key].apply(db, args)
+    return db[key].apply(db, processArguments(args))
   }
+}
+
+/**
+ * Process query arguments - convert all _id named properties in BSON ObjectIds
+ *
+ * @param  {[*]} args
+ * @return {[*]}
+ */
+function processArguments(args) {
+  args.forEach(arg => {
+    if (typeof arg === 'object' && arg instanceof Array === false) {
+      // Convert _id properties
+      if (arg._id) {
+        arg._id = new ObjectID(arg._id)
+      }
+    }
+  })
+
+  return args
 }
 
 // Wrapped driver methods
 const collection = wrapped('collection')
 const insert = wrapped('insert', true)
+const update = wrapped('update', true)
+const updateOne = wrapped('updateOne', true)
 const find = wrapped('find', true)
 const remove = wrapped('remove', true)
 const findOne = wrapped('findOne', true)
 const count = wrapped('count', true)
 
-module.exports = { connect, find, remove, findOne, collection, insert, count }
+module.exports = {
+  connect, find, remove, findOne, collection, insert, update, updateOne, count
+}

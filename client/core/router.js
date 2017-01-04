@@ -34,8 +34,8 @@ module.exports = router
 router.init = function () {
   router.on('change', updateRoute).html5().run()
 
-  stores.types.on('change', types => {
-    if (view) { view.types = types }
+  stores.config.on('change', config => {
+    if (view) { view.config = config }
   })
 }
 
@@ -59,7 +59,7 @@ function updateRoute(route) {
     scope = _.cloneDeep(scope)
   }
 
-  scope = _.extend({}, SCOPE_DEFAULTS, scope, { types: stores.types.get() })
+  scope = _.extend({}, SCOPE_DEFAULTS, scope, { config: stores.config.get() })
 
   // Get current user
   let user = auth.getUser()

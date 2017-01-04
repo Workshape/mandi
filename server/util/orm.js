@@ -9,7 +9,8 @@ const db = require('../access/db')
 const PAGINATION_DEFAULTS = { LIMIT: 20, SORT: '-id' }
 
 /**
- * Perform unique slug Object updating with given entity, model and options
+ * Perform unique slug Object updating with given entity, collection and options
+ * - called from a controller
  *
  * @param  {String} entity
  * @param  {String} collection
@@ -37,7 +38,7 @@ function updateSlug(collection, entity, model, base, callback) {
 }
 
 /**
- * Get paginated listings from given model
+ * Get paginated listings from given collection - called form a controller
  *
  * @param  {String} collection
  * @param  {String=} namespace
@@ -74,10 +75,30 @@ function getPaginated(collection, namespace = 'entries', filter = {}, decorate =
       })
 
       // Output results
-      out[namespace] = (decorate ? results.map(decorate) : results)
+      out[namespace] = decorate ? results.map(decorate) : results
 
       this.body = out
     })
+  })
+}
+
+/**
+ * Get page ay which entry is found for given collection
+ *
+ * @param  {String} collection
+ * @param  {String} id
+ * @return {Promise}
+ */
+function getEntryPageById(collection, id) {
+  let limit = parseInt(this.param('limit', PAGINATION_DEFAULTS.LIMIT), 10)
+  let sort = parseSortingString(this.param('sort', PAGINATION_DEFAULTS.SORT))
+
+  return db.find(collection, {}, { _id: 1 }, { sort })
+  .toArray()
+  .then(ids => {
+    ids = ids.map(val => String(val._id))
+    let index = ids.indexOf(String(id))
+    return Math.floor(index / limit) + 1
   })
 }
 
@@ -98,9 +119,11 @@ function parseSortingString(str) {
     str = str.substr(1)
   }
 
+  if (str === 'id') { str = '_id' }
+
   out[str] = order
 
   return out
 }
 
-module.exports = { updateSlug, getPaginated }
+module.exports = { updateSlug, getPaginated, getEntryPageById }

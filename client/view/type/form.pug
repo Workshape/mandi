@@ -1,0 +1,21 @@
+.view-type-form
+
+    section.full-height(v-if='type'): .inner: .page-width
+
+        template(v-if='!loading && entry')
+
+            h3.center {{ type.label | pluralise }} &raquo; {{ entry.id ? 'Edit' : 'Add' }}
+
+            form.center.capped(v-on:submit.prevent='save()')
+
+                .field(v-for='(field, key, i) in type.schema', class='field.type')
+                    label {{ field.label }}
+                    field-input(v-model='entry[key]', :type='field.type')
+
+                .box.error(v-if='error && entry') {{ error }}
+
+                button.cta(type='submit', :class='{ disabled: !valid }') Save
+
+        .center(v-if='loading'): .spinner
+
+        .box.error(v-if='error && !entry') {{ error }}

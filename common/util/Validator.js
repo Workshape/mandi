@@ -4,22 +4,20 @@ const PRESETS = require('./validator-presets')
 const _ = require('lodash')
 
 /**
- * Validator module
- *
- * Exports Validator utility class
- */
-
-/**
  * Validator class
  *
  * Takes a smart schema and generates validation Objects on demand - handy for
  * forms and API endpoints
- *
- * @constructor
- * @param  {Object} schema
  */
+
 module.exports = class Validator {
 
+  /**
+   * Validator constructor
+   *
+  * @constructor
+  * @param  {Object} schema
+  */
   constructor(schema) {
     this.schema = schema
   }

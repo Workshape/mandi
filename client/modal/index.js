@@ -6,17 +6,14 @@
 
 module.exports = {
 
-  'confirm': {
-    template : require('./confirm.pug')
+  'confirm' : {
+    template   : require('./confirm.pug'),
+    controller : require('./confirm')
   },
 
-  'alert': {
-    template : require('./alert.pug')
-  },
-
-  'admin-location': {
-    controller : require('./admin/location'),
-    template   : require('./admin/location.pug')
+  'alert'  : {
+    template   : require('./alert.pug'),
+    controller : require('./alert')
   }
 
 }

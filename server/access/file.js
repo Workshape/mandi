@@ -5,8 +5,8 @@ const _ = require('lodash')
 const fs = require('fs')
 
 const DEFAULT_OPTIONS = {
-  addExtension : false, // Do not add extension while uploading file
-  allowedTypes : null   // All mime types allowrd
+  addExtension : true, // Save file with extension in name
+  allowedTypes : null  // All mime types allowrd
 }
 
 /**

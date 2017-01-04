@@ -3,22 +3,19 @@ button-color(base-color = color-white, text-color = color-brand)
 
   background-color base-color
   color text-color
-  box-shadow darker-tone 0 -2px 0 0 inset
-  text-shadow darker-tone 0 1px 0
-
-  &:focus
-    box-shadow darker-tone 0 -2px 0 0 inset, rgba(darker-tone, .2) 0 0 0 3px
+  box-shadow rgba(base-color, .2) 0 0 0 0
 
   &:hover, &.hover
 
     &:not(.disabled)
       background-color lighten(base-color, 5)
-      box-shadow lighten(darker-tone, 5) 0 -2px 0 0 inset
-      text-shadow lighten(darker-tone, 5) 0 1px 0
 
   &.framed
     background transparent
     color base-color
+
+  &:focus:not(.disabled)
+    box-shadow rgba(base-color, .2) 0 0 0 3px
 
 button, .button, input[type='submit'], input[type='reset']
   vertical-rhythm()
@@ -31,12 +28,16 @@ button, .button, input[type='submit'], input[type='reset']
   padding 16px 24px
   display inline-block
   box-sizing border-box
-  font-size 17px
+  font-size 15px
   font-family font-base
   text-transform uppercase
-  transition background-color .2s, opacity .2s, color .2s, box-shadow .2s, border .2s
+  transition background-color .2s, opacity .2s, color .2s, border .2s, box-shadow .2s
   font-weight 100
-  box-shadow rgba(0, 0, 0, 0) 0 -3px 0 0 inset
+  smooth-font(false)
+
+  &.small
+    padding 10px 15px
+    font-size 11px
 
   &.large
     padding 18px 30px
@@ -90,10 +91,6 @@ button, .button, input[type='submit'], input[type='reset']
 
   &.disabled
     button-color(color-gray-dark, color-gray-lightest)
-
-  &.small
-    padding 10px 15px
-    font-size 13px
 
   .icon-caret-right
     margin-right -10px

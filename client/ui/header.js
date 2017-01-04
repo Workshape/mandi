@@ -2,7 +2,7 @@ const Vue = require('vue/dist/vue.js')
 const auth = require('../core/auth')
 const template = require('./header.pug')
 const router = require('../core/router')
-const stores = require('../store')
+const { config } = require('../store')
 const filters = require('../filters')
 
 /**
@@ -20,11 +20,11 @@ function init() {
   var header = new Vue({
     el       : 'header',
     template : template(),
-    data     : {
-      user  : auth.getUser(),
-      types : stores.types.get(),
-      path  : cleanPath(),
-      open  : false
+    data      : {
+      user    : auth.getUser(),
+      config  : config.get(),
+      path    : cleanPath(),
+      open    : false
     },
     methods  : {
       logout,
@@ -35,17 +35,19 @@ function init() {
   })
 
   auth.on('change', user => header.user = user)
-  stores.types.on('change', types => header.types = types)
+  config.on('change', config => header.config = config)
   router.on('change', () => header.path = cleanPath())
 }
 
 /**
  * Get current location path's segment at given index
  *
- * @return {Number} index
+ * @param  {String} path
+ * @param  {Number} index
+ * @return {String}
  */
-function segment(index) {
-  return router.path.substr(1).split('/')[index] || null
+function segment(path, index) {
+  return path.substr(1).split('/')[index] || null
 }
 
 /**

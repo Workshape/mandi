@@ -41,13 +41,37 @@ module.exports =  new Service('/api')
  */
 
 // List types
-.add('types.getSchema', {
+.add('config.load', {
   method : 'get',
-  route  : '/types'
+  route  : '/config'
+})
+
+// Get single entry by id for type
+.add('types.get', {
+  method : 'get',
+  route  : '/types/:type/:id'
 })
 
 // Get paginated entries for type
 .add('types.list', {
   method : 'get',
   route  : '/types/:type'
+})
+
+// Save entry for type
+.add('types.save', {
+  method : 'post',
+  route  : '/types/:_type'
+})
+
+// Save entry for type
+.add('types.update', {
+  method : 'put',
+  route  : '/types/:_type/:id'
+})
+
+// Delete type entry
+.add('types.delete',{
+  method : 'delete',
+  route  : '/types/:type/:id'
 })
