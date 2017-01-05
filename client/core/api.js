@@ -75,3 +75,19 @@ module.exports =  new Service('/api')
   method : 'delete',
   route  : '/types/:type/:id'
 })
+
+/**
+ * Statics
+ */
+
+// Get static values
+.add('statics.get',{
+  method : 'get',
+  route  : '/statics'
+})
+
+// Save static values
+.add('statics.save',{
+  method : 'put',
+  route  : '/statics'
+})

@@ -29,7 +29,15 @@ function load() {
       let config = _.extend(configs)
 
       // Resolve inheritances
-      for (let key in config.types) { resolveType(config.types[key]) }
+      for (let key in config.types) {
+        resolveInheritances(config.types[key].schema)
+      }
+      resolveInheritances(config.statics)
+
+      // Make all static fields optional
+      for (let key in config.statics) {
+        config.statics[key].rules.required = false
+      }
 
       // Cache
       cached = config
@@ -70,14 +78,14 @@ function getUserConfig() {
 }
 
 /**
- * Extend from given type's preset (which key is defined under `extends`)
+ * Resolve extends for all given target's fields
  *
- * @param  {Object} type
- * @return {void}
+ * @param  {Object} target
+ * @return {Object}
  */
-function resolveType(type) {
-  for (let key in type.schema) {
-    let field = type.schema[key]
+function resolveInheritances(target) {
+  for (let key in target) {
+    let field = target[key]
 
     if (field.extends) {
       let extendFrom = presets[field.extends]
@@ -86,12 +94,14 @@ function resolveType(type) {
         throw new Error(`Can't extend from ${ field.extends }`)
       }
 
-      _.extend({}, extendFrom, field)
+      target[key] = _.extend({}, extendFrom, field)
 
-      field.type = field.extends
-      delete field.extends
+      target[key].type = field.extends
+      delete target[key].extends
     }
   }
+
+  return target
 }
 
 module.exports = { load }

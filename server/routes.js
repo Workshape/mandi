@@ -1,10 +1,11 @@
 const Router = require('koa-router')
 const auth = require('./middleware/auth')
 const controllers = {
-  config : require('./controller/config'),
-  auth   : require('./controller/auth'),
-  users  : require('./controller/users'),
-  types  : require('./controller/types')
+  config  : require('./controller/config'),
+  auth    : require('./controller/auth'),
+  users   : require('./controller/users'),
+  types   : require('./controller/types'),
+  statics : require('./controller/statics')
 }
 
 /**
@@ -32,5 +33,9 @@ var router = new Router()
 .post('/api/types/:type', auth.groups('admin'), controllers.types.save)
 .put('/api/types/:type/:id', auth.groups('admin'), controllers.types.update)
 .delete('/api/types/:type/:id', auth.groups('admin'), controllers.types.remove)
+
+// Statics
+.get('/api/statics', controllers.statics.get)
+.put('/api/statics', controllers.statics.update)
 
 module.exports = router.routes()

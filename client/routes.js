@@ -59,6 +59,14 @@ router
   loggedIn   : true
 })
 
+// Edit website statics
+.add('/statics', {
+  title      : 'Website statics',
+  controller : require('./view/statics'),
+  template   : require('./view/statics.pug'),
+  loggedIn   : true
+})
+
 // 404
 .add('/404', {
   title      : 'Not found',

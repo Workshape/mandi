@@ -1,0 +1,19 @@
+.view-dashboard
+
+    section.full-height: .inner: .page-width
+
+        h3.center Website static values
+
+        form.capped.center(v-on:submit.prevent='save()', v-if='!loading && values')
+        
+            .field(v-for='(field, key, i) in config.statics', class='field.type')
+                label {{ field.label }}
+                field-input(v-model='values[key]', :type='field.type')
+        
+            .box.error(v-if='error') {{ error }}
+        
+            button.cta(type='submit', :class='{ disabled: !valid || success }') Save
+
+            .box.success(v-if='success') Saved correctly
+
+        .spinner(v-if='loading')
