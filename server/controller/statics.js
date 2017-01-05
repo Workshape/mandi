@@ -1,6 +1,8 @@
 const Promise = require('bluebird')
+const _ = require('lodash')
 const db = require('../access/db')
 const config = require('../access/config')
+const Validator = require('../../common/util/Validator')
 
 /**
  * Statics controllers
@@ -33,19 +35,30 @@ function * get() {
 function * update() {
   let { values } = this.request.body
 
+  // Ensure `values` field
   if (!values) { return this.throw('Field `values` is required') }
   if (typeof values !== 'object' || values instanceof Array) {
     return this.throw('Field `values` must be an Object')
   }
 
+  // Run validation
+  let current = yield getMappedValues()
+  let validator = new Validator((yield config.load()).statics)
+  let validationError = validator.getError(_.extend(current, values))
+
+  if (validationError) { return this.throw(400, validationError) }
+
+  // Store given values
   yield Promise.map(Object.keys(values), key => {
     return db.findOne('statics', { key }).then(entry => {
       let value = values[key]
 
+      // Override existing ones
       if (entry) {
         return db.update('statics', { _id: entry._id }, { $set: { value } })
       }
 
+      // Store new ones
       return db.insert('statics', { key, value })
     })
   })

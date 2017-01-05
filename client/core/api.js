@@ -76,6 +76,18 @@ module.exports =  new Service('/api')
   route  : '/types/:type/:id'
 })
 
+// Move type entry up
+.add('types.moveUp',{
+  method : 'post',
+  route  : '/types/:type/:id/move/up'
+})
+
+// Move type entry down
+.add('types.moveDown',{
+  method : 'post',
+  route  : '/types/:type/:id/move/down'
+})
+
 /**
  * Statics
  */

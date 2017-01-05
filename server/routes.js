@@ -31,11 +31,12 @@ var router = new Router()
 .get('/api/types/:type', auth.groups('admin'), controllers.types.list)
 .get('/api/types/:type/:id', auth.groups('admin'), controllers.types.getById)
 .post('/api/types/:type', auth.groups('admin'), controllers.types.save)
+.post('/api/types/:type/:id/move/:dir', auth.groups('admin'), controllers.types.move)
 .put('/api/types/:type/:id', auth.groups('admin'), controllers.types.update)
 .delete('/api/types/:type/:id', auth.groups('admin'), controllers.types.remove)
 
 // Statics
 .get('/api/statics', controllers.statics.get)
-.put('/api/statics', controllers.statics.update)
+.put('/api/statics', auth.groups('admin'), controllers.statics.update)
 
 module.exports = router.routes()

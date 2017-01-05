@@ -14,7 +14,7 @@ const scope = req => ({
   entries    : null,
   pagination : null
 })
-const methods = { update, deleteEntry }
+const methods = { update, deleteEntry, moveEntry }
 
 /**
  * Controller is ready
@@ -39,6 +39,19 @@ function update() {
   this.loading = true
   return this.loadFromApi('types.list', body, query, 'entries', 'entries')
   .then(res => this.pagination = res.pagination)
+}
+
+/**
+ * Move entry up or down
+ *
+ * @param  {String} direction
+ * @return {Promise}
+ */
+function moveEntry(id, direction = 'up') {
+  let dir = direction === 'up' ? 'Up' : 'Down'
+
+  return this.apiCall(`types.move${ dir }`, { type: this.type.key, id })
+  .then(this.update)
 }
 
 /**

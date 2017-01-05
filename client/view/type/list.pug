@@ -15,16 +15,20 @@
         .table.table-list(v-if='entries && entries.length')
 
             .thead: .tr
+                .th
                 .th(v-for='field in type.schema') {{ field.label }}
                 .th.actions
 
             .tbody: .tr(v-for='entry in entries', :id='entry.id')
 
+                .td {{ entry._i }}
                 .td(v-for='(field, key) in type.schema', :class='type.schema[key].type')
                     field-display(:value='entry[key]', :type='type.schema[key].type')
 
                 .td.actions: .button-group
-                    a.button(:href='"/" + type.key + "/edit/" + entry.id') E
+                    a.button(:href='"/" + type.key + "/edit/" + entry.id') &#x270E;
+                    a.button(v-on:click.prevent='moveEntry(entry.id, "up")') &#x2191;
+                    a.button(v-on:click.prevent='moveEntry(entry.id, "down")') &#x2193;
                     button.danger(v-on:click.prevent='deleteEntry(entry.id)') x
 
         pagination(v-if='pagination && pagination.pages > 1', :pagination='pagination', :path-format='"/" + type.key + "/list/page-:page"')

@@ -96,7 +96,7 @@ function updateRoute(route) {
   view = new Vue({
     el            : wrap,
     data          : scope,
-    methods       : _.defaults(controllerUtil, controller.methods || {}),
+    methods       : _.defaults(_.clone(controllerUtil), controller.methods || {}),
     beforeDestroy : controller.beforeDestroy || null,
     filters       : filters
   })

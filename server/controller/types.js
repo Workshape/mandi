@@ -1,3 +1,4 @@
+const Promise = require('bluebird')
 const ormUtil = require('../util/orm')
 const db = require('../access/db')
 const file = require('../access/file')
@@ -26,6 +27,8 @@ function * list() {
   let type = this.param('type')
 
   if (!schemas[type]) { return this.throw(400, 'Invalid Type') }
+
+  this.params.sort = '-_i'
 
   yield ormUtil.getPaginated.call(this, type, 'entries', {}, entry => {
     return decorateEntry(entry, schemas[type])
@@ -66,6 +69,7 @@ function * getById() {
 
   // Add page if requested
   if (this.request.query.page) {
+    this.params.sort = '-_i'
     this.body.page = yield ormUtil.getEntryPageById.call(this, type, entry.id)
   }
 }
@@ -91,6 +95,10 @@ function * save() {
   let validator = new Validator(this.schema.schema)
   let validationError = validator.getError(entry)
   if (validationError) { return this.throw(400, validationError) }
+
+  // Get _i increment
+  let latest = yield db.findOne(type, {}, { _i: 1 }, { sort: { _i: -1 } })
+  entry._i = latest ? (latest._i || 0) + 1 : 0
 
   // Save entry to DB
   yield db.insert(type, entry)
@@ -217,4 +225,44 @@ function decorateEntry(entry, schema) {
   return entry
 }
 
-module.exports = { list, getById, save, update, remove }
+/**
+ * Move entry up / down
+ *
+ * @return {void}
+ */
+function * move() {
+  let type = this.param('type')
+  let dir = this.param('dir')
+  let adjacent
+
+  // Validate direction (only 'up' and 'down' are allowed)
+  if (dir !== 'up' && dir !== 'down') {
+    return this.throw(404, 'Endpoint not found')
+  }
+
+  // Get entry by id
+  yield getById.apply(this, arguments)
+
+  // Get adjacent entry
+  if (dir === 'up') {
+    adjacent = yield db
+    .findOne(type, { _i: { $gt: this.entry._i } }, { sort: { _i: 1 } })
+  } else {
+    adjacent = yield db
+    .findOne(type, { _i: { $lt: this.entry._i } }, { sort: { _i: -1 } })
+  }
+
+  // Respond with error if it's the first / last entry
+  if (!adjacent) { return this.throw(403, `Cannot move further ${ dir }`) }
+
+  // Swap index
+  yield Promise.all([
+    db.update(type, { _id: this.entry.id }, { $set: { _i: adjacent._i } }),
+    db.update(type, { _id: adjacent._id }, { $set: { _i: this.entry._i } })
+  ])
+
+  // Respond successfully
+  this.body = { success: true, index: adjacent._i }
+}
+
+module.exports = { list, getById, save, update, move, remove }
