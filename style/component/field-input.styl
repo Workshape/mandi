@@ -1,5 +1,15 @@
 .field-input
-  position relative
+
+  .file-input
+    position relative
+    text-align center
+    width 100%
+
+  .image
+    max-width 100%
+    margin auto
+    display block
+    margin-bottom 20px
 
   .file-hidden
     position absolute
@@ -9,7 +19,12 @@
     overflow hidden
     pointer-events none
 
+  a.button
+    display inline-block
+    margin-bottom 0
+
   .file-display
+    ellipsis()
     padding 10px 20px 9px
     background color-cta
     font-size 12px
@@ -18,3 +33,6 @@
     font-weight normal
     position relative
     top 1px
+    max-width 250px
+    display inline-block
+    margin-bottom -11px

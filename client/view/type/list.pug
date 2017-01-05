@@ -15,13 +15,11 @@
         .table.table-list(v-if='entries && entries.length')
 
             .thead: .tr
-                .th
                 .th(v-for='field in type.schema') {{ field.label }}
                 .th.actions
 
             .tbody: .tr(v-for='entry in entries', :id='entry.id')
 
-                .td {{ entry._i }}
                 .td(v-for='(field, key) in type.schema', :class='type.schema[key].type')
                     field-display(:value='entry[key]', :type='type.schema[key].type')
 

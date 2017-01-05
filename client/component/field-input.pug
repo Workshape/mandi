@@ -6,7 +6,8 @@
     input.block(v-if='type === "password"', type='password', v-bind:value='value', v-on:input='updateValue($event.target.value)')
     textarea.block(v-if='type === "content"', v-bind:value='value', v-on:input='updateValue($event.target.value)')
 
-    template(v-if='type === "image" || type === "file"')
+    .file-input(v-if='type === "image" || type === "file"')
+        img.image(v-if='value && type === "image"', :src='value')
         input.file-hidden(type='file', v-on:change='updateValue($event.target.files[0])')
         a.button.small(v-on:click.prevent='chooseFile') Choose
         span.file-display(v-if='value') {{ value.name || value }}
