@@ -4,7 +4,7 @@
   "secret"     : "cmssmc",
   "port"       : 4000,
   "mongo"      : {
-    "url" : "mongodb://localhost/cms"
+    "url" : "mongodb://localhost/beatle-cms"
   },
   "aws"        : {
     "key"    : null,

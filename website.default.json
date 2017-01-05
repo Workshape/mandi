@@ -2,6 +2,28 @@
 
   "title": "CMS",
 
-  "types": {}
+  "types": {
+
+    "posts": {
+      "label": "Post",
+      "schema": {
+
+        "cover": {
+          "extends" : "image",
+          "label"   : "Cover"
+        },
+
+        "name": {
+          "extends" : "name"
+        },
+
+        "content": {
+          "extends" : "content"
+        }
+
+      }
+    }
+
+  }
 
 }
