@@ -146,4 +146,4 @@ The following npm tasks are available to support development workflow:
 Licence
 ---
 
-Copyright (c) 2017 WorkShape.io - Released under the [MIT license](https://github.com/tancredi/beatle-cms/blob/master/LICENSE)
+Copyright (c) 2017 WorkShape.io Ltd. - Released under the [MIT license](https://github.com/tancredi/beatle-cms/blob/master/LICENSE)
