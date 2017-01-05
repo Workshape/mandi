@@ -4,8 +4,12 @@ header(:class='{ open: open }'): .page-width
 
     nav
         a(
+            v-if='user && user.groups && user.groups.indexOf("admin") !== -1'
             v-for='(type, key) in config.types',
             :class='{ active: segment(path, 0) === key }',
             :href='"/" + key + "/list"'
             ) {{ type.label | pluralise }}
+        a(v-if='user', href='/user/settings', :class='{ active: path === "/user/settings" }',) Settings
         a(v-if='user', v-on:click.prevent='logout()') Logout
+
+        a(v-if='!user', href='/sign-in', :class='{ active: path === "/sign-in" }') Login

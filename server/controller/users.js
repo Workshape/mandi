@@ -1,4 +1,7 @@
+const _ = require('lodash')
 const ormUtil = require('../util/orm')
+const users = require('../orm/users')
+const db = require('../access/db')
 const Validator = require('../../common/util/Validator')
 
 /**
@@ -39,17 +42,42 @@ function * list() {
  * @return {void}
  */
 function * update() {
-  Object.keys(validator.schema).forEach(key => {
-    if (typeof this.request.body[key] !== 'undefined') {
-      this.user[key] = this.request.body[key]
-    }
-  })
+  let changes = {}
+  let user = _.cloneDeep(this.user)
+  let passwordChanged = false
 
-  let validationError = validator.getError(this.user)
+  for (let key in validator.schema) {
+    if (typeof this.request.body[key] === 'undefined') { continue }
+
+    let val = this.request.body[key]
+
+    user[key] = val
+
+    if (key === 'password') {
+      changes[key] = yield users.hashPassword(val)
+      passwordChanged = true
+    } else {
+      changes[key] = val
+    }
+  }
+
+  let validationError = validator.getError(user)
 
   if (validationError) { return this.throw(400, validationError) }
 
-  let user = yield this.user.save()
+  user = yield db.update('users', { _id: this.user._id }, { $set: changes })
+
+  // Match `oldPassword` field if password is being changed
+  if (passwordChanged) {
+    let oldPassword = this.param('oldPassword')
+
+    if (
+      passwordChanged &&
+      !(yield users.matchPasswords(oldPassword, this.user.password))
+    ) {
+      return this.throw(403, 'Old password doesn\'t match')
+    }
+  }
 
   this.body = { user, success: true }
 }

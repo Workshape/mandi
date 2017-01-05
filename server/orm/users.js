@@ -135,4 +135,6 @@ function ensureValidToken(user) {
   })
 }
 
-module.exports = { create, findOne, matchPasswords, ensureValidToken }
+module.exports = {
+  create, findOne, matchPasswords, hashPassword, ensureValidToken
+}

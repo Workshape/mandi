@@ -27,10 +27,10 @@ var router = new Router()
 .post('/api/auth', controllers.auth.login)
 
 // Types
-.get('/api/types/:type', controllers.types.list)
-.get('/api/types/:type/:id', controllers.types.getById)
-.post('/api/types/:type', controllers.types.save)
-.put('/api/types/:type/:id', controllers.types.update)
-.delete('/api/types/:type/:id', controllers.types.remove)
+.get('/api/types/:type', auth.groups('admin'), controllers.types.list)
+.get('/api/types/:type/:id', auth.groups('admin'), controllers.types.getById)
+.post('/api/types/:type', auth.groups('admin'), controllers.types.save)
+.put('/api/types/:type/:id', auth.groups('admin'), controllers.types.update)
+.delete('/api/types/:type/:id', auth.groups('admin'), controllers.types.remove)
 
 module.exports = router.routes()

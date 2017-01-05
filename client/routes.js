@@ -28,7 +28,8 @@ router
   id         : 'type-list',
   title      : 'Entries > List',
   controller : require('./view/type/list'),
-  template   : require('./view/type/list.pug')
+  template   : require('./view/type/list.pug'),
+  loggedIn   : true
 })
 .add('/:type/list/page-:page', {
   extends    : 'type-list'
@@ -39,13 +40,23 @@ router
   id         : 'form',
   title      : 'Entries > Add',
   controller : require('./view/type/form'),
-  template   : require('./view/type/form.pug')
+  template   : require('./view/type/form.pug'),
+  loggedIn   : true
 })
 
 // Type entries > Edit
 .add('/:type/edit/:id', {
   extends    : 'form',
-  title      : 'Entries > Edit'
+  title      : 'Entries > Edit',
+  loggedIn   : true
+})
+
+// User settings
+.add('/user/settings', {
+  title      : 'User settings',
+  controller : require('./view/users/settings'),
+  template   : require('./view/users/settings.pug'),
+  loggedIn   : true
 })
 
 // 404

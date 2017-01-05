@@ -59,7 +59,10 @@ function updateRoute(route) {
     scope = _.cloneDeep(scope)
   }
 
-  scope = _.extend({}, SCOPE_DEFAULTS, scope, { config: stores.config.get() })
+  scope = _.extend({}, SCOPE_DEFAULTS, scope, {
+    config : stores.config.get(),
+    user   : auth.getUser()
+  })
 
   // Get current user
   let user = auth.getUser()

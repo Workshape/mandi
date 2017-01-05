@@ -19,7 +19,7 @@ function * login() {
   if (!user) { return this.throw(401, 'Invalid credentials') }
 
   // Compare password
-  if (!users.matchPasswords(password, user.password)) {
+  if (!(yield users.matchPasswords(password, user.password))) {
     return this.throw(401, 'Invalid credentials')
   }
 
@@ -44,7 +44,8 @@ function * session() {
   if (this.user) {
     session.user = {
       id       : this.user._id,
-      username : this.user.username
+      username : this.user.username,
+      groups   : this.user.groups
     }
   }
 

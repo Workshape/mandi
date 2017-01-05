@@ -1,0 +1,24 @@
+.view-user-settings
+
+    section.full-height: .inner: .page-width
+
+        h3.center User Settings
+
+        br
+
+        form.capped(v-on:submit.prevent='changePassword')
+
+            h4.center Change password
+
+            label Old password
+            input.block(type='password', v-model='passChange.old')
+
+            label New password
+            input.block(type='password', v-model='passChange.new')
+            input.block(type='password', placeholder='Confirm password', v-model='passChange.confirm')
+
+            button.block.cta(type='submit', :class='{ disabled: !passChange.valid }', v-if='!loading') Submit
+
+            .spinner(v-if='loading')
+            .box.success(v-if='passChange.success') Password changed correctly!
+            .box.error(v-if='error') Error: {{ error }}
