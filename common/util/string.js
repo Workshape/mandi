@@ -25,7 +25,12 @@ function pluralise(str) {
 
   if (!lastCharMatch) { return str }
 
+  let val = lastCharMatch[0]
   let index = lastCharMatch.index + 1
+
+  if (val === 'y') {
+    return `${ str.substr(0, index - 1) }ies${ str.substr(index) }`
+  }
 
   return `${ str.substr(0, index) }s${ str.substr(index) }`
 }

@@ -2,16 +2,13 @@
 node_modules
 npm-debug.log*
 
-# Ops
-deploy
-
 # App
 config/development.json
 config/production.json
 config/staging.json
 config/local.json
 uploads/*
-b!tmp/.gitkeep
+!tmp/.gitkeep
 website.json
 tmp
 
