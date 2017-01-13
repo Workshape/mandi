@@ -50,9 +50,9 @@ PRESETS.name = {
   }
 }
 
-// Job title (2-150 characters)
+// Title (2-150 characters)
 PRESETS.title = {
-  label : 'Job title',
+  label : 'Title',
   rules : {
     required  : true,
     type      : 'string',
