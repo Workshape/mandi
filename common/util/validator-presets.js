@@ -28,6 +28,16 @@ PRESETS.url = {
   }
 }
 
+// URL
+PRESETS.color = {
+  label : 'Color',
+  rules : {
+    regex    : 'color',
+    required : false,
+    type     : 'string'
+  }
+}
+
 // Password (6-10 characters)
 PRESETS.password = {
   label : 'Password',

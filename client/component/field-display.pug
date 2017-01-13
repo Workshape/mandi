@@ -1,3 +1,4 @@
 .field-display(:class='type')
-    template(v-if='type === "name" || type === "content" || type === "name"') {{ value }}
+    template(v-if='type === "name" || type === "title" || type === "content" || type === "name"') {{ value }}
     .image(v-if='type === "image"', :style='value ? { "background-image": "url(" + value + ")" } : null')
+    .color(v-if='type === "color"', :style='value ? { "background-color": value } : null')
