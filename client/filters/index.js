@@ -7,4 +7,16 @@ const _ = require('lodash')
  * Exports Vue.js filters in use by the application
  */
 
-module.exports = _.extend({}, stringUtil)
+/**
+ * Remove protocol from url (if present)
+ *
+ * @param  {String} url
+ * @return {String}
+ */
+function removeProtocol(url) {
+  if (url.indexOf('://') !== -1) { return url.split('://')[1] }
+
+  return url
+}
+
+module.exports = _.extend({ removeProtocol }, stringUtil)

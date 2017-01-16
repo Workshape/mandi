@@ -48,9 +48,7 @@ function ready() {
 function getEmpty(type) {
   let out = {}
 
-  for (let key of Object.keys(type.schema)) {
-    out[key] = null
-  }
+  for (let key of Object.keys(type.schema)) { out[key] = null }
 
   return out
 }

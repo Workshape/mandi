@@ -1,4 +1,5 @@
 const Vue = require('vue/dist/vue.js')
+const filters = require('../filters')
 const template = require('./field-display.pug')()
 
 /**
@@ -9,5 +10,6 @@ const template = require('./field-display.pug')()
 
 Vue.component('field-display', {
   template,
-  props : [ 'value', 'type' ]
+  props : [ 'value', 'type' ],
+  filters
 })

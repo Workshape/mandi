@@ -28,6 +28,15 @@ PRESETS.url = {
   }
 }
 
+// Flag (Boolean)
+PRESETS.flag = {
+  label : 'Flagged',
+  rules : {
+    required : false,
+    type     : 'boolean'
+  }
+}
+
 // URL
 PRESETS.color = {
   label : 'Color',
@@ -78,6 +87,15 @@ PRESETS.content = {
     required  : false,
     type      : 'string',
     maxLength : 1500
+  }
+}
+
+// Amount (number)
+PRESETS.amount = {
+  label : 'Amount',
+  rules : {
+    required : false,
+    type     : 'number'
   }
 }
 

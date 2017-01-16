@@ -123,6 +123,10 @@ function * update() {
 
   // Form entry Object from values selected from request payload
   let keys = Object.keys(this.schema.schema)
+  .filter(key => {
+    let type = this.schema.schema[key].type
+    return type !== 'image' && type !== 'file'
+  })
   let props = _.pick(this.request.body, keys)
 
   // Extend current entry data with payload properties
@@ -132,6 +136,9 @@ function * update() {
   let validator = new Validator(this.schema)
   let validationError = validator.getError(this.entry)
   if (validationError) { return this.throw(400, validationError) }
+
+  // Upload attachments if present and specified in schema
+  yield addFiles.call(this, props, false)
 
   // Update entry
   yield db.updateOne(type, { _id: this.entry.id }, { $set: props })

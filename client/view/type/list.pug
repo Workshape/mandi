@@ -15,12 +15,12 @@
         .table.table-list(v-if='entries && entries.length')
 
             .thead: .tr
-                .th(v-for='field in type.schema') {{ field.label }}
+                .th(v-for='field in type.schema', v-if='!field.secondary') {{ field.label }}
                 .th.actions
 
             .tbody: .tr(v-for='entry in entries', :id='entry.id')
 
-                .td(v-for='(field, key) in type.schema', :class='type.schema[key].type')
+                .td(v-for='(field, key) in type.schema', :class='type.schema[key].type', v-if='!field.secondary')
                     field-display(:value='entry[key]', :type='type.schema[key].type')
 
                 .td.actions: .button-group
