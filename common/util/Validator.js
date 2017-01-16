@@ -50,7 +50,9 @@ module.exports = class Validator {
 
       out[field] = this.validateField(object[field], config.rules, config, object)
 
-      if (!out[field].valid) { isValid = false }
+      if (!out[field].valid) {
+        isValid = false
+      }
 
       if (!config.schema) { continue }
 

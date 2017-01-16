@@ -22,8 +22,8 @@ PRESETS.email = {
 PRESETS.url = {
   label : 'URL',
   rules : {
-    regex    : 'url',
     required : true,
+    regex    : 'url',
     type     : 'string'
   }
 }
