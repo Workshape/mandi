@@ -142,7 +142,9 @@ function * update() {
   if (validationError) { return this.throw(400, validationError) }
 
   // Upload attachments if present and specified in schema
+  props._id = this.entry.id
   yield addFiles.call(this, props, false)
+  delete props._id
 
   // Update entry
   yield db.updateOne(type, { _id: this.entry.id }, { $set: props })
