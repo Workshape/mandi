@@ -76,6 +76,12 @@ module.exports =  new Service('/api')
   route  : '/types/:type/:id'
 })
 
+// Clone type entry
+.add('types.clone',{
+  method : 'post',
+  route  : '/types/:type/:id/clone'
+})
+
 // Move type entry up
 .add('types.moveUp',{
   method : 'post',

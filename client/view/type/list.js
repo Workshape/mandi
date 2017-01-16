@@ -1,5 +1,6 @@
 const { config } = require('../../store')
 const modal = require('../../core/modal')
+const router = require('../../core/router')
 
 /**
  * Dashboard controller
@@ -14,7 +15,7 @@ const scope = req => ({
   entries    : null,
   pagination : null
 })
-const methods = { update, deleteEntry, moveEntry }
+const methods = { update, deleteEntry, moveEntry, cloneEntry }
 
 /**
  * Controller is ready
@@ -57,15 +58,32 @@ function moveEntry(id, direction = 'up') {
 /**
  * Delete entry by id
  *
- * @return {void}
+ * @param  {String} id
+ * @return {Promise}
  */
 function deleteEntry(id) {
-  modal.open('confirm', {})
+  return modal.open('confirm', {})
   .then(confirmed => {
     if (!confirmed) { return }
 
-    this.apiCall('types.delete', { type: this.type.key, id })
+    return this.apiCall('types.delete', { type: this.type.key, id })
     .then(this.update)
+  })
+}
+
+/**
+ * Clone entry by id
+ *
+ * @param  {String} id
+ * @return {Promise}
+ */
+function cloneEntry(id) {
+  return modal.open('confirm', {})
+  .then(confirmed => {
+    if (!confirmed) { return }
+
+    return this.apiCall('types.clone', { type: this.type.key, id })
+    .then(res => router.goTo(`/${ this.type.key }/edit/${ res.entry.id }`))
   })
 }
 

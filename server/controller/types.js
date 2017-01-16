@@ -56,9 +56,13 @@ function * getById() {
   let entry = yield db.findOne(type, { _id: id })
   if (!entry) { return this.throw(404, `${ schema.label } not found`)}
 
+  // Store a copy of the unmodified entry (used by other controllers)
+  this._entry = _.cloneDeep(entry)
+
   // Move `_id` to `id`
   entry.id = entry._id
   delete entry._id
+  delete entry._i
 
   // Attach variables to controller that will be re-used by other controllers
   this.entry = decorateEntry(entry, schema)
@@ -97,8 +101,8 @@ function * save() {
   if (validationError) { return this.throw(400, validationError) }
 
   // Get _i increment
-  let latest = yield db.findOne(type, {}, { _i: 1 }, { sort: { _i: -1 } })
-  entry._i = latest ? (latest._i || 0) + 1 : 0
+  let incr = yield getIncrement(type)
+  entry._i = incr ? (incr._i || 0) + 1 : 0
 
   // Save entry to DB
   yield db.insert(type, entry)
@@ -272,4 +276,37 @@ function * move() {
   this.body = { success: true, index: adjacent._i }
 }
 
-module.exports = { list, getById, save, update, move, remove }
+/**
+ * Clone entry by id
+ *
+ * @return {void}
+ */
+function * clone() {
+  let type = this.param('type')
+
+  // Get entry by id
+  yield getById.apply(this, arguments)
+
+  // Remove `_id` and change `_i` increment value
+  delete this._entry._id
+  this._entry._i = yield getIncrement(type)
+
+  // Store in db
+  let result = yield db.insert(type, this._entry)
+
+  // Get entry by id
+  this.params.id = result.ops[0]._id
+  yield getById.apply(this, arguments)
+}
+
+/**
+ * Resolve `_i` increment for given collection
+ *
+ * @param  {String} collection
+ * @return {Number}
+ */
+function getIncrement(collection) {
+  return db.findOne(collection, {}, { _i: 1 }, { sort: { _i: -1 } })
+}
+
+module.exports = { list, getById, save, update, move, remove, clone }

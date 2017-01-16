@@ -34,6 +34,7 @@ var router = new Router()
 .post('/api/types/:type/:id/move/:dir', auth.groups('admin'), controllers.types.move)
 .put('/api/types/:type/:id', auth.groups('admin'), controllers.types.update)
 .delete('/api/types/:type/:id', auth.groups('admin'), controllers.types.remove)
+.post('/api/types/:type/:id/clone', auth.groups('admin'), controllers.types.clone)
 
 // Statics
 .get('/api/statics', controllers.statics.get)
