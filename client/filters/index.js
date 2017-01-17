@@ -14,6 +14,7 @@ const _ = require('lodash')
  * @return {String}
  */
 function removeProtocol(url) {
+  if (!url || typeof url !== 'string') { return url }
   if (url.indexOf('://') !== -1) { return url.split('://')[1] }
 
   return url
