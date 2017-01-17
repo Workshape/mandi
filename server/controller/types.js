@@ -259,10 +259,18 @@ function * move() {
   // Get adjacent entry
   if (dir === 'up') {
     adjacent = yield db
-    .findOne(type, { _i: { $gt: this.entry._i } }, { sort: { _i: 1 } })
+    .collection(type)
+    .find({ _i: { $gt: this._entry._i } }, { _i: 1, _id: 1 })
+    .sort({ _i: 1 })
+    .limit(1)
+    .next()
   } else {
     adjacent = yield db
-    .findOne(type, { _i: { $lt: this.entry._i } }, { sort: { _i: -1 } })
+    .collection(type)
+    .find({ _i: { $lt: this._entry._i } }, { _i: 1, _id: 1 })
+    .sort({ _i: -1 })
+    .limit(1)
+    .next()
   }
 
   // Respond with error if it's the first / last entry
@@ -270,8 +278,8 @@ function * move() {
 
   // Swap index
   yield Promise.all([
-    db.update(type, { _id: this.entry.id }, { $set: { _i: adjacent._i } }),
-    db.update(type, { _id: adjacent._id }, { $set: { _i: this.entry._i } })
+    db.update(type, { _id: this._entry._id }, { $set: { _i: adjacent._i } }),
+    db.update(type, { _id: adjacent._id }, { $set: { _i: this._entry._i } })
   ])
 
   // Respond successfully
@@ -308,7 +316,11 @@ function * clone() {
  * @return {Number}
  */
 function getIncrement(collection) {
-  return db.findOne(collection, {}, { _i: 1 }, { sort: { _i: -1 } })
+  return db.collection(collection)
+  .find({}, { _i: 1 })
+  .sort({ _i: -1 })
+  .limit(1)
+  .next()
 }
 
 module.exports = { list, getById, save, update, move, remove, clone }

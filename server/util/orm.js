@@ -9,35 +9,6 @@ const db = require('../access/db')
 const PAGINATION_DEFAULTS = { LIMIT: 20, SORT: '-id' }
 
 /**
- * Perform unique slug Object updating with given entity, collection and options
- * - called from a controller
- *
- * @param  {String} entity
- * @param  {String} collection
- * @param  {String} base
- * @param  {Function} callback
- * @return {void}
- */
-function updateSlug(collection, entity, model, base, callback) {
-  return db.collection(collection)
-  .findOne({ 'slug.base': base })
-  .sort('-slug.increment')
-  .exec((err, user) => {
-    if (err) { return callback(err) }
-
-    let incr = 1
-
-    if (user) {
-      incr = user.slug.incr + (user !== entity ? 1 : 0)
-    }
-
-    let key = base + (incr > 1 ? `-${ incr }` : '')
-
-    entity.slug = { key, base, incr }
-  })
-}
-
-/**
  * Get paginated listings from given collection - called form a controller
  *
  * @param  {String} collection
@@ -93,7 +64,8 @@ function getEntryPageById(collection, id) {
   let limit = parseInt(this.param('limit', PAGINATION_DEFAULTS.LIMIT), 10)
   let sort = parseSortingString(this.param('sort', PAGINATION_DEFAULTS.SORT))
 
-  return db.find(collection, {}, { _id: 1 }, { sort })
+  return db.find(collection, {}, { _id: 1 })
+  .sort(sort)
   .toArray()
   .then(ids => {
     ids = ids.map(val => String(val._id))
@@ -126,4 +98,4 @@ function parseSortingString(str) {
   return out
 }
 
-module.exports = { updateSlug, getPaginated, getEntryPageById }
+module.exports = { getPaginated, getEntryPageById }
