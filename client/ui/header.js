@@ -31,12 +31,32 @@ function init() {
       segment,
       toggle
     },
-    filters
+    filters,
+    created
   })
 
   auth.on('change', user => header.user = user)
   config.on('change', config => header.config = config)
   router.on('change', () => header.path = cleanPath())
+}
+
+/**
+ * Initialise header component
+ *
+ * @return {void}
+ */
+function created() {
+  // Close menu on route change
+  router.on('change', () => this.open = false)
+
+  // Add keydown handler
+  this._keydown = e => {
+    // Close menu when ESC is pressed
+    if (e.keyCode === 27) { this.open = false }
+  }
+
+  // Listen for key down
+  window.addEventListener('keydown', this._keydown)
 }
 
 /**

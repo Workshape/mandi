@@ -69,6 +69,18 @@ PRESETS.name = {
   }
 }
 
+// Phone No.
+PRESETS.phone = {
+  label : 'Phone number',
+  rules : {
+    required  : false,
+    type      : 'string',
+    minLength : 1,
+    maxLength : 150,
+    regex     : 'phone'
+  }
+}
+
 // Title (2-150 characters)
 PRESETS.title = {
   label : 'Title',

@@ -7,6 +7,7 @@
     input.block(v-if='type === "password"', type='password', v-bind:value='value', v-on:input='updateValue($event.target.value)')
     input.block(v-if='type === "flag"', type='checkbox', v-bind:checked='value', v-on:change='updateValue($event.target.checked)')
     input.block(v-if='type === "amount"', type='number', v-bind:value='value', v-on:input='updateValue(parseInt($event.target.value, 10))')
+    input.block(v-if='type === "phone"', type='tel', v-bind:value='value', v-on:input='updateValue($event.target.value, 10)')
     textarea.block(v-if='type === "content"', v-bind:value='value', v-on:input='updateValue($event.target.value)')
 
     .file-input(v-if='type === "image" || type === "file"')

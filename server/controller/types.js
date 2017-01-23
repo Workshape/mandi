@@ -235,6 +235,10 @@ function decorateEntry(entry, schema) {
     }
   }
 
+  entry.id = entry.id || entry._id
+  delete entry._id
+  delete entry._i
+
   return entry
 }
 

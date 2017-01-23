@@ -2,7 +2,6 @@ const Vue = require('vue/dist/vue.js')
 const modals = require('../modal')
 const Promise = require('bluebird')
 const domUtil = require('../util/dom')
-const keycode = require('keycode')
 const _ = require('lodash')
 const filters = require('../filters/index')
 
@@ -45,11 +44,8 @@ function initialise() {
  * @return {void}
  */
 function handleKeyDown(e) {
-  let key = keycode(e.keyCode)
-
-  if (key === 'esc') {
-    closeAll()
-  }
+  // Close all when ESC is pressed
+  if (e.keyCode === 27) { closeAll() }
 }
 
 /**

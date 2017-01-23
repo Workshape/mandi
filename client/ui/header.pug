@@ -1,8 +1,8 @@
-header(:class='{ open: open }'): .page-width
+header(:class='{ open: open, reduced: Object.keys(config.types).length > 4 }'): .page-width
 
     a.logo(href='/'): h4 {{ config.title }}
 
-    nav
+    nav: .page-width
         a(
             v-if='user && user.groups && user.groups.indexOf("admin") !== -1'
             v-for='(type, key) in config.types',
@@ -14,3 +14,11 @@ header(:class='{ open: open }'): .page-width
         a(v-if='user', v-on:click.prevent='logout()') Logout
 
         a(v-if='!user', href='/sign-in', :class='{ active: path === "/sign-in" }') Login
+
+    .toggle(:class-='{ open: open }', v-on:click.prevent='toggle()'): .hamburger
+        span
+        span
+        span
+        span
+        span
+        span

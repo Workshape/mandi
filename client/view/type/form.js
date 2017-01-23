@@ -59,7 +59,7 @@ function getEmpty(type) {
  * @return {void}
  */
 function save() {
-  let payload = { _type: this.type.key }
+  let payload = { _type: this.type.key, id: this.id || null }
 
   this.error = this.validator.getError(this.entry)
   if (this.error) { return }
@@ -73,11 +73,11 @@ function save() {
     }
   }
 
+  console.log(payload)
   this.apiCall(`types.${ this.id ? 'update' : 'save' }`, payload)
-  .then(() => {
-    let baseUrl = `/${ this.type.key }/list`
-    let { id } = this
-    router.goTo(`${ baseUrl }` + (id ? `/page-${ this.page }#${ id }` : ''))
+  .then(res => {
+    let { id } = res.entry
+    router.goTo(`/${ this.type.key }/edit/${ id }`)
   })
 }
 
