@@ -13,6 +13,7 @@
                 .field(v-for='(field, key, i) in type.schema', class='field.type')
                     label {{ field.label }}
                     field-input(v-model='entry[key]', :type='field.type')
+                    .tip {{ field.tip }}
 
                 .box.error(v-if='error && entry') {{ error }}
 
