@@ -7,3 +7,8 @@
         .box.white.capped.center
             | Welcome, 
             strong {{ user.username }}
+
+        ul.dashboard-menu
+            li(v-for='(type, key) in config.types'): a(:href='"/" + key + "/list"') {{ type.label | pluralise }}
+            li: a(v-if='user', href='/statics', :class='{ active: path === "/statics" }',) Statics
+            li: a(v-if='user', href='/user/settings', :class='{ active: path === "/user/settings" }',) Settings

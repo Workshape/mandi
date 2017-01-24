@@ -1,21 +1,3 @@
-split-by(cols, col-selector = '.col', gutter = 40px)
-  clearfix()
-  // margin 0 -(gutter)
-  margin-bottom -(gutter)
-
-  {col-selector}
-    width (100% / cols)
-    float left
-    padding (gutter / 2)
-    box-sizing border-box
-
-    @media (max-width: breakpoint-mobile)
-      float none
-      width auto
-      padding 0
-      margin 0
-      vertical-rhythm(gutter)
-
 html, body
   min-height 100vh
   box-sizing border-box
