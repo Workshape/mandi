@@ -16,8 +16,8 @@ Set-up
 To set-up this codebase on your development environment please follow these steps:
 
 ```bash
-git clone https://www.github.com/tancredi/beatle-cms
-cd beatle-cms
+git clone https://www.github.com/tancredi/nimda
+cd nimda
 npm install
 npm run build
 ```
@@ -37,7 +37,7 @@ This configuration is then loaded by the [config](https://www.npmjs.com/package/
 * `publicUrl` (Env. `PUBLIC_URL`) The base URL the CMS will be served at (without trailing slash)
 * `secret` (Env. `SECRET`) A secret used to hash passwords
 * `port` (Env. `PORT`) The port the website is gonna be served at by Node.js
-* `mongo.url` (Env `MONGO_URL`) The URL of the mongo database (by default `mongodb://localhost/beatle-cms
+* `mongo.url` (Env `MONGO_URL`) The URL of the mongo database (by default `mongodb://localhost/nimda
 * `aws.key` (Env. `AWS_KEY`) Your Amazon Web Services key (optional - AWS configuration is used for S3 file uploads, but will fall back on local file system if not setup)
 * `aws.secret` (Env. `AWS_SECRET`) Your Amazon Web Services secret
 * `aws.bucket` (Env. `AWS_S3_BUCKET`) Your Amazon Web Services S3 Bucket name
@@ -146,4 +146,4 @@ The following npm tasks are available to support development workflow:
 Licence
 ---
 
-Copyright (c) 2017 WorkShape.io Ltd. - Released under the [MIT license](https://github.com/tancredi/beatle-cms/blob/master/LICENSE)
+Copyright (c) 2017 WorkShape.io Ltd. - Released under the [MIT license](https://github.com/tancredi/nimda/blob/master/LICENSE)

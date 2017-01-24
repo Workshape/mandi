@@ -33,7 +33,6 @@ app.use(serve('www'))
 app.use(mount('/uploads', serve('uploads')))
 app.use(clientEntry)
 
-
 // First log
 log.task('Starting server', -1)
 

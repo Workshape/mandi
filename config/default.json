@@ -4,7 +4,7 @@
   "secret"     : "cmssmc",
   "port"       : 4000,
   "mongo"      : {
-    "url" : "mongodb://localhost/beatle-cms"
+    "url" : "mongodb://localhost/nimda-cms"
   },
   "aws"        : {
     "key"    : null,

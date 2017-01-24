@@ -1,4 +1,4 @@
-.view-dashboard
+.view-dashboard.view-type-form
 
     section.full-height: .inner: .page-width
 
@@ -9,6 +9,7 @@
             .field(v-for='(field, key, i) in config.statics', class='field.type')
                 label {{ field.label }}
                 field-input(v-model='values[key]', :type='field.type')
+                .tip {{ field.tip }}
         
             .box.error(v-if='error') {{ error }}
         
