@@ -4,7 +4,14 @@
  * Exports handy methods to work with DOM elements
  */
 
-function getElements(parent, selector) {
+ /**
+  * Get elements matching given selector in Array forma as opposed to NodesList
+  *
+  * @param  {String} selector
+  * @param  {DOMNode=} parent
+  * @return {[DOMNode]}
+  */
+function getElements(selector, parent = document) {
   return Array.prototype.slice.call(parent.querySelectorAll(selector))
 }
 
