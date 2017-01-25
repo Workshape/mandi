@@ -1,6 +1,7 @@
 .field-display(:class='type')
-    template(v-if='type === "name" || type === "title" || type === "content" || type === "name" || type === "amount" || type === "phone" || type === "email"') {{ value || '-' }}
+    template(v-if='type === "name" || type === "title" || type === "content" || type === "name" || type === "amount" || type === "phone"') {{ value || '-' }}
     a(v-if='type === "url"', :href='value', target='_blank') {{ value | removeProtocol }}
+    a(:href='"mailto:" + value', v-if='type === "email"') {{ value }}
     .image(v-if='type === "image"', :style='value ? { "background-image": "url(" + value + ")" } : null')
     .color(v-if='type === "color"', :style='value ? { "background-color": value } : null')
     .text-success.center(v-if='type === "flag" && value') &#x2714;
