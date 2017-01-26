@@ -7,4 +7,7 @@ const s3 = require('./s3')
  * Exports all static file storage transport modules
  */
 
-module.exports = { local, s3 }
+module.exports = nimda => ({
+  local : local(nimda),
+  s3    : s3(nimda)
+})

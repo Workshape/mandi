@@ -1,5 +1,3 @@
-const log = require('../util/log')
-const users = require('../orm/users')
 const Promise = require('bluebird')
 
 /**
@@ -13,52 +11,55 @@ const DEFAULT_CREDENTIALS = {
   password : 'foobar'
 }
 
-/**
- * Run setup
- *
- * @return {Promise}
- */
-function run() {
-  return ensureOverlord()
-}
+module.exports = function (nimda) {
+  return { run }
 
-/**
- * Look Overlord User up - create a new one if not found
- *
- * @return {Promise}
- */
-function ensureOverlord() {
-  return new Promise((resolve) => {
-    log.task('Checking the existance of a Overlord User..', 0)
+  /**
+   * Run setup
+   *
+   * @return {Promise}
+   */
+  function run() {
+    return ensureOverlord()
+  }
 
-    return users.findOne({ groups: 'overlord' })
-    .then(user => {
-      if (!user) {
-        log.task('Not found - creating Overlord User..', 0)
+  /**
+   * Look Overlord User up - create a new one if not found
+   *
+   * @return {Promise}
+   */
+  function ensureOverlord() {
+    return new Promise((resolve) => {
+      nimda.util.log.task('Checking the existance of a Overlord User..', 0)
 
-        return createOverlord().then(() => {
-          log.task('Done', 1)
-          return resolve()
-        })
-      }
+      return nimda.orm.users.findOne({ groups: 'overlord' })
+      .then(user => {
+        if (!user) {
+          nimda.util.log.task('Not found - creating Overlord User..', 0)
 
-      log.task('Done', 1)
-      return resolve()
+          return createOverlord().then(() => {
+            nimda.util.log.task('Done', 1)
+            return resolve()
+          })
+        }
+
+        nimda.util.log.task('Done', 1)
+        return resolve()
+      })
     })
-  })
-}
+  }
 
-/**
- * Create and save Overlord User with default credentials
- *
- * @return {Promise}
- */
-function createOverlord() {
-  return users.create({
-    username : DEFAULT_CREDENTIALS.username,
-    password : DEFAULT_CREDENTIALS.password,
-    groups   : [ 'admin', 'overlord' ]
-  })
-}
+  /**
+   * Create and save Overlord User with default credentials
+   *
+   * @return {Promise}
+   */
+  function createOverlord() {
+    return nimda.orm.users.create({
+      username : DEFAULT_CREDENTIALS.username,
+      password : DEFAULT_CREDENTIALS.password,
+      groups   : [ 'admin', 'overlord' ]
+    })
+  }
 
-module.exports = { run }
+}

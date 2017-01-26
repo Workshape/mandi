@@ -1,55 +1,56 @@
-const users = require('../orm/users')
-
 /**
  * Email Auth API endpoints
  *
  * Exports controller functions for endpoints related to email auth
  */
 
-/**
- * Match email and password to obtain authorization token
- *
- * @return {void}
- */
-function * login() {
-  let { username, password } = this.request.body
-  let user = yield users.findOne({ username })
+module.exports = function (nimda) {
+  return { session, login }
 
-  // Check existance of user with given username
-  if (!user) { return this.throw(401, 'Invalid credentials') }
+  /**
+   * Match email and password to obtain authorization token
+   *
+   * @return {void}
+   */
+  function * login() {
+    let { username, password } = this.request.body
+    let user = yield nimda.orm.users.findOne({ username })
 
-  // Compare password
-  if (!(yield users.matchPasswords(password, user.password))) {
-    return this.throw(401, 'Invalid credentials')
-  }
+    // Check existance of user with given username
+    if (!user) { return this.throw(401, 'Invalid credentials') }
 
-  // Make sure to renew user's token if necessary
-  yield users.ensureValidToken(user)
+    // Compare password
+    if (!(yield nimda.orm.users.matchPasswords(password, user.password))) {
+      return this.throw(401, 'Invalid credentials')
+    }
 
-  this.body = {
-    success : true,
-    token   : user.token.value
-  }
-}
+    // Make sure to renew user's token if necessary
+    yield nimda.orm.users.ensureValidToken(user)
 
-/**
- * Session endpoint
- *
- * @return {void}
- */
-function * session() {
-  let session = { user: null }
-
-  // Attached some user data to response if logged in
-  if (this.user) {
-    session.user = {
-      id       : this.user._id,
-      username : this.user.username,
-      groups   : this.user.groups
+    this.body = {
+      success : true,
+      token   : user.token.value
     }
   }
 
-  this.body = { session }
-}
+  /**
+   * Session endpoint
+   *
+   * @return {void}
+   */
+  function * session() {
+    let session = { user: null }
 
-module.exports = { login, session }
+    // Attached some user data to response if logged in
+    if (this.user) {
+      session.user = {
+        id       : this.user._id,
+        username : this.user.username,
+        groups   : this.user.groups
+      }
+    }
+
+    this.body = { session }
+  }
+
+}
