@@ -100,9 +100,12 @@ function * save() {
   let validationError = validator.getError(entry)
   if (validationError) { return this.throw(400, validationError) }
 
-  // Get _i increment
+  // Add _i increment
   let incr = yield getIncrement(type)
   entry._i = incr ? (incr._i || 0) + 1 : 0
+
+  // Add date fields
+  entry._created = entry._lastUpdated = new Date()
 
   // Save entry to DB
   yield db.insert(type, entry)
@@ -145,6 +148,9 @@ function * update() {
   props._id = this.entry.id
   yield addFiles.call(this, props, false)
   delete props._id
+
+  // Add date created
+  props._lastUpdated = new Date()
 
   // Update entry
   yield db.updateOne(type, { _id: this.entry.id }, { $set: props })

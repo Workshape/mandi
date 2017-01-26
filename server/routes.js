@@ -37,7 +37,7 @@ var router = new Router()
 .post('/api/types/:type/:id/clone', auth.groups('admin'), controllers.types.clone)
 
 // Statics
-.get('/api/statics', controllers.statics.get)
+.get('/api/statics', auth.groups('admin'), controllers.statics.get)
 .put('/api/statics', auth.groups('admin'), controllers.statics.update)
 
 module.exports = router.routes()
