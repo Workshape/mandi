@@ -1,4 +1,3 @@
-const Promise = require('bluebird')
 const koa = require('koa')
 const body = require('koa-body')
 const serve = require('koa-static')
@@ -25,17 +24,24 @@ module.exports = class Nimda {
    * @param  {Object} schema
    * @constructor
    */
-  constructor(config, schema) {
-    this._schema = schema
+  constructor(config, schema = {}) {
+    // Set config
     this.config = config
 
-    this.schema = require('./access/schema')(this)
+    // Instanciate utils and schema loader
+    this.util = require('./util')(this)
+    this.schemaLoader = require('./access/schema-loader')(this)
+
+    // Load (resolve and store) schema
+    this.schemaLoader.load(schema)
+
+    // Instanciate modules
     this.db = require('./access/db')(this)
     this.file = require('./access/file')(this)
     this.orm = require('./orm')(this)
-    this.util = require('./util')(this)
     this.setup = require('./setup')(this)
 
+    // Instanciate Koa server
     this.app = koa()
   }
 
@@ -85,7 +91,7 @@ module.exports = class Nimda {
     this.app.use(mount('/uploads', serve('uploads')))
     this.app.use(clientEntry(this))
 
-    // First log
+    // Log initialisation
     this.util.log.task('Initialising nimda', -1)
 
     // Connect to databse
@@ -116,11 +122,11 @@ module.exports = class Nimda {
    *
    * @return {Promise}
    */
-  listen() {
+  listen(port = null) {
     this.init().then(() => {
       this.util.log.task('Starting server', -1)
 
-      return this.app.listen(this.config.port, () => {
+      return this.app.listen(port || this.config.port, () => {
         return this.util.log.task(`Listening on port ${ this.config.port }`, 1)
       })
     })

@@ -34,8 +34,8 @@ module.exports = router
 router.init = function () {
   router.on('change', updateRoute).html5().run()
 
-  stores.config.on('change', config => {
-    if (view) { view.config = config }
+  stores.schema.on('change', schema => {
+    if (view) { view.schema = schema }
   })
 }
 
@@ -60,8 +60,9 @@ function updateRoute(route) {
   }
 
   scope = _.extend({}, SCOPE_DEFAULTS, scope, {
-    config : stores.config.get(),
-    user   : auth.getUser()
+    schema : stores.schema.get(),
+    user   : auth.getUser(),
+    path   : null
   })
 
   // Get current user

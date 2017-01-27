@@ -37,7 +37,7 @@ function init() {
 
   Promise.all([
     auth.init(),
-    stores.config.init()
+    stores.schema.init()
   ])
   .then(() => {
     app.init()

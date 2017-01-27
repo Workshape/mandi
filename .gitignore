@@ -9,7 +9,7 @@ config/staging.json
 config/local.json
 uploads/*
 !tmp/.gitkeep
-website.json
+schema.json
 tmp
 
 # Build

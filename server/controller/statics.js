@@ -17,7 +17,7 @@ module.exports = function (nimda) {
    * @return {void}
    */
   function * get() {
-    let schemas = (yield nimda.schema.load()).statics
+    let schemas = nimda.schema.statics
     let out = {}
     let values = yield getMappedValues()
 
@@ -44,7 +44,7 @@ module.exports = function (nimda) {
 
     // Run validation
     let current = yield getMappedValues()
-    let validator = new Validator((yield nimda.schema.load()).statics)
+    let validator = new Validator(nimda.schema.statics)
     let validationError = validator.getError(_.extend(current, values))
 
     if (validationError) { return this.throw(400, validationError) }

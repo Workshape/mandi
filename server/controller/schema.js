@@ -13,7 +13,7 @@ module.exports = function (nimda) {
    * @return {void}
    */
   function * load() {
-    this.body = { config: yield nimda.schema.load() }
+    this.body = nimda.schema
   }
 
 }

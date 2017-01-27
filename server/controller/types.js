@@ -22,7 +22,7 @@ module.exports = function (nimda) {
    * @return {void}
    */
   function * list() {
-    let schemas = (yield nimda.schema.load()).types
+    let schemas = yield nimda.schema.types
     let type = this.param('type')
 
     if (!schemas[type]) { return this.throw(400, 'Invalid Type') }
@@ -40,7 +40,7 @@ module.exports = function (nimda) {
    * @return {void}
    */
   function * getById() {
-    let schemas = (yield nimda.schema.load()).types
+    let schemas = nimda.schema.types
     let type = this.param('type')
     let id = this.param('id')
 
@@ -84,7 +84,7 @@ module.exports = function (nimda) {
    * @return {void}
    */
   function * save() {
-    let schemas = (yield nimda.schema.load()).types
+    let schemas = nimda.schema.types
     let type = this.param('type')
 
     // Make sure schema exists

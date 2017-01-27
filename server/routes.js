@@ -14,7 +14,7 @@ module.exports = function (nimda) {
 
   // Instanciate controllers
   var controller = {
-    config  : require('./controller/config')(nimda),
+    schema  : require('./controller/schema')(nimda),
     auth    : require('./controller/auth')(nimda),
     users   : require('./controller/users')(nimda),
     types   : require('./controller/types')(nimda),
@@ -28,7 +28,7 @@ module.exports = function (nimda) {
   var r = new Router()
 
   // Config
-  r.get('/api/config', controller.config.load)
+  r.get('/api/schema', controller.schema.load)
 
   // Users
   r.get('/api/users', adminOnly, controller.users.list)

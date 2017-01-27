@@ -40,11 +40,16 @@ module.exports =  new Service('/api')
  * Types
  */
 
-// List types
-.add('config.load', {
+// Get schema
+.add('schema.load', {
   method : 'get',
-  route  : '/config'
+  route  : '/schema'
 })
+
+
+/**
+ * Types
+ */
 
 // Get single entry by id for type
 .add('types.get', {

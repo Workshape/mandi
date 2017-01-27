@@ -2,7 +2,7 @@ const Vue = require('vue/dist/vue.js')
 const auth = require('../core/auth')
 const template = require('./header.pug')
 const router = require('../core/router')
-const { config } = require('../store')
+const { schema } = require('../store')
 const filters = require('../filters')
 
 /**
@@ -22,7 +22,7 @@ function init() {
     template : template(),
     data      : {
       user    : auth.getUser(),
-      config  : config.get(),
+      schema  : schema.get(),
       path    : cleanPath(),
       open    : false
     },
@@ -36,7 +36,7 @@ function init() {
   })
 
   auth.on('change', user => header.user = user)
-  config.on('change', config => header.config = config)
+  schema.on('change', schema => header.schema = schema)
   router.on('change', () => header.path = cleanPath())
 }
 

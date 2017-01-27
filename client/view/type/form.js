@@ -1,5 +1,5 @@
 const Validator = require('../../../common/util/Validator')
-const { config } = require('../../store')
+const { schema } = require('../../store')
 const router = require('../../core/router')
 
 /**
@@ -9,7 +9,7 @@ const router = require('../../core/router')
  */
 
 const scope = req => {
-  let type = config.get('types')[req.namedParams.type]
+  let type = schema.get('types')[req.namedParams.type]
   let { id } = req.namedParams
   let mode = id ? 'edit' : 'create'
 

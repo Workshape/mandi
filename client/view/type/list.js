@@ -1,4 +1,4 @@
-const { config } = require('../../store')
+const { schema } = require('../../store')
 const modal = require('../../core/modal')
 const router = require('../../core/router')
 
@@ -23,7 +23,7 @@ const methods = { update, deleteEntry, moveEntry, cloneEntry }
  * @return {void}
  */
 function ready(req) {
-  let type = config.get('types')[req.namedParams.type]
+  let type = schema.get('types')[req.namedParams.type]
   type.key = req.namedParams.type
   this.type = type
   this.update()
@@ -62,7 +62,7 @@ function moveEntry(id, direction = 'up') {
  * @return {Promise}
  */
 function deleteEntry(id) {
-  return modal.open('confirm', {})
+  return modal.open('irm', {})
   .then(confirmed => {
     if (!confirmed) { return }
 

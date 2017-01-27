@@ -8,5 +8,5 @@ const api = require('../core/api')
  */
 
 module.exports = {
-  config : new Store(() => api.config.load().then(res => res.body.config))
+  schema : new Store(() => api.schema.load().then(res => res.body))
 }

@@ -1,4 +1,4 @@
-const { config } = require('../store')
+const { schema } = require('../store')
 const Validator = require('../../common/util/Validator')
 
 /**
@@ -10,7 +10,7 @@ const Validator = require('../../common/util/Validator')
 const scope = () => ({
   values    : getEmptyValues(),
   valid     : false,
-  validator : new Validator(config.get('statics')),
+  validator : new Validator(schema.get('statics')),
   changed   : false,
   success   : false
 })
@@ -25,7 +25,6 @@ const methods = {
  */
 function ready() {
   this.loadFromApi('statics.get', null, null, 'values', 'values')
-
   this.$watch('values', validate, { deep: true })
 }
 
@@ -63,7 +62,7 @@ function save() {
 function getEmptyValues() {
   let out = {}
 
-  for (let key in config.get().statics) {
+  for (let key in schema.get().statics) {
     out[key] = null
   }
 
