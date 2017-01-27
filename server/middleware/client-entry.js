@@ -17,7 +17,7 @@ module.exports = function () {
    * @return {void}
    */
   return function * (next) {
-    var segments = this.request.path.split('/').splice(1)
+    let segments = this.request.path.split('/').splice(1)
 
     if (RESERVED_PATHS.indexOf(segments[0]) === -1) {
       yield send(this, 'index.html', { root: './www' })

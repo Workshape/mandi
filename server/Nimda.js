@@ -1,8 +1,9 @@
+const Promise = require('bluebird')
 const koa = require('koa')
-const routes = require('./routes')
 const body = require('koa-body')
 const serve = require('koa-static')
 const mount = require('koa-mount')
+const routes = require('./routes')
 const clientEntry = require('./middleware/client-entry')
 const errorHandler = require('./middleware/error-handler')
 const methods = require('./middleware/methods')
@@ -36,6 +37,42 @@ module.exports = class Nimda {
     this.setup = require('./setup')(this)
 
     this.app = koa()
+  }
+
+  /**
+   * Validate configuration Object
+   *
+   * @retur {Error|void}
+   */
+  validateConfig(config) {
+    if (!config) { return new Error('Configuration Object is required') }
+
+    if (!config.mongo) {
+      return new Error('Configuration Object requires a `mongo` Object')
+    }
+
+    if (!config.mongo.url) {
+      return new Error('Configuration Object requires `mongo.url` String')
+    }
+
+    return null
+  }
+
+  /**
+   * Initialise server
+   *
+   * @return {void}
+   */
+  init() {
+    if (this._initialised) {
+      throw new Error('This Nimda instance was already initialised')
+    }
+    this._initialised = true
+
+    if (this.config) {
+      let error = this.validateConfig(this.config)
+      if (error) { throw error }
+    }
 
     // Attach middleware
     this.app.use(cookies(this))
@@ -49,12 +86,42 @@ module.exports = class Nimda {
     this.app.use(clientEntry(this))
 
     // First log
-    this.util.log.task('Starting server', -1)
+    this.util.log.task('Initialising nimda', -1)
 
     // Connect to databse
-    this.db.connect().then(() => {
-      // Run setup
-      return this.setup.run().then(() => {
+    return this.db.connect().then(() => this.setup.run())
+  }
+
+  /**
+   * Generate server middleware function
+   *
+   * @return {Function}
+   */
+  middleware() {
+    let fn
+
+    this.init().then(() => {
+      fn = this.app.callback()
+    })
+
+    return function (req, res) {
+      if (fn) { return fn.apply(this, arguments) }
+      res.write('Starting Nimda - please refresh in a second..')
+      res.end()
+    }
+  }
+
+  /**
+   * Start server and listen on given port
+   *
+   * @return {Promise}
+   */
+  listen() {
+    this.init().then(() => {
+      this.util.log.task('Starting server', -1)
+
+      return this.app.listen(this.config.port, () => {
+        return this.util.log.task(`Listening on port ${ this.config.port }`, 1)
       })
     })
   }
