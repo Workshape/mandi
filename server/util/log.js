@@ -9,8 +9,9 @@ const moment = require('moment')
 
 module.exports = function (nimda) {
   var lastLoggedTime = ''
+  var { log } = console
 
-  return { task, info, warn, time }
+  return { task, info, warn, time, log }
 
   /**
    * Log task message - statuses are:
