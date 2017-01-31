@@ -9,7 +9,7 @@
     "watch": "npm run build; watchify -v -t pugify -t babelify client/index.js -o www/js/index.js | stylus -u nib -u griddy style/index.styl -w -o www/css/styles.css | livereload www",
     "dev": "npm run watch | npm run watch-server",
     "watch-server": "nodemon --watch ./server --watch ./common --watch ./website.json --exec 'npm start'",
-    "postinstall": "npm run build"
+    "prepublish": "npm run build"
   },
   "author": "Tancredi Trugenberger",
   "license": "ISC",
