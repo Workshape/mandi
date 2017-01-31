@@ -1,4 +1,5 @@
 const router = require('./core/router')
+const { basePath } = require('./config')
 
 /**
  * App Routes
@@ -9,7 +10,7 @@ const router = require('./core/router')
 router
 
 // Signup page
-.add('/sign-in', {
+.add(`${ basePath }sign-in`, {
   title      : 'Sign-in',
   controller : require('./view/auth/signin'),
   template   : require('./view/auth/signin.pug'),
@@ -17,26 +18,26 @@ router
 })
 
 // Dashboard
-.add('/', {
+.add(`${ basePath }`, {
   title      : 'Dashboard',
   template   : require('./view/dashboard.pug'),
   loggedIn   : true
 })
 
 // Type entries > List
-.add('/:type/list', {
+.add(`${ basePath }:type/list`, {
   id         : 'type-list',
   title      : 'Entries > List',
   controller : require('./view/type/list'),
   template   : require('./view/type/list.pug'),
   loggedIn   : true
 })
-.add('/:type/list/page-:page', {
+.add(`${ basePath }:type/list/page-:page`, {
   extends    : 'type-list'
 })
 
 // Type entries > Add
-.add('/:type/add', {
+.add(`${ basePath }:type/add`, {
   id         : 'form',
   title      : 'Entries > Add',
   controller : require('./view/type/form'),
@@ -45,14 +46,14 @@ router
 })
 
 // Type entries > Edit
-.add('/:type/edit/:id', {
+.add(`${ basePath }:type/edit/:id`, {
   extends    : 'form',
   title      : 'Entries > Edit',
   loggedIn   : true
 })
 
 // User settings
-.add('/user/settings', {
+.add(`${ basePath }user/settings`, {
   title      : 'User settings',
   controller : require('./view/users/settings'),
   template   : require('./view/users/settings.pug'),
@@ -60,7 +61,7 @@ router
 })
 
 // Edit website statics
-.add('/statics', {
+.add(`${ basePath }statics`, {
   title      : 'Website statics',
   controller : require('./view/statics'),
   template   : require('./view/statics.pug'),
@@ -68,9 +69,9 @@ router
 })
 
 // 404
-.add('/404', {
+.add(`${ basePath }404`, {
   title      : 'Not found',
   template   : require('./view/404.pug')
 })
 
-.otherwise('/404')
+router.otherwise(`${ basePath }404`)

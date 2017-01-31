@@ -9,6 +9,6 @@
             strong {{ user.username }}
 
         ul.dashboard-menu
-            li(v-for='(type, key) in schema.types'): a(:href='"/" + key + "/list"') {{ type.label | pluralise }}
-            li: a(v-if='user', href='/statics', :class='{ active: path === "/statics" }',) Statics
-            li: a(v-if='user', href='/user/settings', :class='{ active: path === "/user/settings" }',) Settings
+            li(v-for='(type, key) in config.schema.types'): a(:href='link("/" + key + "/list")') {{ type.label | pluralise }}
+            li: a(v-if='user', :href='link("/statics")') Statics
+            li: a(v-if='user', :href='link("/user/settings")') Settings

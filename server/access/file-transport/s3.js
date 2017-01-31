@@ -65,6 +65,7 @@ module.exports = function (nimda) {
    */
   function hasConfig() {
     return (
+      nimda.config &&
       nimda.config.key &&
       nimda.config.secret &&
       nimda.config.bucket &&

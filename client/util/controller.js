@@ -1,7 +1,8 @@
-const api = require('../core/api')
-const error = require('../core/error')
 const Promise = require('bluebird')
 const _ = require('lodash')
+const api = require('../core/api')
+const error = require('../core/error')
+const pathUtil = require('../util/path')
 
 /**
  * Controller util
@@ -65,4 +66,4 @@ function apiCall(endpointNs, body = null, query = null) {
   })
 }
 
-module.exports = { apiCall, loadFromApi }
+module.exports = { apiCall, loadFromApi, link: pathUtil.link }

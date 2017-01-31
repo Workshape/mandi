@@ -6,11 +6,11 @@
 
         .box.error.center(v-if='error') {{ error }}
 
-        p.center(v-if='entries && entries.length'): a(:href='"/" + type.key + "/add"') + New {{ type.label }}
+        p.center(v-if='entries && entries.length'): a(:href='link("/" + type.key + "/add")') + New {{ type.label }}
 
         .box.empty.center(v-if='entries && !entries.length')
             | No {{ type.key }} were added yet. 
-            a(:href='"/" + type.key + "/add"') Add one &raquo;
+            a(:href='link("/" + type.key + "/add")') Add one &raquo;
 
         .table.table-list(v-if='entries && entries.length')
 
@@ -24,7 +24,7 @@
                     field-display(:value='entry[key]', :type='type.schema[key].type')
 
                 .td.actions: .button-group
-                    a.button(:href='"/" + type.key + "/edit/" + entry.id') &#x270E;
+                    a.button(:href='link("/" + type.key + "/edit/" + entry.id)') &#x270E;
                     a.button(v-on:click.prevent='moveEntry(entry.id, "up")') &#x2191;
                     a.button(v-on:click.prevent='moveEntry(entry.id, "down")') &#x2193;
                     a.button(v-on:click.prevent='cloneEntry(entry.id)') &#9901;

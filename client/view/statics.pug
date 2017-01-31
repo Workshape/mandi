@@ -6,7 +6,7 @@
 
         form.capped.center(v-on:submit.prevent='save()', v-if='!loading && values')
         
-            .field(v-for='(field, key, i) in schema.statics', class='field.type')
+            .field(v-for='(field, key, i) in config.schema.statics', class='field.type')
                 label {{ field.label }}
                 field-input(v-model='values[key]', :type='field.type')
                 .tip {{ field.tip }}

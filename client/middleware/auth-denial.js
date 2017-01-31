@@ -1,5 +1,6 @@
 const router = require('../core/router')
 const auth = require('../core/auth')
+const { basePath } = require('../config')
 
 /**
  * API service Auth Denial middleware
@@ -17,12 +18,10 @@ const auth = require('../core/auth')
  */
 module.exports = function (req, next) {
   this.once('response', res => {
-    if (this.properties.disableDenial) {
-      return
-    }
+    if (this.properties.disableDenial) { return }
 
     if (res.status === 401) {
-      router.goTo('/sign-in')
+      router.goTo(`${ basePath }sign-in`)
       auth.setToken(null)
     }
   })

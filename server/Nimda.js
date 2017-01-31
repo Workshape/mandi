@@ -1,13 +1,17 @@
+const path = require('path')
+const _ = require('lodash')
 const koa = require('koa')
 const body = require('koa-body')
 const serve = require('koa-static')
 const mount = require('koa-mount')
 const routes = require('./routes')
+const stringUtil = require('../common/util/string')
 const clientEntry = require('./middleware/client-entry')
 const errorHandler = require('./middleware/error-handler')
 const methods = require('./middleware/methods')
 const logger = require('./middleware/logger')
 const cookies = require('./middleware/cookies')
+const defaults = require('../config/default.json')
 
 /**
  * Server entry module
@@ -26,7 +30,8 @@ module.exports = class Nimda {
    */
   constructor(config, schema = {}) {
     // Set config
-    this.config = config
+    this.config = _.extend({}, defaults, config)
+    this.config.basePath = stringUtil.ensureTrailingSlash(this.config.basePath)
 
     // Instanciate utils and schema loader
     this.util = require('./util')(this)
@@ -37,6 +42,7 @@ module.exports = class Nimda {
 
     // Instanciate modules
     this.db = require('./access/db')(this)
+    this.fileTransports = require('./access/file-transport')(this)
     this.file = require('./access/file')(this)
     this.orm = require('./orm')(this)
     this.setup = require('./setup')(this)
@@ -70,9 +76,21 @@ module.exports = class Nimda {
    * @return {void}
    */
   init() {
+    let uploadsDir
+
+    // Resolve uploads dir
+    if (this.config.uploadsDir) {
+      uploadsDir = this.config.uploadsDir
+    } else {
+      uploadsDir = path.resolve(__dirname, '../uploads')
+    }
+
+    console.log(uploadsDir)
+
     if (this._initialised) {
       throw new Error('This Nimda instance was already initialised')
     }
+
     this._initialised = true
 
     if (this.config) {
@@ -88,7 +106,7 @@ module.exports = class Nimda {
     this.app.use(methods(this))
     this.app.use(routes(this))
     this.app.use(serve('www'))
-    this.app.use(mount('/uploads', serve('uploads')))
+    this.app.use(mount('/uploads', serve(uploadsDir)))
     this.app.use(clientEntry(this))
 
     // Log initialisation
@@ -107,7 +125,15 @@ module.exports = class Nimda {
     let fn
 
     this.init().then(() => {
-      fn = this.app.callback()
+      let app = this.app
+
+      if (this.config.basePath && this.config.basePath.length > 1) {
+        let basePath = stringUtil.removeTrailingSlash(this.config.basePath)
+        app = koa()
+        app.use(mount(basePath, this.app))
+      }
+
+      fn = app.callback()
     })
 
     return function (req, res) {

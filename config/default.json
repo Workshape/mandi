@@ -11,5 +11,7 @@
     "secret" : null,
     "bucket" : null,
     "region" : "us-standard"
-  }
+  },
+  "basePath"   : "/",
+  "uploadsDir" : null
 }

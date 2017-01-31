@@ -2,6 +2,7 @@ const Vue = require('vue/dist/vue.js')
 const router = require('../core/router')
 const error = require('../core/error')
 const template = require('./pagination.pug')()
+const { basePath } = require('../config')
 
 /**
  * Pagination component
@@ -30,7 +31,7 @@ function goTo(page) {
   if (page > this.pagination.pages || page < 1) { return }
 
   if (this.pathFormat) {
-    router.goTo(this.pathFormat.replace(':page', page))
+    router.goTo(basePath, this.pathFormat.replace(':page', page))
   } else if (this.change) {
     this.change(page)
   } else {

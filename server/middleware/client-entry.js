@@ -1,4 +1,6 @@
-const send = require('koa-send')
+const pug = require('pug')
+const path = require('path')
+const Promise = require('bluebird')
 
 /**
  * Client Entry middleware
@@ -7,8 +9,9 @@ const send = require('koa-send')
  */
 
 const RESERVED_PATHS = [ 'api' ]
+const ENTRY_FILE = '../../view/index.pug'
 
-module.exports = function () {
+module.exports = function (nimda) {
 
   /**
    * Respond with index.html file
@@ -20,10 +23,26 @@ module.exports = function () {
     let segments = this.request.path.split('/').splice(1)
 
     if (RESERVED_PATHS.indexOf(segments[0]) === -1) {
-      yield send(this, 'index.html', { root: './www' })
+      this.body = yield renderEntryFile()
+      return
     }
 
     yield next
+  }
+
+  /**
+   * Render entry file
+   *
+   * @return {Promise}
+   */
+  function renderEntryFile() {
+    return new Promise((resolve, reject) => {
+      let fpath = path.resolve(__dirname, ENTRY_FILE)
+
+      pug.renderFile(fpath, { pretty: true, nimda }, (err, result) => {
+        err ? reject(err) : resolve(result)
+      })
+    })
   }
 
 }

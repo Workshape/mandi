@@ -1,5 +1,5 @@
 const Validator = require('../../../common/util/Validator')
-const { schema } = require('../../store')
+const config = require('../../config')
 const router = require('../../core/router')
 
 /**
@@ -9,7 +9,7 @@ const router = require('../../core/router')
  */
 
 const scope = req => {
-  let type = schema.get('types')[req.namedParams.type]
+  let type = config.schema.types[req.namedParams.type]
   let { id } = req.namedParams
   let mode = id ? 'edit' : 'create'
 
@@ -73,11 +73,10 @@ function save() {
     }
   }
 
-  console.log(payload)
   this.apiCall(`types.${ this.id ? 'update' : 'save' }`, payload)
   .then(res => {
     let { id } = res.entry
-    router.goTo(`/${ this.type.key }/edit/${ id }`)
+    router.goTo(`${ config.basePath }${ this.type.key }/edit/${ id }`)
   })
 }
 

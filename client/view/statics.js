@@ -1,4 +1,4 @@
-const { schema } = require('../store')
+const config = require('../config')
 const Validator = require('../../common/util/Validator')
 
 /**
@@ -10,7 +10,7 @@ const Validator = require('../../common/util/Validator')
 const scope = () => ({
   values    : getEmptyValues(),
   valid     : false,
-  validator : new Validator(schema.get('statics')),
+  validator : new Validator(config.schema.statics),
   changed   : false,
   success   : false
 })
@@ -62,7 +62,7 @@ function save() {
 function getEmptyValues() {
   let out = {}
 
-  for (let key in schema.get().statics) {
+  for (let key in config.schema.statics) {
     out[key] = null
   }
 

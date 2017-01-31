@@ -14,6 +14,7 @@ module.exports = function (nimda) {
    */
   function * load() {
     this.body = nimda.schema
+    this.body.basePath = nimda.config.basePath || '/'
   }
 
 }

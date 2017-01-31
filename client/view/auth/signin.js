@@ -2,6 +2,7 @@ const api = require('../../core/api')
 const error = require('../../core/error')
 const auth = require('../../core/auth')
 const router = require('../../core/router')
+const { basePath } = require('../../config')
 
 /**
  * Sign in page controller
@@ -50,7 +51,7 @@ function submit() {
     let { token } = res.body
 
     return auth.setToken(token).then(() => {
-      router.goTo(this.redirectTo || '/')
+      router.goTo(this.redirectTo || `${ basePath }`)
     })
     .catch(error.handle)
   }, res => {

@@ -1,8 +1,9 @@
 const Vue = require('vue/dist/vue.js')
+const pathUtil = require('../util/path')
 const auth = require('../core/auth')
 const template = require('./header.pug')
 const router = require('../core/router')
-const { schema } = require('../store')
+const config = require('../config')
 const filters = require('../filters')
 
 /**
@@ -22,22 +23,22 @@ function init() {
     template : template(),
     data      : {
       user    : auth.getUser(),
-      schema  : schema.get(),
-      path    : cleanPath(),
+      config  : config,
+      path    : pathUtil.cleanPath(),
       open    : false
     },
     methods  : {
       logout,
       segment,
-      toggle
+      toggle,
+      link : pathUtil.link
     },
     filters,
     created
   })
 
   auth.on('change', user => header.user = user)
-  schema.on('change', schema => header.schema = schema)
-  router.on('change', () => header.path = cleanPath())
+  router.on('change', () => header.path = pathUtil.cleanPath())
 }
 
 /**
@@ -67,16 +68,8 @@ function created() {
  * @return {String}
  */
 function segment(path, index) {
+  path = pathUtil.removeBasePath(path)
   return path.substr(1).split('/')[index] || null
-}
-
-/**
- * Get clean path from router (excluding query string or hash values)
- *
- * @return {String}
- */
-function cleanPath() {
-  return router.path.split(/[\#\?]/)[0]
 }
 
 /**
@@ -96,5 +89,7 @@ function toggle() {
 function logout() {
   auth.logout().then(() => router.refresh())
 }
+
+
 
 module.exports = { init }

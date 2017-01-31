@@ -1,19 +1,19 @@
-header(:class='{ open: open, reduced: Object.keys(schema.types).length > 4 }'): .page-width
+header(:class='{ open: open, reduced: Object.keys(config.schema.types).length > 4 }'): .page-width
 
-    a.logo(href='/'): h4 {{ schema.title }}
+    a.logo(:href='link("/")'): h4 {{ config.schema.title || 'Nimda' }}
 
     nav: .page-width
         a(
             v-if='user && user.groups && user.groups.indexOf("admin") !== -1'
-            v-for='(type, key) in schema.types',
+            v-for='(type, key) in config.schema.types',
             :class='{ active: segment(path, 0) === key }',
-            :href='"/" + key + "/list"'
+            :href='link("/" + key + "/list")'
             ) {{ type.label | pluralise }}
-        a(v-if='user', href='/statics', :class='{ active: path === "/statics" }',) Statics
-        a(v-if='user', href='/user/settings', :class='{ active: path === "/user/settings" }',) Settings
+        a(v-if='user', :href='link("/statics")', :class='{ active: path === "/statics" }') Statics
+        a(v-if='user', :href='link("/user/settings")', :class='{ active: path === "/user/settings" }') Settings
         a(v-if='user', v-on:click.prevent='logout()') Logout
 
-        a(v-if='!user', href='/sign-in', :class='{ active: path === "/sign-in" }') Login
+        a(v-if='!user', :href='link("/sign-in")', :class='{ active: path === "/sign-in" }') Login
 
     .toggle(:class-='{ open: open }', v-on:click.prevent='toggle()'): .hamburger
         span

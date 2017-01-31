@@ -1,4 +1,4 @@
-const { schema } = require('../../store')
+const config = require('../../config')
 const modal = require('../../core/modal')
 const router = require('../../core/router')
 
@@ -23,7 +23,7 @@ const methods = { update, deleteEntry, moveEntry, cloneEntry }
  * @return {void}
  */
 function ready(req) {
-  let type = schema.get('types')[req.namedParams.type]
+  let type = config.schema.types[req.namedParams.type]
   type.key = req.namedParams.type
   this.type = type
   this.update()
@@ -62,7 +62,7 @@ function moveEntry(id, direction = 'up') {
  * @return {Promise}
  */
 function deleteEntry(id) {
-  return modal.open('irm', {})
+  return modal.open('confirm', {})
   .then(confirmed => {
     if (!confirmed) { return }
 
@@ -82,8 +82,11 @@ function cloneEntry(id) {
   .then(confirmed => {
     if (!confirmed) { return }
 
-    return this.apiCall('types.clone', { type: this.type.key, id })
-    .then(res => router.goTo(`/${ this.type.key }/edit/${ res.entry.id }`))
+    let { basePath } = config
+    let { key } = this.type
+
+    return this.apiCall('types.clone', { type: key, id })
+    .then(res => router.goTo(`${ basePath }${ key }/edit/${ res.entry.id }`))
   })
 }
 

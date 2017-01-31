@@ -96,10 +96,43 @@ function tagsFromKeywordsSearch(string, map) {
   return out
 }
 
+/**
+ * Ensure returned String ends with a rtailing slash
+ *
+ * @param  {String} str
+ * @return {String}
+ */
+function ensureTrailingSlash(str) {
+  return str.substr(-1) === '/' ? str : `${ str || '' }/`
+}
+
+/**
+ * Remove trailing slash from String if found
+ *
+ * @param  {String} str
+ * @return {String}
+ */
+function removeTrailingSlash(str) {
+  return str.substr(-1) === '/' ? str.substr(0, str.length - 1) : str
+}
+
+/**
+ * Remove trailing slash from String if found
+ *
+ * @param  {String} str
+ * @return {String}
+ */
+function removeInitialSlash(str) {
+  return str.substr(0, 1) === '/' ? str.substr(1) : str
+}
+
 module.exports = {
   upperFirst,
   pluralise,
   zeropad,
   getArticle,
-  tagsFromKeywordsSearch
+  tagsFromKeywordsSearch,
+  ensureTrailingSlash,
+  removeTrailingSlash,
+  removeInitialSlash
 }

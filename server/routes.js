@@ -8,7 +8,6 @@ const authMiddleware = require('./middleware/auth')
  */
 
 module.exports = function (nimda) {
-
   // Intanciate auth middleware
   var auth = authMiddleware(nimda)
 

@@ -1,12 +1,12 @@
+const _ = require('lodash')
 const Vue = require('vue/dist/vue.js')
 const app = require('../core/app')
-const auth = require('../core/auth')
 const routy = require('routy')
+const auth = require('../core/auth')
 const filters = require('../filters')
 const arrayUtil = require('../../common/util/array')
 const controllerUtil = require('../util/controller')
-const stores = require('../store')
-const _ = require('lodash')
+const config = require('../config')
 
 /**
  * App Router
@@ -33,10 +33,6 @@ module.exports = router
  */
 router.init = function () {
   router.on('change', updateRoute).html5().run()
-
-  stores.schema.on('change', schema => {
-    if (view) { view.schema = schema }
-  })
 }
 
 /**
@@ -60,7 +56,7 @@ function updateRoute(route) {
   }
 
   scope = _.extend({}, SCOPE_DEFAULTS, scope, {
-    schema : stores.schema.get(),
+    config : config,
     user   : auth.getUser(),
     path   : null
   })
@@ -71,9 +67,11 @@ function updateRoute(route) {
   // Redirection check for routes that require a logged in status
   if (typeof options.loggedIn === 'boolean' && !!user !== options.loggedIn) {
     if (options.loggedIn) {
-      return router.goTo(`/sign-in?redirect=${ router.path }`)
+      let redirectQuery = `?redirect=${ config.basePath }${ router.path }`
+      return router.goTo(`${ config.basePath }sign-in${ redirectQuery }`)
     }
-    return router.goTo('/')
+
+    return router.goTo(config.basePath)
   }
 
   // Redirection check for routes restricted to user groups
@@ -81,7 +79,7 @@ function updateRoute(route) {
     options.groups &&
     (!user || !arrayUtil.containsOneOf(user.groups, options.groups))
   ) {
-    return router.goTo('/')
+    return router.goTo(config.basePath)
   }
 
   // Clean up from previous view's VM

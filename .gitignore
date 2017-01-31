@@ -15,9 +15,6 @@ tmp
 # Build
 www/css/styles.css
 www/js/index.js
-www/*.html
-www/*/*.html
-www/*/*/*.html
 
 # OSX
 **.DS_Store

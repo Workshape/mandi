@@ -73,11 +73,11 @@ module.exports = function (nimda) {
    * @return {Object}
    */
   function getTransport() {
-    if (nimda.transports.s3.hasConfig()) {
-      return nimda.transports.s3
+    if (nimda.fileTransports.s3.hasConfig()) {
+      return nimda.fileTransports.s3
     }
 
-    return nimda.transports.local
+    return nimda.fileTransports.local
   }
 
 }

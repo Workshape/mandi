@@ -38,6 +38,8 @@ module.exports = function (nimda) {
     return function * (next) {
       let user = yield getCurrentUser(this)
 
+      this.user = user
+
       if (
         !user ||
         !arrayUtil.containsOneOf(user.groups || [], allowedGroups)
