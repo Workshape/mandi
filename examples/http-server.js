@@ -26,7 +26,7 @@ let schema = {
     }
   },
   statics: {
-    title: { extends: 'title', label   : 'Website title' },
+    title: { extends: 'title', label: 'Website title' },
     description: { extend: 'content', label: 'Website description' }
   }
 }

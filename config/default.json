@@ -13,5 +13,6 @@
     "region" : "us-standard"
   },
   "basePath"   : "/",
-  "uploadsDir" : null
+  "uploadsDir" : null,
+  "quiet"      : false
 }

@@ -110,6 +110,7 @@ This configuration is then loaded by the [config](https://www.npmjs.com/package/
 * `aws.bucket` (Env. `AWS_S3_BUCKET`) Your Amazon Web Services S3 Bucket name
 * `aws.region` (Env. `AWS_REGION`) Your Amazon Web Services S3 Bucket region (defaults to `us-standard`)
 * `uploadsDir` (Env. `UPLOADS_DIR`) Absoute path used to customise the uploads directory
+* `quiet` (Env. `QUIET`) Mute all the logs (they can still be detected binding listening to events with `.on('log', msg => { /* ... */ })`)
 
 JSON schema configuration
 ---
