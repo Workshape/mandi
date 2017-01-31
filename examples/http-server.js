@@ -1,4 +1,4 @@
-const Nimda = require('../server/Nimda')
+const Nimda = require('../lib/Nimda')
 const http = require('http')
 
 /**

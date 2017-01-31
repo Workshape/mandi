@@ -1,10 +1,10 @@
 {
   "name": "nimda",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
-  "main": "index.js",
+  "main": "lib/Nimda.js",
   "scripts": {
-    "start": "node server/run",
+    "start": "node lib/run.js",
     "build": "browserify -v -t pugify -t babelify client/index.js -o www/js/index.js; stylus -u nib -u griddy style/index.styl -o www/css/styles.css",
     "watch": "npm run build; watchify -v -t pugify -t babelify client/index.js -o www/js/index.js | stylus -u nib -u griddy style/index.styl -w -o www/css/styles.css | livereload www",
     "dev": "npm run watch | npm run watch-server",
