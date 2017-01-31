@@ -1,6 +1,6 @@
 {
   "name": "nimda",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "main": "lib/Nimda.js",
   "scripts": {
@@ -10,6 +10,10 @@
     "dev": "npm run watch | npm run watch-server",
     "watch-server": "nodemon --watch ./server --watch ./common --watch ./website.json --exec 'npm start'",
     "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Workshape/nimda"
   },
   "author": "Tancredi Trugenberger",
   "license": "ISC",
