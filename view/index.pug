@@ -30,6 +30,11 @@ html(lang='en')
         .overlay(data-role='overlay')
 
     script(type='text/javascript').
-        window.NIMDA_CONFIG = !{ JSON.stringify(nimda.config) };
+
+        window.NIMDA_CONFIG = {
+            basePath: '!{ nimda.config.basePath || '/' }'
+        };
+
         window.NIMDA_SCHEMA = !{ JSON.stringify(nimda.schema) };
+
     script(src=nimda.config.basePath + 'js/index.js', type='text/javascript')

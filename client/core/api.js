@@ -41,17 +41,6 @@ module.exports = new Service(`${ basePath }api`)
  * Types
  */
 
-// Get schema
-.add('schema.load', {
-  method : 'get',
-  route  : 'schema'
-})
-
-
-/**
- * Types
- */
-
 // Get single entry by id for type
 .add('types.get', {
   method : 'get',
