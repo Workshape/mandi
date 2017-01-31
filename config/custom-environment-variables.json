@@ -11,5 +11,6 @@
     "secret" : "AWS_SECRET",
     "bucket" : "AWS_S3_BUCKET",
     "region" : "AWS_REGION"
-  }
+  },
+  "uploadsDir" : "UPLOADS_DIR"
 }

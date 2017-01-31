@@ -13,9 +13,26 @@ let config = {
   basePath  : '/admin',
   publicUrl : 'http://localhost:8000/admin'
 }
+let schema = {
+  title: 'My simple blog',
+  types: {
+    posts: {
+      label: 'Post',
+      schema: {
+        cover: { extends: 'image', label: 'Cover' },
+        name: { extends: 'name' },
+        content: { extends : 'content' }
+      }
+    }
+  },
+  statics: {
+    title: { extends: 'title', label   : 'Website title' },
+    description: { extend: 'content', label: 'Website description' }
+  }
+}
 
 // Instanciate Nimda
-let nimda = new Nimda(config, {})
+let nimda = new Nimda(config, schema)
 
 // Instanciate a HTTPServer using Nimda's middleware function
 let server = http.createServer(nimda.middleware())

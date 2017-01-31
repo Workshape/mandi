@@ -1,8 +1,10 @@
 # Beatle CMS
 
-A lightweight, configurable CMS build using [Koa](http://koajs.com/), [MongoDB](https://www.mongodb.com/), [Pug](https://pugjs.org/), [Vue.js](https://vuejs.org/) and [Stylus](http://stylus-lang.com/)
+A lightweight, configurable CMS build using [Koa](http://koajs.com/), [MongoDB](https://www.mongodb.com/), [Pug](https://pugjs.org/), [Vue.js](https://vuejs.org/) and [Stylus](http://stylus-lang.com/).
 
-Setting up and configuring this application will provide you with a simple interface to manage (create, edit, delete, ..) data entries based on a custom JSON schema
+Setting up and configuring this application will provide you with a simple interface to manage (create, edit, delete, ..) data entries based on a custom JSON schema.
+
+Nimda can be cloned or be installed as an npm module and integrated with a pre-existing node application or HttpServer.
 
 Requirements
 ---
@@ -13,9 +15,13 @@ Requirements
 Set-up
 ---
 
+You can use Nimda in 2 diffent ways:
+
+#### Method 1 - clone the repo
+
 To set-up this codebase on your development environment please follow these steps:
 
-```bash
+```
 git clone https://www.github.com/tancredi/nimda
 cd nimda
 npm install
@@ -27,6 +33,66 @@ Before running the app, you still have to
 * Confgure the app (Basic configuration)
 * Setup the CMS JSON schema (JSON configuration)
 
+#### Method 2 - integrate in your node server
+
+You can install nimda using npm:
+
+```
+npm install --save nimda
+```
+
+Then create an instance and integrate it onto your pre-existing http node server:
+
+```
+const Nimda = require('../lib/Nimda')
+const http = require('http')
+
+/**
+ * Examples > HTTP server
+ *
+ * Mount a Nimda instance on a HTTPServer using the `middleware()` method
+ */
+
+// Create a simple configuration
+let config = {
+  mongo     : { url: 'mongodb://localhost/nimda-cms' },
+  basePath  : '/admin',
+  publicUrl : 'http://localhost:8000/admin'
+}
+let schema = {
+  title: 'My simple blog',
+  types: {
+    posts: {
+      label: 'Post',
+      schema: {
+        cover: { extends: 'image', label: 'Cover' },
+        name: { extends: 'name' },
+        content: { extends : 'content' }
+      }
+    }
+  },
+  statics: {
+    title: { extends: 'title', label   : 'Website title' },
+    description: { extend: 'content', label: 'Website description' }
+  }
+}
+
+// Instanciate Nimda
+let nimda = new Nimda(config, schema)
+
+// Instanciate a HTTPServer using Nimda's middleware function
+let server = http.createServer(nimda.middleware())
+
+// Start server on port 8000
+server.listen(8000)
+
+// The Nimda interface should now be available at localhost:8000/admin
+nimda.util.log.info('Running Nimda on', 'http://localhost:8000/admin')
+```
+
+The Nimda class takes two arguments: **config** (the application configuration, including MongoDB credentials, port, path to be started on, etc..) and **schema** (which specifies the data structure and configuration of the cms itself)
+
+
 Basic configuration
 ---
 
@@ -35,6 +101,7 @@ Before starting, you need to amend the basic website configuration - you can cre
 This configuration is then loaded by the [config](https://www.npmjs.com/package/config) module - and you can override the following properties:
 
 * `publicUrl` (Env. `PUBLIC_URL`) The base URL the CMS will be served at (without trailing slash)
+* `basePath` The base path the CMS will be served at (useful if mounting an instance of Nimda on a pre-existing HttpServer)
 * `secret` (Env. `SECRET`) A secret used to hash passwords
 * `port` (Env. `PORT`) The port the website is gonna be served at by Node.js
 * `mongo.url` (Env `MONGO_URL`) The URL of the mongo database (by default `mongodb://localhost/nimda
@@ -42,6 +109,7 @@ This configuration is then loaded by the [config](https://www.npmjs.com/package/
 * `aws.secret` (Env. `AWS_SECRET`) Your Amazon Web Services secret
 * `aws.bucket` (Env. `AWS_S3_BUCKET`) Your Amazon Web Services S3 Bucket name
 * `aws.region` (Env. `AWS_REGION`) Your Amazon Web Services S3 Bucket region (defaults to `us-standard`)
+* `uploadsDir` (Env. `UPLOADS_DIR`) Absoute path used to customise the uploads directory
 
 JSON schema configuration
 ---
