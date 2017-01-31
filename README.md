@@ -1,4 +1,4 @@
-# Beatle CMS
+# Nimda CMS
 
 A lightweight, configurable CMS build using [Koa](http://koajs.com/), [MongoDB](https://www.mongodb.com/), [Pug](https://pugjs.org/), [Vue.js](https://vuejs.org/) and [Stylus](http://stylus-lang.com/).
 
@@ -12,14 +12,14 @@ Requirements
 - Node.js (v7.0.0+)
 - MongoDB (v3.2.0+)
 
-Set-up
+Setup
 ---
 
 You can use Nimda in 2 diffent ways:
 
 #### Method 1 - clone the repo
 
-To set-up this codebase on your development environment please follow these steps:
+To setup this codebase on your development environment please follow these steps:
 
 ```
 git clone https://www.github.com/tancredi/nimda
