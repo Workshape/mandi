@@ -8,9 +8,8 @@ config/production.json
 config/staging.json
 config/local.json
 uploads/*
-!tmp/.gitkeep
+tmp/upload_*
 schema.json
-tmp
 
 # OSX
 **.DS_Store
