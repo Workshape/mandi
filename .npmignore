@@ -11,5 +11,8 @@ uploads/*
 tmp/upload_*
 schema.json
 
+# Examples
+examples
+
 # OSX
 **.DS_Store
