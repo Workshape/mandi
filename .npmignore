@@ -1,0 +1,16 @@
+# Node
+node_modules
+npm-debug.log*
+
+# App
+config/development.json
+config/production.json
+config/staging.json
+config/local.json
+uploads/*
+!tmp/.gitkeep
+schema.json
+tmp
+
+# OSX
+**.DS_Store
