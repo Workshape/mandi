@@ -1,5 +1,7 @@
 # Nimda CMS
 
+![https://s23.postimg.org/own7689i3/Screen_Shot_2017_01_31_at_20_26_47.png](Nimda dashboard screenshot)
+
 A lightweight, configurable CMS build using [Koa](http://koajs.com/), [MongoDB](https://www.mongodb.com/), [Pug](https://pugjs.org/), [Vue.js](https://vuejs.org/) and [Stylus](http://stylus-lang.com/).
 
 Setting up and configuring this application will provide you with a simple interface to manage (create, edit, delete, ..) data entries based on a custom JSON schema.
@@ -21,7 +23,7 @@ You can use Nimda in 2 diffent ways:
 
 To setup this codebase on your development environment please follow these steps:
 
-```
+```bash
 git clone https://www.github.com/tancredi/nimda
 cd nimda
 npm install
@@ -37,13 +39,13 @@ Before running the app, you still have to
 
 You can install nimda using npm:
 
-```
+```bash
 npm install --save nimda
 ```
 
 Then create an instance and integrate it onto your pre-existing http node server:
 
-```
+```javascript
 const Nimda = require('../lib/Nimda')
 const http = require('http')
 
@@ -96,9 +98,17 @@ The Nimda class takes two arguments: **config** (the application configuration, 
 Basic configuration
 ---
 
+#### Using Method 1
+
 Before starting, you need to amend the basic website configuration - you can create a `development.json` / `production.json` / `staging.json` files that match the current environment name (defined throught the environment variable `NODE_ENV`) or by writing a `local.json` which will override on any environment - these files are added to the `.gitignore`
 
-This configuration is then loaded by the [config](https://www.npmjs.com/package/config) module - and you can override the following properties:
+This configuration is then loaded by the [config](https://www.npmjs.com/package/config) module - and each property can be overridden with an environment variable
+
+#### Using Method 2
+
+The configuration defaults to the one in `config/default.json` but it passed to the `Nimda` constructor
+
+#### Configuration options:
 
 * `publicUrl` (Env. `PUBLIC_URL`) The base URL the CMS will be served at (without trailing slash)
 * `basePath` The base path the CMS will be served at (useful if mounting an instance of Nimda on a pre-existing HttpServer)

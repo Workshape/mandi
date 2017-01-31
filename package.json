@@ -1,7 +1,7 @@
 {
   "name": "nimda",
-  "version": "1.0.7",
-  "description": "",
+  "version": "1.0.8",
+  "description": "A lightweight, configurable CMS build using Koa, MongoDB, Vue.js and Stylus",
   "main": "lib/Nimda.js",
   "scripts": {
     "start": "node lib/run.js",
