@@ -115,8 +115,7 @@ Then, you just need to run the server:
 npm run
 ```
 
-Nimda()
-
+Nimda class
 ---
 
 #### Arguments
