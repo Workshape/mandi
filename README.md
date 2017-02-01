@@ -123,6 +123,18 @@ Nimda class
 * `config` (Object) - an object containing server / db configuration (see 'Basic configuration')
 * `schema` (Object) - an object containing the data structure of the CMS (See JSON schema configuration)
 
+#### Methods
+
+* `.listen([ String port ])` Listen on given port - if port is not passed, will default to port specified the config Object passed to the constructor
+* `.middleware()` Gets callback Function to be attached to a HTTP server (see `callback()` method on [Koa documentation](https://github.com/koajs/koa/blob/master/docs/api/index.md#appcallback))
+* `.on(String eventName, Function callback)` Bind a callback to a specified event
+
+#### Events 
+
+Nimda is an EventEmitter
+
+* `log` [ `String message` ] Nimda emits events for each of its logs - the app can also be muted using the `quiet` configuration option, so that it's possible to manage logs in a custom way
+
 Basic configuration
 ---
 
