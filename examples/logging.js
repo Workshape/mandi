@@ -1,5 +1,4 @@
 const Nimda = require('../lib/Nimda')
-const http = require('http')
 
 /**
  * Examples > Logging
@@ -21,11 +20,5 @@ let nimda = new Nimda(config, schema)
 // Bind logging to console
 nimda.on('log', console.log)
 
-// Instanciate a HTTPServer using Nimda's middleware function
-let server = http.createServer(nimda.middleware())
-
 // Start server on port 8000
-server.listen(8000)
-
-// The Nimda interface should now be available at localhost:8000/admin
-nimda.util.log.info('Running Nimda on', 'http://localhost:8000/admin')
+nimda.listen(8000)

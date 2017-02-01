@@ -14,46 +14,23 @@ Requirements
 - Node.js (v7.0.0+)
 - MongoDB (v3.2.0+)
 
-Setup
+
+Quick usage
 ---
 
-You can use Nimda in 2 diffent ways:
-
-#### Method 1 - clone the repo
-
-To setup this codebase on your development environment please follow these steps:
-
-```bash
-git clone https://www.github.com/tancredi/nimda
-cd nimda
-npm install
-npm run build
-```
-
-Before running the app, you still have to
-
-* Confgure the app (Basic configuration)
-* Setup the CMS JSON schema (JSON configuration)
-
-#### Method 2 - integrate in your node server
-
-You can install nimda using npm:
+Install nimda using npm:
 
 ```bash
 npm install --save nimda
 ```
 
-Then create an instance and integrate it onto your pre-existing http node server:
+#### Attach to a http server
+
+Create a Nimda instance and integrate it onto a pre-existing http node server:
 
 ```javascript
 const Nimda = require('../lib/Nimda')
 const http = require('http')
-
-/**
- * Examples > HTTP server
- *
- * Mount a Nimda instance on a HTTPServer using the `middleware()` method
- */
 
 // Create a simple configuration
 let config = {
@@ -92,19 +69,63 @@ server.listen(8000)
 nimda.util.log.info('Running Nimda on', 'http://localhost:8000/admin')
 ```
 
-The Nimda class takes two arguments: **config** (the application configuration, including MongoDB credentials, port, path to be started on, etc..) and **schema** (which specifies the data structure and configuration of the cms itself)
+#### Run Nimda app on its own
 
+Create a Nimda instance initialise it on its own
+
+```javascript
+const Nimda = require('../lib/Nimda')
+const http = require('http')
+
+// Create a simple configuration
+let config = {
+  port : 8000
+  // ...
+}
+let schema = {
+  // ...
+}
+
+// Instanciate Nimda
+let nimda = new Nimda(config, schema)
+
+// Instanciate a HTTPServer using Nimda's middleware function
+nimda.listen()
+```
+
+#### Run without npm (clone the repo and run standalone)
+
+To setup this codebase on your development environment please follow these steps:
+
+```bash
+git clone https://www.github.com/workshape/nimda
+cd nimda
+npm install
+npm run build
+```
+
+Before running the app, you still have to
+
+* Confgure the app (Basic configuration)
+* Write the CMS JSON schema in `./schema.json` (use `./schema.default.json` as reference)
+
+Then, you just need to run the server:
+
+```bash
+npm run
+```
+
+Nimda()
+
+---
+
+#### Arguments
+
+* `config` (Object) - an object containing server / db configuration (see 'Basic configuration')
+* `schema` (Object) - an object containing the data structure of the CMS (See JSON schema configuration)
 
 Basic configuration
 ---
-
-#### Using Method 1
-
-Before starting, you need to amend the basic website configuration - you can create a `development.json` / `production.json` / `staging.json` files that match the current environment name (defined throught the environment variable `NODE_ENV`) or by writing a `local.json` which will override on any environment - these files are added to the `.gitignore`
-
-This configuration is then loaded by the [config](https://www.npmjs.com/package/config) module - and each property can be overridden with an environment variable
-
-#### Using Method 2
 
 The configuration defaults to the one in `config/default.json` but it passed to the `Nimda` constructor
 
@@ -148,29 +169,44 @@ Types are basically validation schemas that will determine the UI the CMS genera
 Here's the type you can find in the default CMS configuration `website.default.json`:
 
 ```json
-{ "types": {
+{
+  "types": {
 
-  "posts": {
-    "label": "Post",
-    "schema": {
+    "posts": {
+      "label": "Post",
+      "schema": {
 
-      "cover": {
-        "extends" : "image",
-        "label"   : "Cover"
+        "cover": {
+          "extends" : "image",
+          "label"   : "Cover"
+        },
+
+        "name": {
+          "extends" : "name"
+        },
+
+        "content": {
+          "extends" : "content"
+        }
+
+      }
+    },
+
+  },
+  "statics": {
+
+      "title": {
+        "extends" : "title",
+        "label"   : "Website title"
       },
 
-      "name": {
-        "extends" : "name"
-      },
-
-      "content": {
-        "extends" : "content"
+      "description": {
+        "extends" : "content",
+        "label"   : "Website description"
       }
 
-    }
   }
-
-} }
+}
 ```
 
 Each type contains the following properties:
