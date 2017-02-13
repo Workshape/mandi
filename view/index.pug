@@ -4,7 +4,7 @@ html(lang='en')
     head
 
         //- CSS
-        link(type='text/css', href=nimda.config.basePath + 'css/styles.css', rel='stylesheet')
+        link(type='text/css', href=mandi.config.basePath + 'css/styles.css', rel='stylesheet')
 
         //- Meta
         meta(charset='utf-8')
@@ -16,10 +16,10 @@ html(lang='en')
         meta(name='viewport', content='initial-scale=1, maximum-scale=1, user-scalable=no')
 
         //- Title
-        title=nimda.schema.title
+        title=mandi.schema.title
 
         //- Icons
-        link(rel='shortcut icon', type='image/x-icon', href=nimda.config.basePath + 'assets/favicon.ico')
+        link(rel='shortcut icon', type='image/x-icon', href=mandi.config.basePath + 'assets/favicon.ico')
 
     body
 
@@ -32,10 +32,10 @@ html(lang='en')
     script(type='text/javascript').
 
         window.NIMDA_CONFIG = {
-            basePath : '!{ nimda.config.basePath || '/' }'
+            basePath : '!{ mandi.config.basePath || '/' }'
         };
 
-        window.NIMDA_SCHEMA = !{ JSON.stringify(nimda.schema) };
+        window.NIMDA_SCHEMA = !{ JSON.stringify(mandi.schema) };
 
-    script(src=nimda.config.basePath + 'js/vendor/quill.min.js', type='text/javascript')
-    script(src=nimda.config.basePath + 'js/index.js', type='text/javascript')
+    script(src=mandi.config.basePath + 'js/vendor/quill.min.js', type='text/javascript')
+    script(src=mandi.config.basePath + 'js/index.js', type='text/javascript')

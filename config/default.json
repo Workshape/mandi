@@ -4,7 +4,7 @@
   "secret"     : "cmssmc",
   "port"       : 4000,
   "mongo"      : {
-    "url" : "mongodb://localhost/nimda-cms"
+    "url" : "mongodb://localhost/mandi-cms"
   },
   "aws"        : {
     "key"    : null,

@@ -1,12 +1,12 @@
-# Nimda CMS
+# Mandi CMS
 
-![Nimda dashboard screenshot](https://s23.postimg.org/own7689i3/Screen_Shot_2017_01_31_at_20_26_47.png)
+![Mandi dashboard screenshot](https://s23.postimg.org/own7689i3/Screen_Shot_2017_01_31_at_20_26_47.png)
 
 A lightweight, configurable CMS build using [Koa](http://koajs.com/), [MongoDB](https://www.mongodb.com/), [Pug](https://pugjs.org/), [Vue.js](https://vuejs.org/) and [Stylus](http://stylus-lang.com/).
 
 Setting up and configuring this application will provide you with a simple interface to manage (create, edit, delete, ..) data entries based on a custom JSON schema.
 
-Nimda can be cloned or be installed as an npm module and integrated with a pre-existing node application or HttpServer.
+Mandi can be cloned or be installed as an npm module and integrated with a pre-existing node application or HttpServer.
 
 Requirements
 ---
@@ -18,23 +18,23 @@ Requirements
 Quick usage
 ---
 
-Install nimda using npm:
+Install mandi using npm:
 
 ```bash
-npm install --save nimda
+npm install --save mandi
 ```
 
 #### Attach to a http server
 
-Create a Nimda instance and integrate it onto a pre-existing http node server:
+Create a Mandi instance and integrate it onto a pre-existing http node server:
 
 ```javascript
-const Nimda = require('../lib/Nimda')
+const Mandi = require('../lib/Mandi')
 const http = require('http')
 
 // Create a simple configuration
 let config = {
-  mongo     : { url: 'mongodb://localhost/nimda-cms' },
+  mongo     : { url: 'mongodb://localhost/mandi-cms' },
   basePath  : '/admin',
   publicUrl : 'http://localhost:8000/admin'
 }
@@ -56,25 +56,25 @@ let schema = {
   }
 }
 
-// Instanciate Nimda
-let nimda = new Nimda(config, schema)
+// Instanciate Mandi
+let mandi = new Mandi(config, schema)
 
-// Instanciate a HTTPServer using Nimda's middleware function
-let server = http.createServer(nimda.middleware())
+// Instanciate a HTTPServer using Mandi's middleware function
+let server = http.createServer(mandi.middleware())
 
 // Start server on port 8000
 server.listen(8000)
 
-// The Nimda interface should now be available at localhost:8000/admin
-nimda.util.log.info('Running Nimda on', 'http://localhost:8000/admin')
+// The Mandi interface should now be available at localhost:8000/admin
+mandi.util.log.info('Running Mandi on', 'http://localhost:8000/admin')
 ```
 
-#### Run Nimda app on its own
+#### Run Mandi app on its own
 
-Create a Nimda instance initialise it on its own
+Create a Mandi instance initialise it on its own
 
 ```javascript
-const Nimda = require('../lib/Nimda')
+const Mandi = require('../lib/Mandi')
 const http = require('http')
 
 // Create a simple configuration
@@ -86,11 +86,11 @@ let schema = {
   // ...
 }
 
-// Instanciate Nimda
-let nimda = new Nimda(config, schema)
+// Instanciate Mandi
+let mandi = new Mandi(config, schema)
 
-// Instanciate a HTTPServer using Nimda's middleware function
-nimda.listen()
+// Instanciate a HTTPServer using Mandi's middleware function
+mandi.listen()
 ```
 
 #### Run without npm (clone the repo and run standalone)
@@ -98,8 +98,8 @@ nimda.listen()
 To setup this codebase on your development environment please follow these steps:
 
 ```bash
-git clone https://www.github.com/workshape/nimda
-cd nimda
+git clone https://www.github.com/workshape/mandi
+cd mandi
 npm install
 npm run build
 ```
@@ -115,7 +115,7 @@ Then, you just need to run the server:
 npm run
 ```
 
-Nimda class
+Mandi class
 ---
 
 #### Arguments
@@ -131,22 +131,22 @@ Nimda class
 
 #### Events 
 
-Nimda is an EventEmitter
+Mandi is an EventEmitter
 
-* `log` [ `String message` ] Nimda emits events for each of its logs - the app can also be muted using the `quiet` configuration option, so that it's possible to manage logs in a custom way
+* `log` [ `String message` ] Mandi emits events for each of its logs - the app can also be muted using the `quiet` configuration option, so that it's possible to manage logs in a custom way
 
 Basic configuration
 ---
 
-The configuration defaults to the one in `config/default.json` but it passed to the `Nimda` constructor
+The configuration defaults to the one in `config/default.json` but it passed to the `Mandi` constructor
 
 #### Configuration options:
 
 * `publicUrl` (Env. `PUBLIC_URL`) The base URL the CMS will be served at (without trailing slash)
-* `basePath` The base path the CMS will be served at (useful if mounting an instance of Nimda on a pre-existing HttpServer)
+* `basePath` The base path the CMS will be served at (useful if mounting an instance of Mandi on a pre-existing HttpServer)
 * `secret` (Env. `SECRET`) A secret used to hash passwords
 * `port` (Env. `PORT`) The port the website is gonna be served at by Node.js
-* `mongo.url` (Env `MONGO_URL`) The URL of the mongo database (by default `mongodb://localhost/nimda
+* `mongo.url` (Env `MONGO_URL`) The URL of the mongo database (by default `mongodb://localhost/mandi
 * `aws.key` (Env. `AWS_KEY`) Your Amazon Web Services key (optional - AWS configuration is used for S3 file uploads, but will fall back on local file system if not setup)
 * `aws.secret` (Env. `AWS_SECRET`) Your Amazon Web Services secret
 * `aws.bucket` (Env. `AWS_S3_BUCKET`) Your Amazon Web Services S3 Bucket name
@@ -279,4 +279,4 @@ The following npm tasks are available to support development workflow:
 Licence
 ---
 
-Copyright (c) 2017 WorkShape.io Ltd. - Released under the [MIT license](https://github.com/tancredi/nimda/blob/master/LICENSE)
+Copyright (c) 2017 WorkShape.io Ltd. - Released under the [MIT license](https://github.com/tancredi/mandi/blob/master/LICENSE)

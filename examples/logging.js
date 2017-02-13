@@ -1,4 +1,4 @@
-const Nimda = require('../lib/Nimda')
+const Mandi = require('../lib/Mandi')
 
 /**
  * Examples > Logging
@@ -14,11 +14,11 @@ let config = {
 }
 let schema = {} // Your schema here..
 
-// Instanciate Nimda
-let nimda = new Nimda(config, schema)
+// Instanciate Mandi
+let mandi = new Mandi(config, schema)
 
 // Bind logging to console
-nimda.on('log', console.log)
+mandi.on('log', console.log)
 
 // Start server on port 8000
-nimda.listen(8000)
+mandi.listen(8000)

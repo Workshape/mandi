@@ -1,8 +1,8 @@
 {
-  "name": "nimda",
-  "version": "1.0.18",
+  "name": "mandi",
+  "version": "1.0.20",
   "description": "A lightweight, configurable CMS build using Koa, MongoDB, Vue.js and Stylus",
-  "main": "lib/Nimda.js",
+  "main": "lib/Mandi.js",
   "scripts": {
     "start": "node lib/run.js",
     "build": "browserify -v -t pugify -t babelify client/index.js -o www/js/index.js; stylus -u nib -u griddy style/index.styl -o www/css/styles.css",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Workshape/nimda"
+    "url": "https://github.com/Workshape/mandi"
   },
   "author": "Tancredi Trugenberger",
   "license": "ISC",
