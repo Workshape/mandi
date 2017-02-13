@@ -32,9 +32,10 @@ html(lang='en')
     script(type='text/javascript').
 
         window.NIMDA_CONFIG = {
-            basePath: '!{ nimda.config.basePath || '/' }'
+            basePath : '!{ nimda.config.basePath || '/' }'
         };
 
         window.NIMDA_SCHEMA = !{ JSON.stringify(nimda.schema) };
 
+    script(src=nimda.config.basePath + 'js/vendor/quill.min.js', type='text/javascript')
     script(src=nimda.config.basePath + 'js/index.js', type='text/javascript')

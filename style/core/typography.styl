@@ -22,9 +22,6 @@ h1, .h1, h2, .h2, h3, .h4, h4, .h4, h5, .h5, h6, .h6
   font-weight normal
   color color-heading
 
-  a
-    color color-heading
-
   &.normal
     font-family font-base
 
@@ -44,11 +41,25 @@ h1, .h1, h2, .h2, h3, .h4, h4, .h4, h5, .h5, h6, .h6
       padding 0 20px
       border-right 1px solid rgba(color-brand, .2)
 
-      &:after
-        content ' \00bb'
-
       &:last-child
         border-right 0
+
+.crumbs
+
+  a
+    color color-heading
+    transition color .2s
+
+    &:hover
+      color color-brand
+
+      &:after
+        color color-heading
+
+    &:not(:last-child):after
+      content '\00bb'
+      display inline-block
+      margin 0 10px
 
 .center
   text-align center

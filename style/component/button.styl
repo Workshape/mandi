@@ -1,3 +1,20 @@
+$button
+  vertical-rhythm()
+  horizontal-rhythm()
+  no-select()
+  border-radius 3px
+  border 0
+  cursor pointer
+  padding 16px 24px
+  display inline-block
+  box-sizing border-box
+  font-size 15px
+  font-family font-base
+  text-transform uppercase
+  transition background-color .2s, opacity .2s, color .2s, border .2s, box-shadow .2s
+  font-weight 100
+  smooth-font(false)
+
 button-color(base-color = color-white, text-color = color-brand)
   darker-tone = darken(base-color, 6)
 
@@ -18,22 +35,9 @@ button-color(base-color = color-white, text-color = color-brand)
     box-shadow rgba(base-color, .2) 0 0 0 3px
 
 button, .button, input[type='submit'], input[type='reset']
-  vertical-rhythm()
+  @extend $button
+
   button-color(color-black, color-white)
-  horizontal-rhythm()
-  no-select()
-  border-radius 3px
-  border 0
-  cursor pointer
-  padding 16px 24px
-  display inline-block
-  box-sizing border-box
-  font-size 15px
-  font-family font-base
-  text-transform uppercase
-  transition background-color .2s, opacity .2s, color .2s, border .2s, box-shadow .2s
-  font-weight 100
-  smooth-font(false)
 
   &.small
     padding 10px 15px
@@ -51,6 +55,9 @@ button, .button, input[type='submit'], input[type='reset']
     display block
     width 100%
     text-align center
+
+  &.alt
+    button-color(lighten(color-black, 20), color-white)
 
   &.brand
     button-color(color-brand, color-white)

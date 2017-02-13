@@ -10,6 +10,12 @@
 .tr
   display table-row
 
+a.tr
+  color color-text
+
+  a
+    color color-link
+
 .td, .th
   display table-cell
 
@@ -48,18 +54,19 @@
     overflow hidden
 
   .actions
-    actions-size = 20px
+    actions-size = 23px
 
-    width 20px
+    width (actions-size * 4) + 50px
+    text-align center
+    padding 0
 
-    button, .button
+    button
+      smooth-font()
       width actions-size
       height actions-size
       line-height actions-size
       padding 0
-      font-size 9px
-      margin-top -10px
-      margin-bottom -10px
-      position relative
-      top -3px
+      font-size 14px
       text-align center
+      display inline-block
+      position relative

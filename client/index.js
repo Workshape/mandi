@@ -17,6 +17,7 @@ const authDenial = require('./middleware/auth-denial')
 require('./component/pagination')
 require('./component/field-display')
 require('./component/field-input')
+require('./component/wysiwyg-editor')
 
 // Import routes
 require('./routes')

@@ -2,7 +2,9 @@
 
     section.full-height(v-if='type'): .inner: .page-width
 
-        h3.center {{ type.label | pluralise }} &raquo; List
+        h3.crumbs.center
+            a(href='/') Types
+            span {{ type.label | pluralise }}
 
         .box.error.center(v-if='error') {{ error }}
 
@@ -18,17 +20,33 @@
                 .th(v-for='field in type.schema', v-if='!field.secondary') {{ field.label }}
                 .th.actions
 
-            .tbody: .tr(v-for='entry in entries', :id='entry.id')
+            .tbody: template(v-for='entry in entries')
+                a.tr(:id='entry.id', :href='link("/" + type.key + "/edit/" + entry.id)')
 
-                .td(v-for='(field, key) in type.schema', :class='type.schema[key].type', v-if='!field.secondary')
-                    field-display(:value='entry[key]', :type='type.schema[key].type')
+                    .td(v-for='(field, key) in type.schema', :class='type.schema[key].type', v-if='!field.secondary')
+                        field-display(:value='entry[key]', :type='type.schema[key].type')
 
-                .td.actions: .button-group
-                    a.button(:href='link("/" + type.key + "/edit/" + entry.id)') &#x270E;
-                    a.button(v-on:click.prevent='moveEntry(entry.id, "up")') &#x2191;
-                    a.button(v-on:click.prevent='moveEntry(entry.id, "down")') &#x2193;
-                    a.button(v-on:click.prevent='cloneEntry(entry.id)') &#9901;
-                    button.danger(v-on:click.prevent='deleteEntry(entry.id)') x
+                    .td.actions: .button-group
+
+                        button(v-on:click.prevent='editEntry(entry.id)')
+                            | &#x270E;
+                            .hover-tooltip Edit
+
+                        button.alt(v-on:click.prevent='moveEntry(entry.id, "up")')
+                            | &#x2191;
+                            .hover-tooltip Move up
+
+                        button(v-on:click.prevent='moveEntry(entry.id, "down")')
+                            | &#x2193;
+                            .hover-tooltip Move down
+
+                        button.alt(v-on:click.prevent='cloneEntry(entry.id)')
+                            | &#9901;
+                            .hover-tooltip Duplicate
+
+                        button.danger(v-on:click.prevent='deleteEntry(entry.id)')
+                            | x
+                            .hover-tooltip Delete
 
         pagination(v-if='pagination && pagination.pages > 1', :pagination='pagination', :path-format='"/" + type.key + "/list/page-:page"')
 

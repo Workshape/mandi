@@ -17,8 +17,15 @@
           "extends" : "name"
         },
 
+        "excerpt": {
+          "extends" : "content",
+          "label"   : "Excerpt",
+          "tip"     : "Plane text - short and descriptive"
+        },
+
         "content": {
-          "extends" : "content"
+          "extends" : "html",
+          "label"   : "HTML content"
         }
 
       }

@@ -1,0 +1,39 @@
+.wysiwyg-editor
+  position relative
+
+  .ql-toolbar.ql-snow
+    border-color color-input-stroke
+    border-radius 3px 3px 0 0
+
+  .ql-container.ql-snow
+    border-color color-input-stroke
+    border-radius 0 0 3px 3px
+
+  .ql-editor
+    font-size 15px
+    padding 25px 30px
+
+    img
+      max-width 100%
+
+  .ql-hidden
+    display none
+
+  .ql-toolbar
+    border-bottom 1px solid color-input-stroke
+
+  button
+    margin 0
+    button-color(rgba(0, 0, 0, 0))
+    color color-text
+    padding 15px
+
+    &, &:hover, &:focus:not(.disabled)
+      box-shadow none
+
+  input.ql-image
+    position absolute
+    opacity 0
+    width 1px
+    height 1px
+    pointer-events none

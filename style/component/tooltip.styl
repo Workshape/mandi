@@ -1,0 +1,33 @@
+.hover-tooltip
+  smooth-font()
+  border-radius 3px
+  opacity 0
+  position absolute
+  padding 15px
+  top 100%
+  left 50%
+  margin-top 15px
+  transform translateX(-50%)
+  box-sizing  border-box
+  width 150px
+  pointer-events none
+  transition opacity .2s
+  background color-black
+  box-shadow rgba(#000, .15) 0 1px 5px
+  z-index 9
+  text-align center
+  text-transform none
+
+  &:after
+    tooltip-tail(color-black, 'top')
+    content ''
+    position absolute
+    left 50%
+    bottom 100%
+    margin-left -10px
+
+  &, p, h4
+      font-weight 100
+
+*:hover > .hover-tooltip
+  opacity 1

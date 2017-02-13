@@ -20,4 +20,15 @@ function removeProtocol(url) {
   return url
 }
 
-module.exports = _.extend({ removeProtocol }, stringUtil)
+/**
+ * Remove tags from HTML
+ *
+ * @param  {String} html
+ * @return {String}
+ */
+function stripTags(html) {
+  if (!html || typeof html !== 'string') { return html }
+  return html.replace(/(<([^>]+)>)/ig, '')
+}
+
+module.exports = _.extend({ removeProtocol, stripTags }, stringUtil)

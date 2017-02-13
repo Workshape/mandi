@@ -196,8 +196,15 @@ Here's the type you can find in the default CMS configuration `website.default.j
           "extends" : "name"
         },
 
+        "excerpt": {
+          "extends" : "content",
+          "label"   : "Excerpt",
+          "tip"     : "Plane text - short and descriptive"
+        },
+
         "content": {
-          "extends" : "content"
+          "extends" : "html",
+          "label"   : "HTML content"
         }
 
       }

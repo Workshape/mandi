@@ -15,7 +15,7 @@ const scope = req => ({
   entries    : null,
   pagination : null
 })
-const methods = { update, deleteEntry, moveEntry, cloneEntry }
+const methods = { update, editEntry, deleteEntry, moveEntry, cloneEntry }
 
 /**
  * Controller is ready
@@ -53,6 +53,16 @@ function moveEntry(id, direction = 'up') {
 
   return this.apiCall(`types.move${ dir }`, { type: this.type.key, id })
   .then(this.update)
+}
+
+/**
+ * Go to edit view
+ *
+ * @param  {String} id
+ * @return {void}
+ */
+function editEntry(id) {
+  router.goTo(`/${ this.type.key }/edit/${ id }`)
 }
 
 /**

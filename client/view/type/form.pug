@@ -4,9 +4,10 @@
 
         template(v-if='!loading && entry')
 
-            h3.center
+            h3.crumbs.center
+                a(href='/') Types
                 a(:href='link("/" + type.key + "/list")') {{ type.label | pluralise }}
-                |  &raquo; {{ entry.id ? 'Edit' : 'Add' }}
+                span {{ entry.id ? 'Edit' : 'Add' }}
 
             form.center.capped(v-on:submit.prevent='save()')
 

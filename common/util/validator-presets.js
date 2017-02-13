@@ -1,4 +1,5 @@
 const PRESETS = {}
+const _ = require('lodash')
 
 /**
  * Validator presets
@@ -92,7 +93,7 @@ PRESETS.title = {
   }
 }
 
-// Text content (optional, max 1500 characters)
+// Content (optional, max 1500 characters)
 PRESETS.content = {
   label : 'Content',
   rules : {
@@ -101,6 +102,16 @@ PRESETS.content = {
     maxLength : 1500
   }
 }
+
+// Content optional, max 1500 characters)
+PRESETS.html = _.extend({}, PRESETS.content, {
+  label : 'HTML'
+})
+
+// Markdown
+PRESETS.html = _.extend({}, PRESETS.content, {
+  label : 'Markdown'
+})
 
 // Amount (number)
 PRESETS.amount = {
@@ -118,9 +129,9 @@ PRESETS.file = {
 }
 
 // Image (optional)
-PRESETS.image = {
+PRESETS.image = _.extend({}, PRESETS.file, {
   label : 'Image',
   rules : {}
-}
+})
 
 module.exports = PRESETS

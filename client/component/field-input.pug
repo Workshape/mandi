@@ -8,7 +8,8 @@
     input.block(v-if='type === "flag"', type='checkbox', v-bind:checked='value', v-on:change='updateValue($event.target.checked)')
     input.block(v-if='type === "amount"', type='number', v-bind:value='value', v-on:input='updateValue(parseInt($event.target.value, 10))')
     input.block(v-if='type === "phone"', type='tel', v-bind:value='value', v-on:input='updateValue($event.target.value, 10)')
-    textarea.block(v-if='type === "content"', v-bind:value='value', v-on:input='updateValue($event.target.value)')
+    textarea.block(v-if='type === "content" || type === "markdown"', v-bind:value='value', v-on:input='updateValue($event.target.value)')
+    wysiwyg-editor.block(v-if='type === "html"', v-bind:value='value', v-on:input='updateValue($event.target.value)')
 
     .file-input(v-if='type === "image" || type === "file"')
         img.image(v-if='type === "image" && value && typeof value === "string"', :src='value')
