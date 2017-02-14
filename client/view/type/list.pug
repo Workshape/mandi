@@ -3,7 +3,7 @@
     section.full-height(v-if='type'): .inner: .page-width
 
         h3.crumbs.center
-            a(href='/') Types
+            a(:href='link("/")') Types
             span {{ type.label | pluralise }}
 
         .box.error.center(v-if='error') {{ error }}

@@ -1,6 +1,6 @@
 {
   "name": "mandi",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "A lightweight, configurable CMS build using Koa, MongoDB, Vue.js and Stylus",
   "main": "lib/Mandi.js",
   "scripts": {

@@ -5,7 +5,7 @@
         template(v-if='!loading && entry')
 
             h3.crumbs.center
-                a(href='/') Types
+                a(:href='link("/")') Types
                 a(:href='link("/" + type.key + "/list")') {{ type.label | pluralise }}
                 span {{ entry.id ? 'Edit' : 'Add' }}
 
