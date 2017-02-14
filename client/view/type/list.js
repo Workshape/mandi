@@ -1,6 +1,7 @@
 const config = require('../../config')
 const modal = require('../../core/modal')
 const router = require('../../core/router')
+const pathUtil = require('../../util/path')
 
 /**
  * Dashboard controller
@@ -62,8 +63,7 @@ function moveEntry(id, direction = 'up') {
  * @return {void}
  */
 function editEntry(id) {
-  console.log(id, `/${ this.type.key }/edit/${ id }`)
-  router.goTo(`/${ this.type.key }/edit/${ id }`)
+  router.goTo(pathUtil.link(`/${ this.type.key }/edit/${ id }`))
 }
 
 /**
