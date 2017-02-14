@@ -112,7 +112,7 @@ Before running the app, you still have to
 Then, you just need to run the server:
 
 ```bash
-npm run
+npm start
 ```
 
 Mandi class
