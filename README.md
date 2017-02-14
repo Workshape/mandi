@@ -125,15 +125,15 @@ Mandi class
 
 #### Methods
 
-* `.listen([ String port ])` Listen on given port - if port is not passed, will default to port specified the config Object passed to the constructor
+* `.listen( port : String )` Listen on given port - if port is not passed, will default to port specified the config Object passed to the constructor
 * `.middleware()` Gets callback Function to be attached to a HTTP server (see `callback()` method on [Koa documentation](https://github.com/koajs/koa/blob/master/docs/api/index.md#appcallback))
-* `.on(String eventName, Function callback)` Bind a callback to a specified event
+* `.on( eventName : String, callback : Function )` Bind a callback to a specified event
 
 #### Events 
 
-Mandi is an EventEmitter
+Mandi is an [EventEmitter](https://nodejs.org/api/events.html)
 
-* `log` [ `String message` ] Mandi emits events for each of its logs - the app can also be muted using the `quiet` configuration option, so that it's possible to manage logs in a custom way
+* event: `log` - args: [ `message : String` ] Mandi emits events for each of its logs - the app can also be muted using the `quiet` configuration option, so that it's possible to manage logs in a custom way
 
 Basic configuration
 ---
