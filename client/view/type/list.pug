@@ -21,7 +21,7 @@
                 .th.actions
 
             .tbody: template(v-for='entry in entries')
-                a.tr(:id='entry.id', v-on:click='editEntry(entry.id)')
+                .tr.clickable(:id='entry.id', v-on:click='editEntry(entry.id)')
 
                     .td(v-for='(field, key) in type.schema', :class='type.schema[key].type', v-if='!field.secondary')
                         field-display(:value='entry[key]', :type='type.schema[key].type')

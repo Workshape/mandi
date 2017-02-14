@@ -62,6 +62,7 @@ function moveEntry(id, direction = 'up') {
  * @return {void}
  */
 function editEntry(id) {
+  console.log(id, `/${ this.type.key }/edit/${ id }`)
   router.goTo(`/${ this.type.key }/edit/${ id }`)
 }
 
