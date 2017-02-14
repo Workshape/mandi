@@ -29,6 +29,17 @@ PRESETS.url = {
   }
 }
 
+// URL
+PRESETS.slug = {
+  label : 'Slug',
+  rules : {
+    required  : true,
+    regex     : 'slug',
+    type      : 'string',
+    maxLength : 500
+  }
+}
+
 // Flag (Boolean)
 PRESETS.flag = {
   label : 'Flagged',
