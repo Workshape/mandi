@@ -1,6 +1,6 @@
 # Mandi CMS
 
-![Mandi dashboard screenshot](https://s23.postimg.org/own7689i3/Screen_Shot_2017_01_31_at_20_26_47.png)
+![Mandi dashboard screenshot](http://i.imgur.com/n9JSl2A.png)
 
 A lightweight, configurable CMS build using [Koa](http://koajs.com/), [MongoDB](https://www.mongodb.com/), [Pug](https://pugjs.org/), [Vue.js](https://vuejs.org/) and [Stylus](http://stylus-lang.com/).
 
