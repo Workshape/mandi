@@ -16,3 +16,4 @@
         input.file-hidden(type='file', v-on:change='updateValue($event.target.files[0])')
         a.button.small(v-on:click.prevent='chooseFile') Choose
         span.file-display(v-if='value') {{ value.name || value }}
+        a.button.small.danger(v-if='value', v-on:click.prevent='removeFile') &times;

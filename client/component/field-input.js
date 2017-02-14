@@ -10,7 +10,7 @@ const config = require('../config')
 Vue.component('field-input', {
   template,
   props   : [ 'type', 'value' ],
-  methods : { updateValue, chooseFile },
+  methods : { updateValue, chooseFile, removeFile },
   data    : () => ({ config })
 })
 
@@ -31,4 +31,13 @@ function updateValue(value) {
  */
 function chooseFile() {
   this.$el.querySelector('input[type="file"]').click()
+}
+
+/**
+ * Remove file
+ *
+ * @return {void}
+ */
+function removeFile() {
+  this.$emit('input', null)
 }
