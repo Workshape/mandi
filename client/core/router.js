@@ -5,7 +5,6 @@ const routy = require('routy')
 const auth = require('../core/auth')
 const filters = require('../filters')
 const arrayUtil = require('../../common/util/array')
-const pathUtil = require('../util/path')
 const controllerUtil = require('../util/controller')
 const config = require('../config')
 

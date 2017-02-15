@@ -39,3 +39,18 @@ spinner-sized(size)
 
   &.small
     spinner-sized(spinner-size / 2)
+
+.loading-overlay
+  full-cover(fixed)
+  background rgba(color-gray, .8)
+  z-index 3
+  opacity 0
+  pointer-events none
+  transition opacity .2s
+
+  .spinner
+    absolute-center()
+
+  &.show
+    opacity 1
+    pointer-events all
