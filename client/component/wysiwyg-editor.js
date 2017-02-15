@@ -40,9 +40,11 @@ function init() {
         [ 'bold', 'italic', 'underline', 'strike' ],
         [ 'link', 'image' ],
         [ { 'header': [ 1, 2, 3, 4, 5, 6, false ] } ],
+        [ { 'color': [] } ],
         [ 'blockquote', 'code-block' ],
         [ { 'align': [] } ],
-        [ 'clean' ]
+        [ 'clean' ],
+        [ { 'list': 'ordered'}, { 'list': 'bullet' } ]
       ],
       history : true
     },
