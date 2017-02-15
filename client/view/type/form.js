@@ -120,13 +120,11 @@ function save() {
   .then(res => {
     this.loading = false
 
-    let { id } = res.entry
+    let { id } = res.body.entry
 
-    if (this.id) {
-      this.loadEntry()
-    } else {
-      router.goTo(`${ config.basePath }${ this.type.key }/edit/${ id }`)
-    }
+    this.mode = 'edit'
+    this.id = id
+    this.loadEntry()
   }, res => {
     modal.open('alert', { title: 'Error', text: res.body })
     this.loading = false
