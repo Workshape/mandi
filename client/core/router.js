@@ -69,9 +69,7 @@ function updateRoute(route) {
   if (typeof options.loggedIn === 'boolean' && !!user !== options.loggedIn) {
     if (options.loggedIn) {
       let { path } = router
-      let fullPath = pathUtil.merge(config.basePath, path)
-      let hasPath = path && path.length > 1
-      let redirectQuery = hasPath ? `?redirect=${ fullPath }` : ''
+      let redirectQuery = path ? `?redirect=${ path }` : ''
       return router.goTo(`${ config.basePath }sign-in${ redirectQuery }`)
     }
 
