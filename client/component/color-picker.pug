@@ -1,0 +1,23 @@
+.color-picker(:class='{ open: open, void: !value && !preview }')
+
+    .swatch(v-on:click='toggle')
+        .fill(:style='{ "background-color": preview || value }'): .hover-tooltip Change
+
+    .swatch.clear(v-if='value', v-on:click='clear()'): .hover-tooltip Clear
+
+    form.dialog(v-on:submit.prevent='apply')
+
+        .input-wrap
+
+            .input-wrap: input.block(
+                type='text',
+                v-model='baseColor',
+                :style='{ "background-color": preview || value, color: previewTextColor }'
+                v-on:input='onHexInput($event.target.value)'
+                )
+
+            .submit-wrap: button.cta.block(type='submit') Ok
+
+        .picker(ref='picker')
+
+        slider(v-model='alpha', min='0', max='1', step='.01')

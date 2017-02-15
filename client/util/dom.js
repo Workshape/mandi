@@ -4,6 +4,24 @@
  * Exports handy methods to work with DOM elements
  */
 
+/**
+ * Check whether element is child (or nested child) of a given parent element
+ *
+ * @param  {HTMLElement} el
+ * @param  {HTMLElement} parent
+ * @return {Boolean}
+ */
+function isChild(el, parent) {
+  let cur = el
+
+  while (cur.parentNode) {
+    if (cur === parent) { return true }
+    cur = cur.parentNode
+  }
+
+  return false
+}
+
  /**
   * Get elements matching given selector in Array forma as opposed to NodesList
   *
@@ -72,4 +90,6 @@ function toggleClass(element, className, state = null) {
   fn(element, className)
 }
 
-module.exports = { getElements, hasClass, addClass, removeClass, toggleClass}
+module.exports = {
+  getElements, hasClass, addClass, removeClass, toggleClass, isChild
+}

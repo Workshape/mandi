@@ -1,6 +1,7 @@
 const Vue = require('vue/dist/vue.js')
 const template = require('./field-input.pug')()
 const config = require('../config')
+
 /**
  * Field Input component
  *

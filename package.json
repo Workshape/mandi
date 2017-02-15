@@ -1,6 +1,6 @@
 {
   "name": "mandi",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "description": "A lightweight, configurable CMS build using Koa, MongoDB, Vue.js and Stylus",
   "main": "lib/Mandi.js",
   "scripts": {
@@ -27,6 +27,7 @@
     "bluebird": "^3.4.6",
     "browserify": "^13.1.0",
     "cli-color": "^1.1.0",
+    "color": "^1.0.3",
     "config": "^1.21.0",
     "email": "^0.2.6",
     "fs-extra": "^0.30.0",
@@ -62,12 +63,14 @@
     "randomstring": "^1.1.5",
     "request-promise": "^4.1.1",
     "routy": "^0.1.9",
+    "simple-color-picker": "^0.1.2",
     "slack": "^7.7.3",
     "slack-node": "^0.1.8",
     "slug": "^0.9.1",
     "stylus": "^0.54.5",
     "tiny-emitter": "^1.1.0",
     "vue": "^2.0.3",
+    "vue-range-slider": "^0.2.4",
     "watchify": "^3.7.0"
   }
 }

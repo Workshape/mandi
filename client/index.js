@@ -14,6 +14,7 @@ const authDenial = require('./middleware/auth-denial')
  */
 
 // Import components
+require('./component/color-picker')
 require('./component/pagination')
 require('./component/field-display')
 require('./component/field-input')

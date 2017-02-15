@@ -1,0 +1,55 @@
+slider-height = 10px
+rail-height = 5px
+knob-size = 20px
+rail-color = color-gray-light
+rail-fill-color = color-cta
+knob-color = color-white
+knob-border = 1px solid color-input-stroke
+
+.range-slider
+  display inline-block
+  padding 0 (knob-size / 2)
+  height slider-height
+  width 97%
+  margin-left -5px
+
+.range-slider-inner
+  display inline-block
+  position relative
+  height 100%
+  width 100%
+
+.range-slider-rail,
+.range-slider-fill
+  display block
+  position absolute
+  top 50%
+  left 0
+  height rail-height
+  border-radius 0
+  transform translateY(-50%)
+
+.range-slider-rail
+  width 100%
+  background-color rail-color
+
+.range-slider-fill
+  background-color rail-fill-color
+
+.range-slider-knob
+  display block
+  position absolute
+  top 50%
+  left 0
+  box-sizing border-box
+  height knob-size
+  width knob-size
+  border knob-border
+  border-radius 3px
+  background-color knob-color
+  box-shadow knob-shadow
+  transform translate(-50%, -50%)
+  cursor pointer
+
+.range-slider-hidden
+  display none
