@@ -5,6 +5,7 @@ const routy = require('routy')
 const auth = require('../core/auth')
 const filters = require('../filters')
 const arrayUtil = require('../../common/util/array')
+const pathUtil = require('../util/path')
 const controllerUtil = require('../util/controller')
 const config = require('../config')
 
@@ -67,7 +68,10 @@ function updateRoute(route) {
   // Redirection check for routes that require a logged in status
   if (typeof options.loggedIn === 'boolean' && !!user !== options.loggedIn) {
     if (options.loggedIn) {
-      let redirectQuery = `?redirect=${ config.basePath }${ router.path }`
+      let { path } = router
+      let fullPath = pathUtil.merge(config.basePath, path)
+      let hasPath = path && path.length > 1
+      let redirectQuery = hasPath ? `?redirect=${ fullPath }` : ''
       return router.goTo(`${ config.basePath }sign-in${ redirectQuery }`)
     }
 

@@ -37,4 +37,32 @@ function link(path) {
   return basePath + stringUtil.removeInitialSlash(path)
 }
 
-module.exports = { removeBasePath, cleanPath, link }
+/**
+ * Merge paths avoiding repeated trailing slashes
+ *
+ * @param  {..String..}
+ * @return {String}
+ */
+function merge() {
+  let parts = []
+
+  for (let i = 0; i < arguments.length; i++) {
+    let path = arguments[i]
+
+    // Remove trailing slash after path
+    if (path.substr(path.length - 1) === '/') {
+      path = path.substr(0, path.length - 1)
+    }
+
+    // Remove trailing slash before path (except for first segment)
+    if (i > 0 && path.substr(0, 1) == '/') {
+      path = path.substr(1)
+    }
+
+    parts.push(path)
+  }
+
+  return parts.join('/')
+}
+
+module.exports = { removeBasePath, cleanPath, link, merge }
