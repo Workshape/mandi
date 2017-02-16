@@ -18,7 +18,7 @@
 
                 .box.error(v-if='error && entry') {{ error }}
 
-                button.cta(type='submit', :class='{ disabled: !valid }') Save
+                button.cta(type='submit', :class='{ disabled: !valid || !changed }') Save
 
         .loading-overlay(:class='{ show: loading }'): .spinner
 

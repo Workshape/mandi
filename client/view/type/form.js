@@ -1,8 +1,9 @@
 const Validator = require('../../../common/util/Validator')
 const config = require('../../config')
-const router = require('../../core/router')
 const api = require('../../core/api')
+const path = require('../../util/path')
 const modal = require('../../core/modal')
+const router = require('../../core/router')
 
 /**
  * Type > Add controller
@@ -22,7 +23,8 @@ const scope = req => {
     entry     : getEmpty(type),
     loading   : mode === 'edit',
     validator : new Validator(type.schema),
-    valid     : false
+    valid     : false,
+    changed   : false
   }
 }
 const methods = { loadEntry, save, bind }
@@ -33,34 +35,59 @@ const methods = { loadEntry, save, bind }
  * @return {void}
  */
 function ready() {
+  this.preventChange = true
+
   if (this.mode === 'edit') { this.loadEntry() }
 
   this.bind()
 
-  this.$watch('entry', () => {
+  this.$watch('entry', (oldVal, newVal) => {
+    if (this.preventChange) { this.preventChange = false }
+    else { this.changed = true }
     this.valid = this.validator.validate(this.entry || {}).valid
     this.error = null
   }, { deep: true })
 }
 
 /**
- * bind all DOM events
+ * Start listening to all events
  *
  * @return {void}
  */
 function bind() {
   this._keydown = keydown.bind(this)
+  this._beforeRouteChange = beforeRouteChange.bind(this)
 
   window.addEventListener('keydown', this._keydown)
+  router.on('beforeChange', this._beforeRouteChange)
 }
 
 /**
- * Unbind all DOM events
+ * Stop listening to all events
  *
  * @return {void}
  */
 function beforeDestroy() {
   window.removeEventListener('keydown', this._keydown)
+  router.off('beforeChange', this._beforeRouteChange)
+}
+
+function beforeRouteChange(e) {
+  if (this.changed && !this._confimedExit) {
+    router.cancel = true
+
+    return modal.open('confirm', {
+      text        : 'Sure you want to leave without saving your changes?',
+      confirmText : 'Sure',
+      dangerous   : true
+    })
+    .then(confirmed => {
+      if (!confirmed) { return }
+
+      this._confimedExit = true
+      router.goTo(e.path)
+    })
+  }
 }
 
 /**
@@ -70,10 +97,14 @@ function beforeDestroy() {
  * @return {void}
  */
 function keydown(e) {
-   // CMD+S | CTRL+S
   if ((e.metaKey || e.ctrlKey || e.cmdKey) && e.keyCode === 83) {
+    // CMD+S | CTRL+S
     e.preventDefault()
+    e.stopPropagation()
     this.save()
+  } else if (e.keyCode === 8) {
+    // Backspace
+    router.goTo(path.link(`/${ this.type.key }/list`))
   }
 }
 
@@ -97,6 +128,8 @@ function getEmpty(type) {
  * @return {void}
  */
 function save() {
+  if (!this.changed) { return }
+
   let payload = { _type: this.type.key, id: this.id || null }
 
   this.error = this.validator.getError(this.entry)
@@ -125,6 +158,7 @@ function save() {
     this.mode = 'edit'
     this.id = id
     this.loadEntry()
+    .then(() => this.changed = false)
   }, res => {
     modal.open('alert', { title: 'Error', text: res.body })
     this.loading = false

@@ -5,9 +5,10 @@
  */
 
 const scope = {
-  title     : null, // Question user is asked confirm (required)
-  text      : null, // Additional explanation text (optonal)
-  dangerous : false // Default to Cancel instead of Ok if set to true (optonal)
+  title       : null, // Question user is asked confirm
+  text        : null, // Additional explanation text
+  confirmText : null, // Confirmation button label
+  dangerous   : false // Default to Cancel instead of Ok if set to true
 }
 
 module.exports = { scope }

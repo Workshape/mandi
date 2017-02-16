@@ -167,7 +167,15 @@ function unbind() {
  * @return {void}
  */
 function keydown(e) {
-  if (e.keyCode === 27) { this.reset() }
+  if (e.keyCode === 27) {
+    // Escape
+    e.preventDefault()
+    this.reset()
+  } else if (e.keyCode === 13) {
+    // Enter
+    e.preventDefault()
+    this.apply()
+  }
 }
 
 function mousedown(e) {
