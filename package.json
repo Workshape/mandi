@@ -1,6 +1,6 @@
 {
   "name": "mandi",
-  "version": "1.0.41",
+  "version": "1.0.42",
   "description": "A lightweight, configurable CMS build using Koa, MongoDB, Vue.js and Stylus",
   "main": "lib/Mandi.js",
   "scripts": {
@@ -33,6 +33,7 @@
     "fs-extra": "^0.30.0",
     "griddy": "^1.0.2",
     "icon-font-generator": "^1.0.4",
+    "image-size": "^0.5.1",
     "install": "^0.8.2",
     "jimp": "^0.2.27",
     "knox": "^0.9.2",

@@ -3,6 +3,7 @@ const config = require('../../config')
 const api = require('../../core/api')
 const modal = require('../../core/modal')
 const router = require('../../core/router')
+const path = require('../../util/path')
 
 /**
  * Type > Add controller
@@ -34,15 +35,12 @@ const methods = { loadEntry, save, bind }
  * @return {void}
  */
 function ready() {
-  this.preventChange = true
-
   if (this.mode === 'edit') { this.loadEntry() }
 
   this.bind()
 
-  this.$watch('entry', () => {
-    if (this.preventChange) { this.preventChange = false }
-    else { this.changed = true }
+  this.$watch('entry', (newValue, oldValue) => {
+    if (oldValue) { this.changed = true }
     this.valid = this.validator.validate(this.entry || {}).valid
     this.error = null
   }, { deep: true })
@@ -156,11 +154,17 @@ function save() {
     this.loading = false
 
     let { id } = res.body.entry
+    let changeMode = this.mode === 'create'
 
     this.mode = 'edit'
     this.id = id
     this.loadEntry()
-    .then(() => this.changed = false)
+    .then(() => {
+      this.changed = false
+      if (changeMode) {
+        router.setPath(path.link(`${ this.type.key }/edit/${ this.id }`))
+      }
+    })
   }, res => {
     modal.open('alert', { title: 'Error', text: res.body })
     this.loading = false

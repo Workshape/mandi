@@ -22,6 +22,7 @@ const SCOPE_DEFAULTS = {
 }
 
 var router = new routy.Router()
+var preventChange
 var view
 
 module.exports = router
@@ -36,12 +37,28 @@ router.init = function () {
 }
 
 /**
+ * Set path
+ *
+ * @param  {String} path
+ * @return {void}
+ */
+router.setPath = function (path) {
+  preventChange = true
+  router.goTo(path)
+}
+
+/**
  * Handle route change
  *
  * @param  {Object} route
  * @return {boid}
  */
 function updateRoute(route) {
+  if (preventChange) {
+    preventChange = false
+    return
+  }
+
   let options = route.route.options
   let controller = options.controller ? options.controller : {}
   let scope = controller.scope || {}
