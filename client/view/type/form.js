@@ -1,7 +1,6 @@
 const Validator = require('../../../common/util/Validator')
 const config = require('../../config')
 const api = require('../../core/api')
-const path = require('../../util/path')
 const modal = require('../../core/modal')
 const router = require('../../core/router')
 
@@ -20,7 +19,7 @@ const scope = req => {
 
   return {
     id, type, mode,
-    entry     : getEmpty(type),
+    entry     : id ? null : getEmpty(type),
     loading   : mode === 'edit',
     validator : new Validator(type.schema),
     valid     : false,
@@ -41,7 +40,7 @@ function ready() {
 
   this.bind()
 
-  this.$watch('entry', (oldVal, newVal) => {
+  this.$watch('entry', () => {
     if (this.preventChange) { this.preventChange = false }
     else { this.changed = true }
     this.valid = this.validator.validate(this.entry || {}).valid
