@@ -72,6 +72,12 @@ function beforeDestroy() {
   router.off('beforeChange', this._beforeRouteChange)
 }
 
+/**
+ * Prompt confirmation before leaving route if there's unsaved changes
+ *
+ * @param  {RouteChangeEvent} e
+ * @return {void}
+ */
 function beforeRouteChange(e) {
   if (this.changed && !this._confimedExit) {
     router.cancel = true
@@ -102,9 +108,6 @@ function keydown(e) {
     e.preventDefault()
     e.stopPropagation()
     this.save()
-  } else if (e.keyCode === 8) {
-    // Backspace
-    router.goTo(path.link(`/${ this.type.key }/list`))
   }
 }
 

@@ -14,7 +14,6 @@ Requirements
 - Node.js (v7.0.0+)
 - MongoDB (v3.2.0+)
 
-
 Quick usage
 ---
 
