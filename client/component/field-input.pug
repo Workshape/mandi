@@ -3,7 +3,6 @@
     input.block(v-if='type === "name" || type === "title" || type === "slug"', type='text', v-bind:value='value', v-on:input='updateValue($event.target.value)')
     input.block(v-if='type === "email"', type='email', v-bind:value='value', v-on:input='updateValue($event.target.value)')
     input.block(v-if='type === "url"', type='url', v-bind:value='value', v-on:input='updateValue($event.target.value)')
-    //- input.color.block(v-if='type === "color"', type='text', v-bind:value='value', :style='{ "background-color": value }', v-on:input='updateValue($event.target.value)')
     color-picker(v-if='type === "color"', v-bind:value='value', v-on:input='updateValue($event.target.value)')
     input.block(v-if='type === "password"', type='password', v-bind:value='value', v-on:input='updateValue($event.target.value)')
     input.block(v-if='type === "flag"', type='checkbox', v-bind:checked='value', v-on:change='updateValue($event.target.checked)')
@@ -13,7 +12,7 @@
     wysiwyg-editor.block(v-if='type === "html"', v-bind:value='value', v-on:input='updateValue($event.target.value)')
 
     .file-input(v-if='type === "image" || type === "file"')
-        img.image(v-if='type === "image" && value && typeof value === "string"', :src='value')
+        img.image(v-if='type === "image" && value && typeof value === "string"', :src='value + "?" + cachebuster')
         input.file-hidden(type='file', v-on:change='updateValue($event.target.files[0])')
         a.button.small(v-on:click.prevent='chooseFile') Choose
         span.file-display(v-if='value') {{ value.name || value }}

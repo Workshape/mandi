@@ -11,9 +11,19 @@ const config = require('../config')
 Vue.component('field-input', {
   template,
   props   : [ 'type', 'value' ],
-  methods : { updateValue, chooseFile, removeFile },
-  data    : () => ({ config })
+  methods : { updateValue, chooseFile, removeFile, updateCachebuster },
+  data    : () => ({ config, cachebuster: 0 }),
+  created
 })
+
+/**
+ * Initialise component
+ *
+ * @return {void}
+ */
+function created() {
+  this.$watch('value', this.updateCachebuster)
+}
 
 /**
  * Set given value
@@ -41,4 +51,13 @@ function chooseFile() {
  */
 function removeFile() {
   this.$emit('input', null)
+}
+
+/**
+ * Increment cachebuster open change
+ *
+ * @return {void}
+ */
+function updateCachebuster() {
+  this.cachebuster++
 }
