@@ -1,8 +1,8 @@
 const Vue = require('vue/dist/vue.js')
 const router = require('../core/router')
 const error = require('../core/error')
+const pathUtil = require('../util/path')
 const template = require('./pagination.pug')()
-const { basePath } = require('../config')
 
 /**
  * Pagination component
@@ -31,9 +31,9 @@ function goTo(page) {
   if (page > this.pagination.pages || page < 1) { return }
 
   if (this.pathFormat) {
-    router.goTo(basePath, this.pathFormat.replace(':page', page))
+    router.goTo(pathUtil.link(this.pathFormat.replace(':page', page)))
   } else if (this.change) {
-    this.change(page)
+    this.change(pathUtil.link(page))
   } else {
     error.handle(new Error('No pagination handler was declared'))
   }
