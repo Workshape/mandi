@@ -1,6 +1,7 @@
 const Vue = require('vue/dist/vue.js')
 const template = require('./wysiwyg-editor.pug')()
 const Quill = require('quill')
+const domUtil= require('../util/dom')
 
 /**
  * Wysiwyg Editor component
@@ -11,7 +12,8 @@ const Quill = require('quill')
 Vue.component('wysiwyg-editor', {
   template,
   props   : [ 'value' ],
-  methods : { init, textChange },
+  data    : () => ({ fullscreen: false }),
+  methods : { init, textChange, toggleFullscreen },
   mounted,
   beforeDestroy
 })
@@ -44,18 +46,25 @@ function init() {
         [ 'blockquote', 'code-block' ],
         [ { 'align': [] } ],
         [ 'clean' ],
-        [ { 'list': 'ordered'}, { 'list': 'bullet' } ]
+        [ { 'list': 'ordered'}, { 'list': 'bullet' } ],
+        [ 'full-screen' ],
       ],
       history : true
     },
     theme: 'snow'
   })
 
+  var toolbar = this._editor.getModule('toolbar');
+
   if (this.value && this.value !== '') {
     this._editor.pasteHTML(this.value)
   }
 
   this._editor.on('text-change', this.textChange)
+
+  const fullScreenButton = this.$el.querySelector('.ql-full-screen')
+
+  fullScreenButton.addEventListener('click', e => this.toggleFullscreen())
 }
 
 /**
@@ -79,4 +88,14 @@ function textChange() {
 function beforeDestroy() {
   if (!this._editor) { return }
   this._editor.off('text-change', this.textChange)
+}
+
+/**
+ * Toggle fullscreen mode
+ *
+ * @return {void}
+ */
+function toggleFullscreen() {
+  const state = this.fullscreen = !this.fullscreen
+  domUtil.toggleClass(document.body, 'show-overlay', state)
 }

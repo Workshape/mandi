@@ -37,3 +37,30 @@
     width 1px
     height 1px
     pointer-events none
+
+  .ql-full-screen:after
+    bg-image('ui/icon-full-screen', contain, false, false, 'svg')
+    content ''
+    width 18px
+    height 18px
+    display inline-block
+
+  .ql-full-screen:hover:after
+    bg-image('ui/icon-full-screen-hover', false, false, false, 'svg')
+
+  &.fullscreen
+    full-cover(fixed)
+    z-index 99
+    background color-white
+    overflow auto
+    
+    .ql-container
+      padding-top 40px
+
+    .ql-toolbar
+      position fixed
+      left 0
+      top 0
+      width 100%
+      background color-white
+      z-index 999
