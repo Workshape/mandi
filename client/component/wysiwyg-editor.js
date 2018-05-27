@@ -13,8 +13,9 @@ Vue.component('wysiwyg-editor', {
   template,
   props   : [ 'value' ],
   data    : () => ({ fullscreen: false }),
-  methods : { init, textChange, toggleFullscreen },
+  methods : { init, bind, textChange, toggleFullscreen, onKeyDown },
   mounted,
+  destroyed,
   beforeDestroy
 })
 
@@ -26,6 +27,15 @@ Vue.component('wysiwyg-editor', {
 function mounted() {
   // Next tick..
   setTimeout(() => this.init())
+}
+
+/**
+ * Detach event listeners
+ *
+ * @return {void}
+ */
+function destroyed() {
+  window.removeEventListener('keydown', this.keyDownHandler)
 }
 
 /**
@@ -60,11 +70,25 @@ function init() {
     this._editor.pasteHTML(this.value)
   }
 
+  this.bind()
+}
+
+/**
+ * Bind event listeners
+ *
+ * @return {void}
+ */
+function bind() {
+  // Listen for value change
   this._editor.on('text-change', this.textChange)
 
+  // Listen for full screen button click
   const fullScreenButton = this.$el.querySelector('.ql-full-screen')
-
   fullScreenButton.addEventListener('click', e => this.toggleFullscreen())
+
+  // Listen for key down
+  this.keyDownHandler = e => this.onKeyDown(e)
+  window.addEventListener('keydown', this.keyDownHandler)
 }
 
 /**
@@ -98,4 +122,16 @@ function beforeDestroy() {
 function toggleFullscreen() {
   const state = this.fullscreen = !this.fullscreen
   domUtil.toggleClass(document.body, 'show-overlay', state)
+}
+
+/**
+ * Handle key down event
+ *
+ * @param  {KeyDownEvent} e
+ * @return {void}
+ */
+function onKeyDown(e) {
+  if (e.keyCode === 27) { // Escape
+    this.fullscreen && this.toggleFullscreen()
+  }
 }
